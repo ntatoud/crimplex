@@ -50,12 +50,12 @@ export const ErrorPage = ({ errorCode }: ErrorPageProps) => {
           <ArrowLeft />
           Go back
         </Button>
-        <div className="flex items-center text-left">
+        <div className="flex flex-col items-center text-left md:flex-row">
           <div className="relative">
             <Image src={Illustration} placeholder="blur" alt="illustration" />
           </div>
 
-          <div className="flex flex-col gap-5 items-start">
+          <div className="flex flex-col gap-5 items-start mt-[-5rem] md:mt-0">
             <Link href="/admin" className="flex items-end h-full ml-[-1.5rem]">
               <div className="relative flex items-end ">
                 <Logo width={150} height={150} />

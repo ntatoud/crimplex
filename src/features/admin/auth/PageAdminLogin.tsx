@@ -70,7 +70,7 @@ const PageAdminLogin = () => {
         </div>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Card className="w-[400px]">
+        <Card className="sm:w-80 sm:max-w-sm md:w-full">
           <CardHeader>
             <CardTitle>Admin Login</CardTitle>
           </CardHeader>

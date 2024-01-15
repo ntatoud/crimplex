@@ -10,13 +10,17 @@ import { env } from '@/env.mjs';
 
 import { trpc } from './client';
 
+const getBaseUrl = () => {
+  if (typeof window !== 'undefined') return ''; // browser should use relative url SSR should use vercel url
+  return env.NEXT_PUBLIC_BASE_URL;
+};
 const TRPCProvider: FC<PropsWithChildren> = ({ children }) => {
   const [queryClient] = useState(() => new QueryClient());
   const [trpcClient] = useState(() =>
     trpc.createClient({
       links: [
         httpBatchLink({
-          url: `${env.NEXT_PUBLIC_BASE_URL}/api/trpc`,
+          url: `${getBaseUrl()}/api/trpc`,
           fetch(url, options) {
             return fetch(url, {
               ...options,

@@ -1,3 +1,5 @@
+'use client';
+
 import PageAdminAccount from '@/features/account/PageAdminAccount';
 
 const Page = () => {

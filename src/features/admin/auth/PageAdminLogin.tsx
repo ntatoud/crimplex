@@ -26,7 +26,7 @@ const PageAdminLogin = () => {
   const trpcUtils = trpc.useUtils();
   const { mutate: userLogin, isLoading } = trpc.auth.login.useMutation({
     onSuccess: () => {
-      router.push('/');
+      router.push('/admin');
       trpcUtils.auth.isAuth.setData(undefined, { status: true });
       trpcUtils.auth.isAuth.invalidate();
       toast.success('Success', {

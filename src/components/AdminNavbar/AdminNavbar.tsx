@@ -2,24 +2,36 @@
 
 import { FC } from 'react';
 
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Loader2, LogOut } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
+import { trpc } from '@/lib/trpc/client';
 import { cn } from '@/lib/utils';
 
 import Logo from '../Icons/Logo';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Badge } from '../ui/badge';
-import { buttonVariants } from '../ui/button';
+import { Button, buttonVariants } from '../ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 import AdminNavDrawer from './AdminNavDrawer';
 import AdminNavItem from './AdminNavItem';
 
 const AdminNavbar: FC<{ className?: string }> = ({ className }) => {
   const pathname = usePathname();
-
+  const trpcUtils = trpc.useUtils();
+  const router = useRouter();
+  const { mutate: userLogout, isLoading } = trpc.auth.logout.useMutation({
+    onSuccess: () => {
+      trpcUtils.auth.isAuth.setData(undefined, { status: false });
+      router.push('/admin/login');
+      toast.success('Success', {
+        description: 'Logged out',
+      });
+    },
+  });
   return (
     <header className="border-b-2 dark:shadow-slate-800">
       <MaxWidthWrapper>
@@ -69,7 +81,13 @@ const AdminNavbar: FC<{ className?: string }> = ({ className }) => {
                 <p>Leave Admin menu</p>
               </TooltipContent>
             </Tooltip>
-
+            <Button
+              variant="destructive"
+              size="icon"
+              onClick={() => userLogout()}
+            >
+              {isLoading ? <Loader2 className="animate-spin" /> : <LogOut />}
+            </Button>
             <Link href="/admin/account">
               <Avatar
                 className={

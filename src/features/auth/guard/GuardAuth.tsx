@@ -3,7 +3,6 @@
 import { ReactNode, useEffect } from 'react';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { toast } from 'sonner';
 
 import { ErrorPage } from '@/components/ErrorPage';
 import { LoaderFull } from '@/components/LoaderFull';

@@ -15,12 +15,7 @@ export const GuardAuth = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (isAuth.isSuccess && !isAuth.data.status) {
-      router.replace('/login');
-      toast.warning('Not connected', {
-        description: 'Please connect before trying to access this page',
-      });
-    }
+    if (isAuth.isSuccess && !isAuth.data.status) router.replace('/login');
   }, [searchParams, router, isAuth.isSuccess, isAuth.data]);
 
   if (isAuth.isSuccess && isAuth.data?.status) {

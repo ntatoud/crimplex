@@ -1,3 +1,5 @@
+'use client';
+
 import { FC, PropsWithChildren } from 'react';
 
 import { User } from 'lucide-react';
@@ -15,7 +17,7 @@ const NavbarMobile: FC<PropsWithChildren & { className?: string }> = ({
   return (
     <nav
       className={cn(
-        'w-full h-20 py-2 text-sm px-2 fixed bottom-0 items-start justify-between border-t-2 bg-white border-slate-300 dark:border-slate-800 dark:bg-black',
+        'w-full h-20 py-2 text-sm px-2 fixed bottom-0 items-start justify-center border-t-2 bg-white border-slate-300 dark:border-slate-800 dark:bg-black',
         className
       )}
     >

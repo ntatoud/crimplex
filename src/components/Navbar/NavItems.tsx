@@ -6,7 +6,7 @@ import NavItem from './NavItem';
 
 const NavItems = () => {
   return (
-    <div className="flex flex-1 justify-evenly items-start md:gap-5 md:items-center">
+    <div className="flex justify-center items-start md:flex-1 md:gap-5 md:items-center">
       <NavItem href="/" icon={<Home />}>
         Home
       </NavItem>

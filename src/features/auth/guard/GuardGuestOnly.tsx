@@ -13,7 +13,6 @@ export const GuardGuestOnly = ({ children }: { children: ReactNode }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   useEffect(() => {
-    console.log('guard');
     if (isAuth.isSuccess && isAuth.data.status) {
       const redirect = searchParams?.get('redirect') || '/';
       router.replace(redirect);

@@ -1,13 +1,17 @@
 import { FC, PropsWithChildren } from 'react';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { User } from 'lucide-react';
+
+import { trpc } from '@/lib/trpc/client';
 import { cn } from '@/lib/utils';
 
+import NavItem from './NavItem';
 import NavItems from './NavItems';
 
 const NavbarMobile: FC<PropsWithChildren & { className?: string }> = ({
   className,
 }) => {
+  const { data: account } = trpc.account.get.useQuery();
   return (
     <nav
       className={cn(
@@ -16,12 +20,10 @@ const NavbarMobile: FC<PropsWithChildren & { className?: string }> = ({
       )}
     >
       <NavItems />
-      <div className="w-1/4">
-        <Avatar className="flex pt-1">
-          <AvatarImage src="" alt="PP" />
-          <AvatarFallback>A</AvatarFallback>
-        </Avatar>
-      </div>
+
+      <NavItem href={account ? '/account' : '/login'} icon={<User />}>
+        {account ? account.name : 'Connect'}
+      </NavItem>
     </nav>
   );
 };

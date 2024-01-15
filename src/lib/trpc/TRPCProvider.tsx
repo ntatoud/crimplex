@@ -17,6 +17,12 @@ const TRPCProvider: FC<PropsWithChildren> = ({ children }) => {
       links: [
         httpBatchLink({
           url: `${env.NEXT_PUBLIC_BASE_URL}/api/trpc`,
+          fetch(url, options) {
+            return fetch(url, {
+              ...options,
+              credentials: 'include',
+            });
+          },
         }),
       ],
       transformer: superjson,

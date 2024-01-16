@@ -7,10 +7,10 @@ import { cookies } from 'next/headers';
 import { z } from 'zod';
 
 import { env } from '@/env.mjs';
+import { VALIDATION_TOKEN_EXPIRATION_IN_MINUTES } from '@/features/auth/utils';
 
 import {
   AUTH_COOKIE,
-  VALIDATION_TOKEN_EXPIRATION_IN_MINUTES,
   deleteUsedCode,
   generateCode,
   isValidPassword,
@@ -110,6 +110,7 @@ export const authRouter = createTRPCRouter({
     .input(z.object({ code: z.string().length(6), token: z.string().uuid() }))
     .output(z.object({ token: z.string() }))
     .mutation(async ({ ctx, input }) => {
+      console.log('yes');
       const { verificationToken, userJwt } = await validateCode({
         ctx,
         ...input,

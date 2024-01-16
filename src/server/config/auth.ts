@@ -8,22 +8,16 @@ import jwt from 'jsonwebtoken';
 import { cookies, headers } from 'next/headers';
 
 import { env } from '@/env.mjs';
+import {
+  VALIDATION_CODE_MOCKED,
+  getValidationRetryDelayInSeconds,
+} from '@/features/auth/utils';
 
 import { db } from './db';
 import { userPick, zUser } from './schemas/User';
 import { AppContext } from './trpc';
 
 export const AUTH_COOKIE = 'auth-token';
-export const VALIDATION_CODE_MOCKED = '000000';
-export const VALIDATION_RETRY_DELAY_IN_SECONDS = 2;
-export const VALIDATION_RETRY_ALLOWED_BEFORE_DELAY = 3;
-export const VALIDATION_TOKEN_EXPIRATION_IN_MINUTES = 5;
-
-export const getValidationRetryDelayInSeconds = (attempts: number) =>
-  attempts > VALIDATION_RETRY_ALLOWED_BEFORE_DELAY
-    ? (attempts - VALIDATION_RETRY_ALLOWED_BEFORE_DELAY) *
-      VALIDATION_RETRY_DELAY_IN_SECONDS
-    : 0;
 
 export const getServerSideUser = async () => {
   const authToken =

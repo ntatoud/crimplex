@@ -1,35 +1,48 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
-import { Loader2 } from 'lucide-react';
+import { TRPCClientErrorLike } from '@trpc/client';
+import { Info, Loader2 } from 'lucide-react';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
-import { useForm } from 'react-hook-form';
+import { parseAsInteger, useQueryState } from 'nuqs';
+import { UseFormSetError, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
+import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { getValidationRetryDelayInSeconds } from '@/features/auth/utils';
 import { trpc } from '@/lib/trpc/client';
+import { AppRouter } from '@/server/router';
 
 export const RegisterValidateForm = () => {
   const params = useParams();
   const searchParams = useSearchParams();
 
   const token = params?.token?.toString() ?? '';
-  const email = searchParams.get('email');
+  const email = searchParams.get('email') ?? 'your email';
 
   const onCodeValidateSuccess = useOnCodeValidateSuccess();
-  //   const onCodeValidateError = useOnCodeValidateError();
-
-  const { mutate: userRegisterValidate, isLoading } =
-    trpc.auth.registerValidate.useMutation({
-      onSuccess: onCodeValidateSuccess,
-      //   onError: onCodeValidateError,
-    });
 
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
-  } = useForm<{ code: string }>();
+  } = useForm<{ code: string }>({
+    resolver: zodResolver(
+      z.object({
+        code: z.string().length(6, { message: 'Code should be 6 digits' }),
+      })
+    ),
+  });
+  const onCodeValidateError = useOnCodeValidateError({ setError });
+
+  const { mutate: userRegisterValidate, isLoading } =
+    trpc.auth.registerValidate.useMutation({
+      onSuccess: onCodeValidateSuccess,
+      onError: onCodeValidateError,
+    });
 
   const onSubmit = ({ code }: { code: string }) => {
     userRegisterValidate({ code, token });
@@ -38,16 +51,41 @@ export const RegisterValidateForm = () => {
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-5 text-lg">
-          <div className="grid gap-2">
-            <Label htmlFor="code">Verification Code for {email}</Label>
+          <span className="mb-2">
+            <h2 className="font-bold text-2xl pb-2">
+              The code is in your mailbox
+            </h2>
+            <p className="text-sm">
+              We sent the validation code to <b>{email}</b>.
+            </p>
+            <p className="text-sm pt-1">
+              {' '}
+              This code will expire after <b>5 minutes</b>.
+            </p>
+          </span>
+          <div className="grid gap-3">
+            <Label
+              className="flex text-zinc-800 dark:text-zinc-200"
+              htmlFor="code"
+            >
+              Verification code <p className="text-red-500 pl-1">*</p>
+            </Label>
             <Input
               id="code"
               type="text"
               disabled={isLoading}
               {...register('code')}
+              required
             />
+            <p className="flex gap-1 text-sm text-muted-foreground">
+              Can not find the code?
+              <p className="font-medium">Check your spams</p>
+            </p>
             {errors?.code && (
-              <p className="text-sm text-red-500">{errors.code.message}</p>
+              <p className=" flex items-center text-sm text-red-500">
+                <Info className="h-4" />
+                {errors.code.message}
+              </p>
             )}
           </div>
           <Button
@@ -77,4 +115,29 @@ export const useOnCodeValidateSuccess = () => {
   };
 };
 
-export const useOnCodeValidateError = () => {};
+export const useOnCodeValidateError = ({
+  setError,
+}: {
+  setError: UseFormSetError<{
+    code: string;
+  }>;
+}) => {
+  const [attempts, setAttemps] = useQueryState(
+    'attemps',
+    parseAsInteger.withDefault(0)
+  );
+
+  return async (error: TRPCClientErrorLike<AppRouter>) => {
+    if (error.data?.code === 'UNAUTHORIZED') {
+      const seconds = getValidationRetryDelayInSeconds(attempts);
+
+      setAttemps((s) => s + 1);
+
+      await new Promise((r) => {
+        setTimeout(r, seconds * 1_000);
+      });
+    }
+
+    setError('code', { message: 'Unknown code' });
+  };
+};

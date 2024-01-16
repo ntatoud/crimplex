@@ -13,7 +13,8 @@ enum Authorizations {
 }
 
 model VerificationToken {
-  userId        String   @id  @map("_id") @db.ObjectId
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String   
   code          String
   token         String   @unique
   expires       DateTime

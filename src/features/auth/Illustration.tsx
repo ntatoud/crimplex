@@ -14,14 +14,14 @@ const Illustration = () => {
         layout="fill"
       />
       <span className="absolute bottom-0 left-0 text-xs">
-        Photo de{' '}
+        Photo by{' '}
         <a
           className="text-slate-200 underline"
           href="https://unsplash.com/fr/@matteocatanese?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
         >
           Matteo Catanese
         </a>{' '}
-        sur{' '}
+        on{' '}
         <a
           className="text-slate-200 underline"
           href="https://unsplash.com/fr/photos/kirkjufell-islande-4KrQq8Z6Y5c?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"

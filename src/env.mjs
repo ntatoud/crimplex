@@ -12,6 +12,8 @@ export const env = createEnv({
     DATABASE_URL: z.string().url(),
     AUTH_SECRET: z.string(),
     NODE_ENV: zNodeEnv,
+
+    EMAIL_SERVER: z.string().url(),
   },
   client: {
     NEXT_PUBLIC_BASE_URL: z.string().url(),
@@ -24,5 +26,6 @@ export const env = createEnv({
     DATABASE_URL: process.env.DATABASE_URL,
     AUTH_SECRET: process.env.AUTH_SECRET,
     NODE_ENV: process.env.NODE_ENV,
+    EMAIL_SERVER: process.env.EMAIL_SERVER,
   },
 });

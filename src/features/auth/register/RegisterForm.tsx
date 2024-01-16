@@ -16,16 +16,12 @@ import {
 const RegisterForm = () => {
   const router = useRouter();
   const { mutate: userRegister, isLoading } = trpc.auth.register.useMutation({
-    onSuccess: () => {
-      router.push('/login');
-      toast.success('Success', {
-        description: 'Account created successfully',
-        className: 'bg-green-600',
-      });
+    onSuccess: (data, variables) => {
+      router.push(`/register/${data.token}?email=${variables.email}`);
     },
     onError: () => {
       toast.error('Error', {
-        description: 'Error',
+        description: 'Something went wrong...',
         className: 'bg-red-600',
       });
     },

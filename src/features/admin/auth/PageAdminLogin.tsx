@@ -1,11 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
 import LogoAdmin from '@/components/Icons/LogoAdmin';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -14,7 +15,9 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
 import { trpc } from '@/lib/trpc/client';
+import { cn } from '@/lib/utils';
 import {
   AuthCredentials,
   zAuthCredentials,
@@ -59,12 +62,12 @@ const PageAdminLogin = () => {
       <div className="flex items-end">
         <LogoAdmin width={300} height={100} />
       </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Card className="sm:w-80 sm:max-w-sm md:w-full">
-          <CardHeader>
-            <CardTitle>Admin Login</CardTitle>
-          </CardHeader>
-          <CardContent>
+      <Card className="sm:w-80 sm:max-w-sm md:w-full">
+        <CardHeader>
+          <CardTitle>Admin Login</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
                 <Input
@@ -91,21 +94,42 @@ const PageAdminLogin = () => {
                   </p>
                 )}
               </div>
+              <Button
+                className="w-full gap-1"
+                type="submit"
+                disabled={isLoading}
+              >
+                {!isLoading ? (
+                  <>
+                    Sign in as <p className="font-bold"> Admin</p>
+                  </>
+                ) : (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                )}
+              </Button>
             </div>
-          </CardContent>
-          <CardFooter className="flex">
-            <Button className="flex-1 gap-1" type="submit" disabled={isLoading}>
-              {!isLoading ? (
-                <>
-                  Sign in as <p className="font-bold"> Admin</p>
-                </>
-              ) : (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              )}
-            </Button>
-          </CardFooter>
-        </Card>
-      </form>
+          </form>
+        </CardContent>
+        <CardFooter className="flex flex-col gap-5">
+          <div className="relative flex h-fit justify-center items-center w-full">
+            <Separator className="w-full bg-muted-foreground" />
+            <div className="absolute px-2 font-semibold text-sm bg-background text-muted-foreground">
+              OR
+            </div>
+          </div>
+          <Link
+            className={cn(
+              buttonVariants({
+                variant: 'secondary',
+                className: 'w-full gap-1',
+              })
+            )}
+            href="/login"
+          >
+            Sign In on the <b>App</b>
+          </Link>
+        </CardFooter>
+      </Card>
     </>
   );
 };

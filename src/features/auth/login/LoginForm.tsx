@@ -78,12 +78,14 @@ const LoginForm = () => {
         </div>
 
         <Button
-          className="h-12 text-lg mt-2"
+          className="mt-2"
           type="submit"
+          size="lg"
+          variant="secondary"
           disabled={isLoading}
         >
           {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          Connect
+          Sign in with email
         </Button>
       </div>
     </form>

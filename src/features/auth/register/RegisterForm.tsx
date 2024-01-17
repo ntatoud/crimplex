@@ -41,7 +41,7 @@ const RegisterForm = () => {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="grid gap-5 text-lg">
+      <div className="grid gap-5">
         <div className="grid gap-2">
           <Label htmlFor="name">Name</Label>
           <Input

@@ -20,7 +20,7 @@ const RegisterForm = () => {
     onSuccess: (data, variables) => {
       router.push(`/register/${data.token}?email=${variables.email}`);
     },
-    onError: () => {
+    onError: (error) => {
       toast.error('Error', {
         description: 'Something went wrong...',
         className: 'bg-red-600',

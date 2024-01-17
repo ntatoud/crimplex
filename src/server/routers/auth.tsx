@@ -85,16 +85,23 @@ export const authRouter = createTRPCRouter({
       // Generate the code
       const code = await generateCode();
       // Create validation token
-      await ctx.db.verificationToken.create({
-        data: {
-          userId: newUser.id,
-          token,
-          expires: dayjs()
-            .add(VALIDATION_TOKEN_EXPIRATION_IN_MINUTES, 'minutes')
-            .toDate(),
-          code: code.hashed,
-        },
-      });
+
+      try {
+        await ctx.db.verificationToken.create({
+          data: {
+            userId: newUser.id,
+            token,
+            expires: dayjs()
+              .add(VALIDATION_TOKEN_EXPIRATION_IN_MINUTES, 'minutes')
+              .toDate(),
+            code: code.hashed,
+          },
+        });
+      } catch (e) {
+        throw new ExtendedTRPCError({
+          cause: e,
+        });
+      }
 
       // Send registration email
       await sendEmail({

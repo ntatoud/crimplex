@@ -110,7 +110,6 @@ export const authRouter = createTRPCRouter({
     .input(z.object({ code: z.string().length(6), token: z.string().uuid() }))
     .output(z.object({ token: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      console.log('yes');
       const { verificationToken, userJwt } = await validateCode({
         ctx,
         ...input,

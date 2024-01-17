@@ -8,15 +8,15 @@ interface EmailWrapperProps {
 }
 const EmailWrapper = ({ preview, children }: EmailWrapperProps) => {
   return (
-    <Html>
-      <Tailwind>
-      <Head>
-        <meta name="viewport" content="width=device-width" />
-      </Head>
+    <Tailwind>
+      <Html>
+        <Head>
+          <meta name="viewport" content="width=device-width" />
+        </Head>
         <Preview>{preview}</Preview>
         <Body>{children}</Body>
-      </Tailwind>
-    </Html>
+      </Html>
+    </Tailwind>
   );
 };
 

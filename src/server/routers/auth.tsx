@@ -85,14 +85,8 @@ export const authRouter = createTRPCRouter({
 
       // Generate the code
       const code = await generateCode();
-
-      if (code.readable.length !== 6) {
-        throw new TRPCError({
-          code: 'INTERNAL_SERVER_ERROR',
-          message: code.readable,
-        });
-      }
       // Create validation token
+
       try {
         await ctx.db.verificationToken.create({
           data: {

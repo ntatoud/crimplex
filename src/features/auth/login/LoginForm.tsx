@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
+import PasswordInput from '@/components/PasswordInput';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -57,6 +58,7 @@ const LoginForm = () => {
             placeholder="name@example.com"
             type="email"
             disabled={isLoading}
+            className={errors?.email ? 'ring-2 ring-red-500' : ''}
             {...register('email')}
           />
           {errors?.email && (
@@ -65,9 +67,8 @@ const LoginForm = () => {
         </div>
         <div className="grid gap-2">
           <Label htmlFor="password">Password</Label>
-          <Input
+          <PasswordInput
             id="password"
-            type="password"
             disabled={isLoading}
             {...register('password')}
           />
@@ -77,12 +78,14 @@ const LoginForm = () => {
         </div>
 
         <Button
-          className="h-12 text-lg mt-2"
+          className="mt-2"
           type="submit"
+          size="lg"
+          variant="secondary"
           disabled={isLoading}
         >
           {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          Connect
+          Sign in with email
         </Button>
       </div>
     </form>

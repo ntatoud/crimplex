@@ -10,10 +10,9 @@ import { toast } from 'sonner';
 import { trpc } from '@/lib/trpc/client';
 import { cn } from '@/lib/utils';
 
-import Logo from '../Icons/Logo';
+import LogoAdmin from '../Icons/LogoAdmin';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { Badge } from '../ui/badge';
 import { Button, buttonVariants } from '../ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 import AdminNavDrawer from './AdminNavDrawer';
@@ -43,17 +42,8 @@ const AdminNavbar: FC<{ className?: string }> = ({ className }) => {
           )}
         >
           <div className="flex flex-1 items-center justify-start gap-10">
-            <Link href="/admin" className="flex items-end h-full">
-              <Logo width={40} height={40} />
-              <div className="relative flex items-end h-11">
-                <div className="font-bold uppercase">Crimplex</div>
-                <Badge
-                  variant="default"
-                  className="absolute text-xs top-0 left-0 py-0.5 px-1 ml-[-0.5rem] opacity-75"
-                >
-                  Admin
-                </Badge>
-              </div>
+            <Link href="/admin">
+              <LogoAdmin width={200} height={30} />
             </Link>
             <div className="hidden gap-4 text-lg md:flex">
               <AdminNavItem href="/admin/dashboard">Dashboard</AdminNavItem>

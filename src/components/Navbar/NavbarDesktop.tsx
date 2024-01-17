@@ -31,8 +31,7 @@ const NavbarDesktop: FC<{ className?: string }> = ({ className }) => {
         >
           <div className="flex flex-1 items-center justify-center md:justify-start gap-5">
             <Link href="/" className="flex items-end">
-              <Logo width={40} height={40} />
-              <div className="font-bold uppercase mb-1">Crimplex</div>
+              <Logo height={30} width={120} />
             </Link>
 
             <nav className="hidden md:flex">

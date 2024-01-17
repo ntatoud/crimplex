@@ -1,11 +1,12 @@
+import { Moon, Sun } from 'lucide-react';
+import { useTheme } from 'next-themes';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@radix-ui/react-dropdown-menu';
-import { Moon, Sun } from 'lucide-react';
-import { useTheme } from 'next-themes';
+} from '@/components/ui/dropdown-menu';
 
 import { Button } from '../ui/button';
 

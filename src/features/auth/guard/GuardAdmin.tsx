@@ -26,7 +26,6 @@ export const GuardAdmin = ({ children }: { children: ReactNode }) => {
     isAuth.data?.status &&
     !isAuth.data.authorizations?.includes('admin')
   ) {
-    console.log('yes');
     return <ErrorPage errorCode={403} />;
   }
 

@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
+import PasswordInput from '@/components/PasswordInput';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -16,16 +17,12 @@ import {
 const RegisterForm = () => {
   const router = useRouter();
   const { mutate: userRegister, isLoading } = trpc.auth.register.useMutation({
-    onSuccess: () => {
-      router.push('/login');
-      toast.success('Success', {
-        description: 'Account created successfully',
-        className: 'bg-green-600',
-      });
+    onSuccess: (data, variables) => {
+      router.push(`/register/${data.token}?email=${variables.email}`);
     },
     onError: () => {
       toast.error('Error', {
-        description: 'Error',
+        description: 'Something went wrong...',
         className: 'bg-red-600',
       });
     },
@@ -36,7 +33,7 @@ const RegisterForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<AuthCredentials>({
-    resolver: zodResolver(zAuthCredentials()),
+    resolver: zodResolver(zAuthCredentials().required()),
   });
 
   const onSubmit = ({ name, email, password }: AuthCredentials) => {
@@ -51,6 +48,7 @@ const RegisterForm = () => {
             id="name"
             type="text"
             disabled={isLoading}
+            className={errors?.name ? 'ring-2 ring-red-500' : ''}
             {...register('name')}
           />
           {errors?.name && (
@@ -64,6 +62,7 @@ const RegisterForm = () => {
             placeholder="name@example.com"
             type="email"
             disabled={isLoading}
+            className={errors?.email ? 'ring-2 ring-red-500' : ''}
             {...register('email')}
           />
           {errors?.email && (
@@ -72,10 +71,10 @@ const RegisterForm = () => {
         </div>
         <div className="grid gap-2">
           <Label htmlFor="password">Password</Label>
-          <Input
+          <PasswordInput
             id="password"
-            type="password"
             disabled={isLoading}
+            showStrength
             {...register('password')}
           />
           {errors?.password && (
@@ -83,13 +82,9 @@ const RegisterForm = () => {
           )}
         </div>
 
-        <Button
-          className="h-12 text-lg mt-2"
-          type="submit"
-          disabled={isLoading}
-        >
+        <Button className="mt-2" size="lg" type="submit" disabled={isLoading}>
           {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          Register
+          Create account
         </Button>
       </div>
     </form>

@@ -21,7 +21,6 @@ const RegisterForm = () => {
       router.push(`/register/${data.token}?email=${variables.email}`);
     },
     onError: (error) => {
-      console.log('it reached', error);
       toast.error('Error', {
         description: 'Something went wrong...',
         className: 'bg-red-600',

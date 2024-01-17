@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-head-element */
 import { ReactNode } from 'react';
 
 import { Body, Html, Preview, Tailwind } from '@react-email/components';

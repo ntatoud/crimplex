@@ -33,7 +33,7 @@ const PageLogin = () => {
               Create an account
             </Link>
           </div>
-          <div className="relative flex h-fit justify-center items-center w-full">
+          <div className="relative flex h-fit text-sm justify-center items-center w-full">
             <Separator className="w-full bg-muted-foreground" />
             <div className="absolute px-2 font-semibold bg-background text-muted-foreground">
               ALREADY HAVE AN ACCOUNT ?

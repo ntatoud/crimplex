@@ -113,7 +113,7 @@ const PageAdminLogin = () => {
         <CardFooter className="flex flex-col gap-5">
           <div className="relative flex h-fit justify-center items-center w-full">
             <Separator className="w-full bg-muted-foreground" />
-            <div className="absolute px-2 font-semibold text-sm bg-background text-muted-foreground">
+            <div className="absolute px-2 font-semibold text-xs bg-background text-muted-foreground">
               OR
             </div>
           </div>

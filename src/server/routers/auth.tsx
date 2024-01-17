@@ -18,6 +18,7 @@ import {
   validateCode,
 } from '../config/auth';
 import { sendEmail } from '../config/email';
+import { ExtendedTRPCError } from '../config/errors';
 import { zAuthCredentials } from '../config/schemas/Auth';
 import { zUserAuthorization } from '../config/schemas/User';
 import { createTRPCRouter, publicProcedure } from '../config/trpc';
@@ -58,8 +59,9 @@ export const authRouter = createTRPCRouter({
             },
           });
         } catch (e) {
-          // Can be improved
-          console.error(e);
+          throw new ExtendedTRPCError({
+            cause: e,
+          });
         }
       } else if (existingUser && !existingUser.isActivated) {
         newUser = await ctx.db.user.update({

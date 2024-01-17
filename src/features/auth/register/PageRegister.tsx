@@ -23,7 +23,7 @@ const PageRegister = () => {
             </div>
           </div>
           <RegisterForm />
-          <div className="relative flex h-fit justify-center items-center w-full">
+          <div className="relative flex h-fit text-xs justify-center items-center w-full">
             <Separator className="w-full bg-muted-foreground" />
             <div className="absolute px-2 font-semibold bg-background text-muted-foreground">
               ALREADY HAVE AN ACCOUNT ?

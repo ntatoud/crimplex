@@ -1,4 +1,4 @@
-import { RefObject, forwardRef, useRef, useState } from 'react';
+import { KeyboardEvent, RefObject, forwardRef, useRef, useState } from 'react';
 
 import { Eye, EyeOff } from 'lucide-react';
 import zxcvbn, { ZXCVBNScore } from 'zxcvbn';
@@ -55,7 +55,6 @@ const usePasswordStrength = (
   }
 
   const handler = () => {
-    console.log(strength);
     setStrength(zxcvbn(passwordRef.current?.value ?? '').score);
   };
   return { strength, handleChange: handler };
@@ -73,13 +72,23 @@ const PasswordInput = forwardRef<HTMLDivElement, PasswordInputProps>(
       showStrength
     );
 
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Enter') {
+        const submitButton = document.querySelector(
+          'button[type="submit"]'
+        ) as HTMLElement;
+
+        submitButton?.focus();
+      }
+    };
     return (
-      <div className="flex flex-col gap-2" ref={ref}>
+      <div className="flex flex-col gap-2" ref={ref} onKeyDown={handleKeyDown}>
         <div className="flex px-2 gap-1 items-center h-12 w-full rounded-md border border-input bg-background text-md ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
           <Button
             variant="ghost"
             size="icon"
             className="hover:bg-background"
+            tabIndex={1}
             onClick={(event) => {
               event.preventDefault();
               setShowPassword(!showPassword);

@@ -13,7 +13,7 @@ const PageLogin = () => {
       <div className="flex flex-1 items-center justify-center">
         <div className="flex flex-grow flex-col max-w-sm gap-14">
           <div className="flex flex-col gap-5 items-center ">
-            <Logo width={100} height={100} />
+            <Logo width={240} height={80} />
             <h2 className="flex items-center gap-1 text-md">
               Want to join us ?
               <Link

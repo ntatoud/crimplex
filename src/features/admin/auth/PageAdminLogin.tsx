@@ -4,8 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
-import Logo from '@/components/Icons/Logo';
-import { Badge } from '@/components/ui/badge';
+import LogoAdmin from '@/components/Icons/LogoAdmin';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -58,16 +57,7 @@ const PageAdminLogin = () => {
   return (
     <>
       <div className="flex items-end">
-        <Logo width={80} height={80} />
-        <div className="relative flex items-end h-16">
-          <div className="font-bold uppercase text-xl mb-1">Crimplex</div>
-          <Badge
-            variant="default"
-            className="absolute text-sm top-0 left-0 py-0.5 px-1 ml-[-0.5rem] opacity-75"
-          >
-            Admin
-          </Badge>
-        </div>
+        <LogoAdmin width={300} height={100} />
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card className="sm:w-80 sm:max-w-sm md:w-full">

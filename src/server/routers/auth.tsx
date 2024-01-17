@@ -8,6 +8,7 @@ import { z } from 'zod';
 
 import { env } from '@/env.mjs';
 import { VALIDATION_TOKEN_EXPIRATION_IN_MINUTES } from '@/features/auth/utils';
+import EmailVerifyAccount from '@/features/emails/templates/verify-account';
 
 import {
   AUTH_COOKIE,
@@ -96,10 +97,8 @@ export const authRouter = createTRPCRouter({
       // Send registration email
       await sendEmail({
         to: input.email,
-        subject: 'Register validate',
-        template: (
-          <div className="text-bold">Here is your code : {code.readable}</div>
-        ),
+        subject: 'Verify your account',
+        template: <EmailVerifyAccount code={code.readable} name={name} />,
       });
 
       return {

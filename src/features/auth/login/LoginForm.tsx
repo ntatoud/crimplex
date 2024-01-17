@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
+import PasswordInput from '@/components/PasswordInput';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -66,11 +67,9 @@ const LoginForm = () => {
         </div>
         <div className="grid gap-2">
           <Label htmlFor="password">Password</Label>
-          <Input
+          <PasswordInput
             id="password"
-            type="password"
             disabled={isLoading}
-            className={errors?.password ? 'ring-2 ring-red-500' : ''}
             {...register('password')}
           />
           {errors?.password && (

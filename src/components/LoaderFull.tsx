@@ -59,7 +59,7 @@ export const LoaderFull = () => {
             y2="285"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="#878787" />
+            <stop stopColor="#878787" />
             <stop offset="1" stopColor="#16A249" />
           </linearGradient>
           <linearGradient

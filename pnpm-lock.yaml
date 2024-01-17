@@ -38,6 +38,9 @@ dependencies:
   '@radix-ui/react-navigation-menu':
     specifier: 1.1.4
     version: 1.1.4(@types/react-dom@18.2.18)(@types/react@18.2.47)(react-dom@18.2.0)(react@18.2.0)
+  '@radix-ui/react-progress':
+    specifier: ^1.0.3
+    version: 1.0.3(@types/react-dom@18.2.18)(@types/react@18.2.47)(react-dom@18.2.0)(react@18.2.0)
   '@radix-ui/react-slot':
     specifier: 1.0.2
     version: 1.0.2(@types/react@18.2.47)(react@18.2.0)
@@ -167,6 +170,9 @@ dependencies:
   zod:
     specifier: 3.22.4
     version: 3.22.4
+  zxcvbn:
+    specifier: ^4.4.2
+    version: 4.4.2
 
 devDependencies:
   '@types/bcrypt':
@@ -175,6 +181,9 @@ devDependencies:
   '@types/jsonwebtoken':
     specifier: 9.0.5
     version: 9.0.5
+  '@types/zxcvbn':
+    specifier: ^4.4.4
+    version: 4.4.4
   postcss:
     specifier: '8'
     version: 8.4.33
@@ -1663,6 +1672,28 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
+  /@radix-ui/react-progress@1.0.3(@types/react-dom@18.2.18)(@types/react@18.2.47)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-5G6Om/tYSxjSeEdrb1VfKkfZfn/1IlPWd731h2RfPuSbIfNUgfqAwbKfJCg/PP6nuUCTrYzalwHSpSinoWoCag==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.23.8
+      '@radix-ui/react-context': 1.0.1(@types/react@18.2.47)(react@18.2.0)
+      '@radix-ui/react-primitive': 1.0.3(@types/react-dom@18.2.18)(@types/react@18.2.47)(react-dom@18.2.0)(react@18.2.0)
+      '@types/react': 18.2.47
+      '@types/react-dom': 18.2.18
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
   /@radix-ui/react-roving-focus@1.0.4(@types/react-dom@18.2.18)(@types/react@18.2.47)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-2mUg5Mgcu001VkGy+FfzZyzbmuUWzgWkj3rvv4yu+mLw03+mTzbxZHvfcGyFp2b8EkQeMkpRQ5FiA2Vr2O6TeQ==}
     peerDependencies:
@@ -2293,6 +2324,10 @@ packages:
   /@types/semver@7.5.6:
     resolution: {integrity: sha512-dn1l8LaMea/IjDoHNd9J52uBbInB796CDffS6VdIxvqYCPSG0V0DzHp76GpaWnlhg88uYyPbXCDIowa86ybd5A==}
     dev: false
+
+  /@types/zxcvbn@4.4.4:
+    resolution: {integrity: sha512-Tuk4q7q0DnpzyJDI4aMeghGuFu2iS1QAdKpabn8JfbtfGmVDUgvZv1I7mEjP61Bvnp3ljKCC8BE6YYSTNxmvRQ==}
+    dev: true
 
   /@typescript-eslint/eslint-plugin@6.19.0(@typescript-eslint/parser@6.18.1)(eslint@8.56.0)(typescript@5.3.3):
     resolution: {integrity: sha512-DUCUkQNklCQYnrBSSikjVChdc84/vMPDQSgJTHBZ64G9bA9w0Crc0rd2diujKbTdp6w2J47qkeHQLoi0rpLCdg==}
@@ -5765,4 +5800,8 @@ packages:
 
   /zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
+    dev: false
+
+  /zxcvbn@4.4.2:
+    resolution: {integrity: sha512-Bq0B+ixT/DMyG8kgX2xWcI5jUvCwqrMxSFam7m0lAf78nf04hv6lNCsyLYdyYTrCVMqNDY/206K7eExYCeSyUQ==}
     dev: false

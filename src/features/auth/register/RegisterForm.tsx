@@ -47,6 +47,7 @@ const RegisterForm = () => {
             id="name"
             type="text"
             disabled={isLoading}
+            className={errors?.name ? 'ring-2 ring-red-500' : ''}
             {...register('name')}
           />
           {errors?.name && (
@@ -60,6 +61,7 @@ const RegisterForm = () => {
             placeholder="name@example.com"
             type="email"
             disabled={isLoading}
+            className={errors?.email ? 'ring-2 ring-red-500' : ''}
             {...register('email')}
           />
           {errors?.email && (
@@ -72,6 +74,7 @@ const RegisterForm = () => {
             id="password"
             type="password"
             disabled={isLoading}
+            className={errors?.password ? 'ring-2 ring-red-500' : ''}
             {...register('password')}
           />
           {errors?.password && (

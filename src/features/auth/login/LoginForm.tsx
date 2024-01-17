@@ -57,6 +57,7 @@ const LoginForm = () => {
             placeholder="name@example.com"
             type="email"
             disabled={isLoading}
+            className={errors?.email ? 'ring-2 ring-red-500' : ''}
             {...register('email')}
           />
           {errors?.email && (
@@ -69,6 +70,7 @@ const LoginForm = () => {
             id="password"
             type="password"
             disabled={isLoading}
+            className={errors?.password ? 'ring-2 ring-red-500' : ''}
             {...register('password')}
           />
           {errors?.password && (

@@ -8,8 +8,8 @@ import { UseFormSetError, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
+import PinInput from '@/components/CodeInput';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { getValidationRetryDelayInSeconds } from '@/features/auth/utils';
 import { trpc } from '@/lib/trpc/client';
@@ -25,9 +25,10 @@ export const RegisterValidateForm = () => {
   const onCodeValidateSuccess = useOnCodeValidateSuccess();
 
   const {
-    register,
     handleSubmit,
     setError,
+    setValue,
+    clearErrors,
     formState: { errors },
   } = useForm<{ code: string }>({
     resolver: zodResolver(
@@ -37,7 +38,6 @@ export const RegisterValidateForm = () => {
     ),
   });
   const onCodeValidateError = useOnCodeValidateError({ setError });
-
   const { mutate: userRegisterValidate, isLoading } =
     trpc.auth.registerValidate.useMutation({
       onSuccess: onCodeValidateSuccess,
@@ -46,6 +46,15 @@ export const RegisterValidateForm = () => {
 
   const onSubmit = ({ code }: { code: string }) => {
     userRegisterValidate({ code, token });
+  };
+
+  const handleOnComplete = (value: string) => {
+    setValue('code', value);
+
+    // Waiting for the setValue to be done.
+    setTimeout(() => {
+      onSubmit({ code: value });
+    }, 200);
   };
   return (
     <div>
@@ -70,17 +79,17 @@ export const RegisterValidateForm = () => {
             >
               Verification code <p className="text-red-500 pl-1">*</p>
             </Label>
-            <Input
-              id="code"
-              type="text"
-              disabled={isLoading}
-              {...register('code')}
-              required
+            <PinInput
+              setValue={setValue}
+              onComplete={handleOnComplete}
+              errors={errors}
+              clearErrors={clearErrors}
+              isLoading={isLoading}
             />
-            <p className="flex gap-1 text-sm text-muted-foreground">
+            <span className="flex gap-1 text-sm text-muted-foreground">
               Can not find the code?
               <p className="font-medium">Check your spams</p>
-            </p>
+            </span>
             {errors?.code && (
               <p className=" flex items-center text-sm text-red-500">
                 <Info className="h-4" />

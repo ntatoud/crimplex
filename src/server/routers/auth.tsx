@@ -79,8 +79,11 @@ export const authRouter = createTRPCRouter({
         console.error(
           'An error occured while creating or updating the user, the address may already exists, silent error for security reasons'
         );
+        throw new Error('no new user');
         return { token };
       }
+
+      throw new Error('new user ');
 
       // Generate the code
       const code = await generateCode();

@@ -1,3 +1,4 @@
+import { TRPCClientError } from '@trpc/client';
 import { TRPCError } from '@trpc/server';
 import { hash } from 'bcrypt';
 import { randomUUID } from 'crypto';
@@ -79,25 +80,35 @@ export const authRouter = createTRPCRouter({
         console.error(
           'An error occured while creating or updating the user, the address may already exists, silent error for security reasons'
         );
-        throw new Error('no new user');
         return { token };
       }
 
-      throw new Error('new user ');
-
       // Generate the code
       const code = await generateCode();
+
+      if (code.readable.length !== 6) {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: code.readable,
+        });
+      }
       // Create validation token
-      await ctx.db.verificationToken.create({
-        data: {
-          userId: newUser.id,
-          token,
-          expires: dayjs()
-            .add(VALIDATION_TOKEN_EXPIRATION_IN_MINUTES, 'minutes')
-            .toDate(),
-          code: code.hashed,
-        },
-      });
+      try {
+        await ctx.db.verificationToken.create({
+          data: {
+            userId: newUser.id,
+            token,
+            expires: dayjs()
+              .add(VALIDATION_TOKEN_EXPIRATION_IN_MINUTES, 'minutes')
+              .toDate(),
+            code: code.hashed,
+          },
+        });
+      } catch (e) {
+        throw new ExtendedTRPCError({
+          cause: e,
+        });
+      }
 
       // Send registration email
       await sendEmail({

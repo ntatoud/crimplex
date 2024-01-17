@@ -1,4 +1,3 @@
-import { TRPCClientError } from '@trpc/client';
 import { TRPCError } from '@trpc/server';
 import { hash } from 'bcrypt';
 import { randomUUID } from 'crypto';
@@ -108,7 +107,7 @@ export const authRouter = createTRPCRouter({
       await sendEmail({
         to: input.email,
         subject: 'Verify your account',
-        template: <div>Hello</div>,
+        template: <EmailVerifyAccount code={code.readable} name={name} />,
       });
 
       return {

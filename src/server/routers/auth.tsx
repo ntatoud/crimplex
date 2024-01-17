@@ -108,7 +108,7 @@ export const authRouter = createTRPCRouter({
       await sendEmail({
         to: input.email,
         subject: 'Verify your account',
-        template: <EmailVerifyAccount code={code.readable} name={name} />,
+        template: <div>Hello</div>,
       });
 
       return {

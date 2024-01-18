@@ -1,7 +1,8 @@
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
-import { zUserAccount } from '../config/schemas/Account';
+import { ExtendedTRPCError } from '../config/errors';
+import { accountPick, zUserAccount } from '../config/schemas/Account';
 import { createTRPCRouter, protectedProcedure } from '../config/trpc';
 
 export const accountRouter = createTRPCRouter({
@@ -11,12 +12,7 @@ export const accountRouter = createTRPCRouter({
     .query(async ({ ctx }) => {
       const user = await ctx.db.user.findUnique({
         where: { id: ctx.user.id },
-        select: {
-          id: true,
-          name: true,
-          email: true,
-          authorizations: true,
-        },
+        select: accountPick,
       });
 
       if (!user) {
@@ -26,5 +22,21 @@ export const accountRouter = createTRPCRouter({
       }
 
       return user;
+    }),
+
+  update: protectedProcedure()
+    .input(zUserAccount().required().pick({ email: true, name: true }))
+    .output(zUserAccount())
+    .mutation(async ({ ctx, input }) => {
+      try {
+        return await ctx.db.user.update({
+          where: { id: ctx.user.id },
+          data: input,
+        });
+      } catch (e) {
+        throw new ExtendedTRPCError({
+          cause: e,
+        });
+      }
     }),
 });

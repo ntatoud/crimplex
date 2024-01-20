@@ -36,6 +36,8 @@ const Document = ({ children }: { children: ReactNode }) => {
           href="/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#0c0a09" />
+        <meta name="msapplication-TileColor" content="#0c0a09" />
       </head>
       <body
         className={cn('relative h-full font-sans antialiased', inter.className)}

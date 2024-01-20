@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useId } from 'react';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -18,6 +18,8 @@ import NavItems from './NavItems';
 const NavbarDesktop: FC<{ className?: string }> = ({ className }) => {
   const trpcUtils = trpc.useUtils();
   const pathname = usePathname();
+
+  const id = useId();
 
   return (
     <header className="border-b-2 dark:shadow-slate-800">
@@ -39,7 +41,7 @@ const NavbarDesktop: FC<{ className?: string }> = ({ className }) => {
             </nav>
           </div>
 
-          <div className="gap-2 hidden md:flex ">
+          <div className="gap-2 hidden md:flex" key={id}>
             <ColorModeToggle />
             {trpcUtils.auth.isAuth.getData()?.status ? (
               <AccountMenu />

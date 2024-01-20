@@ -24,7 +24,7 @@ const AccountDetailsForm = ({
   changeView,
 }: AccountDetailsViewProps) => {
   const router = useRouter();
-
+  
   const {
     register,
     handleSubmit,

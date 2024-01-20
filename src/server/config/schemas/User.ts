@@ -7,8 +7,8 @@ export type User = z.infer<ReturnType<typeof zUser>>;
 export const zUser = () =>
   z.object({
     id: z.string(),
-    name: z.string(),
-    email: z.string().email(),
+    name: z.string().min(1, { message: 'Name can not be empty' }),
+    email: z.string().email('Invalid email format'),
     creationDate: z.date(),
     isActivated: z.boolean(),
     authorizations: z.array(zUserAuthorization()).catch(['user']),

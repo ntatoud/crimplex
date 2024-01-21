@@ -1,6 +1,4 @@
 import { Loader2, LogOut } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
 
 import { LoaderFull } from '@/components/LoaderFull';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
@@ -8,23 +6,14 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { trpc } from '@/lib/trpc/client';
 
+import useOnLogout from '../auth/logout/useOnLogout';
 import AccountNav from './AccountNav';
 import CardAccountSettings from './cards/CardAccountSettings';
 import CardAccountDetails from './cards/details/CardAccountDetails';
 
 const PageAccount = () => {
-  const trpcUtils = trpc.useUtils();
   const { data: account } = trpc.account.get.useQuery();
-  const router = useRouter();
-  const { mutate: userLogout, isLoading } = trpc.auth.logout.useMutation({
-    onSuccess: () => {
-      router.push('/login');
-      trpcUtils.auth.isAuth.setData(undefined, { status: false });
-      toast.success('Success', {
-        description: 'Logged out',
-      });
-    },
-  });
+  const { mutate: userLogout, isLoading } = useOnLogout({});
 
   if (!account) return <LoaderFull />;
 

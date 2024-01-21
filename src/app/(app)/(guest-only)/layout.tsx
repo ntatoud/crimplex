@@ -1,9 +1,9 @@
-import { GuardGuestOnly } from '@/features/auth/guard/GuardGuestOnly';
+import { GuardGuestOnly } from "@/features/auth/guard/GuardGuestOnly";
 
 export default function AppGuestOnlyLayout({
-  children,
+	children,
 }: {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }) {
-  return <GuardGuestOnly>{children}</GuardGuestOnly>;
+	return <GuardGuestOnly>{children}</GuardGuestOnly>;
 }

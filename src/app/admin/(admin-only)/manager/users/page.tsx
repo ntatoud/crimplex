@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import PageAdminUsers from '@/features/admin/users/PageAdminUsers';
+import PageAdminUsers from "@/features/admin/users/PageAdminUsers";
 
 const Page = () => {
-  return <PageAdminUsers />;
+	return <PageAdminUsers />;
 };
 
 export default Page;

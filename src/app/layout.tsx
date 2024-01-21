@@ -1,10 +1,10 @@
-import Document from './Document';
-import './globals.css';
+import Document from "./Document";
+import "./globals.css";
 
 export default function RootLayout({
-  children,
+	children,
 }: {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }) {
-  return <Document>{children}</Document>;
+	return <Document>{children}</Document>;
 }

@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { ErrorPage } from '@/components/ErrorPage';
+import { ErrorPage } from "@/components/ErrorPage";
 
 const Page = () => {
-  return <ErrorPage errorCode={404} />;
+	return <ErrorPage errorCode={404} />;
 };
 
 export default Page;

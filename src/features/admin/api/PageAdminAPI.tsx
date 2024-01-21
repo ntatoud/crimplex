@@ -1,5 +1,5 @@
 const PageAdminAPI = () => {
-  return <div> API</div>;
+	return <div> API</div>;
 };
 
 export default PageAdminAPI;

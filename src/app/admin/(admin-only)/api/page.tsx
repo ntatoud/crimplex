@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import PageAdminAPI from '@/features/admin/api/PageAdminAPI';
+import PageAdminAPI from "@/features/admin/api/PageAdminAPI";
 
 const Page = () => {
-  return <PageAdminAPI />;
+	return <PageAdminAPI />;
 };
 
 export default Page;

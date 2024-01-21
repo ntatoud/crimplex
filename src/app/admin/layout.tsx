@@ -1,15 +1,15 @@
-import { Metadata } from 'next';
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Crimplex - Admin',
-  applicationName: 'Crimplex - Admin',
-  description: 'Make climbing easy',
+	title: "Crimplex - Admin",
+	applicationName: "Crimplex - Admin",
+	description: "Make climbing easy",
 };
 
 export default function AdminLayout({
-  children,
+	children,
 }: {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }) {
-  return <>{children}</>;
+	return <>{children}</>;
 }

@@ -1,7 +1,7 @@
-import MaxWidthWrapper from '@/components/MaxWidthWrapper';
+import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 
 const PageAdminUserCreate = () => {
-  return <MaxWidthWrapper>Create a user</MaxWidthWrapper>;
+	return <MaxWidthWrapper>Create a user</MaxWidthWrapper>;
 };
 
 export default PageAdminUserCreate;

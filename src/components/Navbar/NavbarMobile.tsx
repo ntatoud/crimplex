@@ -2,18 +2,13 @@
 
 import { FC, PropsWithChildren } from 'react';
 
-import { User } from 'lucide-react';
-
-import { trpc } from '@/lib/trpc/client';
 import { cn } from '@/lib/utils';
 
-import NavItem from './NavItem';
 import NavItems from './NavItems';
 
 const NavbarMobile: FC<PropsWithChildren & { className?: string }> = ({
   className,
 }) => {
-  const { data: account } = trpc.account.get.useQuery();
   return (
     <nav
       className={cn(
@@ -22,10 +17,6 @@ const NavbarMobile: FC<PropsWithChildren & { className?: string }> = ({
       )}
     >
       <NavItems />
-
-      <NavItem href={account ? '/account' : '/login'} icon={<User />}>
-        {account ? account.name : 'Connect'}
-      </NavItem>
     </nav>
   );
 };

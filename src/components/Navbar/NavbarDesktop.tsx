@@ -5,18 +5,15 @@ import { FC, useId } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { trpc } from '@/lib/trpc/client';
 import { cn } from '@/lib/utils';
 
+import AccountMenu from '../AccountMenu';
 import Logo from '../Icons/Logo';
 import MaxWidthWrapper from '../MaxWidthWrapper';
-import { buttonVariants } from '../ui/button';
-import AccountMenu from './AccountMenu';
 import { ColorModeToggle } from './ColorModeToggle';
 import NavItems from './NavItems';
 
 const NavbarDesktop: FC<{ className?: string }> = ({ className }) => {
-  const trpcUtils = trpc.useUtils();
   const pathname = usePathname();
 
   const id = useId();
@@ -41,26 +38,9 @@ const NavbarDesktop: FC<{ className?: string }> = ({ className }) => {
             </nav>
           </div>
 
-          <div className="gap-2 hidden md:flex" key={id}>
+          <div className="flex gap-2" key={id}>
             <ColorModeToggle />
-            {trpcUtils.auth.isAuth.getData()?.status ? (
-              <AccountMenu />
-            ) : (
-              <div className="flex gap-1">
-                <Link
-                  className={cn(
-                    buttonVariants({ variant: 'secondary' }),
-                    'outline outline-1 outline-slate-300 dark:outline-slate-700'
-                  )}
-                  href="/login"
-                >
-                  Connect
-                </Link>
-                <Link className={buttonVariants()} href="/register">
-                  Create account
-                </Link>
-              </div>
-            )}
+            <AccountMenu />
           </div>
         </div>
       </MaxWidthWrapper>

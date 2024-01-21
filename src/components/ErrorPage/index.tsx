@@ -57,7 +57,7 @@ export const ErrorPage = ({ errorCode }: ErrorPageProps) => {
 
 					<div className="flex flex-col gap-5 items-start mt-[-5rem] md:mt-0">
 						<Link href="/admin" className="flex items-end h-full ml-[-1.5rem]">
-							<Logo width={360} height={120} />
+							<Logo width="360" height="120" />
 						</Link>
 						<div>
 							<div className="flex gap-1 items-center">

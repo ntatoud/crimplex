@@ -1,13 +1,14 @@
-import { LucideProps } from "lucide-react";
-
-const LogoIcon = (props: LucideProps) => {
+const LogoIcon = ({
+	width = "35",
+	height = "35",
+}: { width?: string; height?: string }) => {
 	return (
 		<svg
-			width="40"
+			width="35"
+			height="35"
 			viewBox="0 0 263 255"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
-			{...props}
 		>
 			<title>Logo icon</title>
 			<path

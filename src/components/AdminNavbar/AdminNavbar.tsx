@@ -34,7 +34,7 @@ const AdminNavbar: FC<{ className?: string }> = ({ className }) => {
 				>
 					<div className="flex flex-1 items-center justify-start gap-10">
 						<Link href="/admin">
-							<LogoAdmin width={200} height={30} />
+							<LogoAdmin width="200" height="30" />
 						</Link>
 						<div className="hidden gap-4 text-lg md:flex">
 							<AdminNavItem href="/admin/dashboard">Dashboard</AdminNavItem>

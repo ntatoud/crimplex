@@ -29,7 +29,7 @@ const NavbarDesktop: FC<{ className?: string }> = ({ className }) => {
 				>
 					<div className="hidden flex-1 items-center justify-center md:justify-start gap-5 md:flex">
 						<Link href="/" className="items-end ">
-							<Logo height={30} width={120} />
+							<Logo height="30" width="120" />
 						</Link>
 						<nav className="hidden md:flex">
 							<NavItems />
@@ -37,7 +37,7 @@ const NavbarDesktop: FC<{ className?: string }> = ({ className }) => {
 					</div>
 					<div className="absolute top-0 left-1/2 -translate-x-1/2 z-0 md:hidden">
 						<Link href="/" className="items-end">
-							<LogoIcon height={35} width={35} />
+							<LogoIcon />
 						</Link>
 					</div>
 

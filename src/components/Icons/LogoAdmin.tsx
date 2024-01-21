@@ -1,14 +1,14 @@
-import { LucideProps } from "lucide-react";
-
-const LogoAdmin = (props: LucideProps) => {
+const LogoAdmin = ({
+	width = "1639",
+	height = "275",
+}: { width?: string; height: string }) => {
 	return (
 		<svg
-			width="1639"
-			height="275"
+			width={width}
+			height={height}
 			viewBox="0 0 1639 275"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
-			{...props}
 		>
 			<title>Logo Admin</title>
 			<path
@@ -74,7 +74,7 @@ const LogoAdmin = (props: LucideProps) => {
 				height="120"
 				rx="21"
 				stroke="#217D46"
-				stroke-width="8"
+				strokeWidth="8"
 			/>
 			<defs>
 				<linearGradient

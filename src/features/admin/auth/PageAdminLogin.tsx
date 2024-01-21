@@ -60,7 +60,7 @@ const PageAdminLogin = () => {
 	return (
 		<>
 			<div className="flex items-end">
-				<LogoAdmin width={300} height={100} />
+				<LogoAdmin width="300" height="100" />
 			</div>
 			<Card className="sm:w-80 sm:max-w-sm md:w-full">
 				<CardHeader>

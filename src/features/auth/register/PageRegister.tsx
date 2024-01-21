@@ -16,7 +16,7 @@ const PageRegister = () => {
 				<div className="flex flex-grow flex-col max-w-sm gap-10">
 					<div className="flex flex-col pb-5 items-center">
 						<div className="flex flex-col gap-0">
-							<Logo width={240} height={80} />
+							<Logo width="240" height="80" />
 							<p className="text-secondary-foreground font-light italic">
 								Climbing has never been so easy.
 							</p>

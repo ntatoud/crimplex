@@ -12,7 +12,7 @@ const CardAccountDetailsOverview: FC<CardAccountProps> = ({ account }) => {
 		<CardContent>
 			<div className="flex items-start gap-7">
 				<Avatar className="h-20 w-20">
-					<AvatarImage alt="User Avatar" src="/placeholder-user.jpg" />
+					<AvatarImage alt="User Avatar" src="" />
 					<AvatarFallback className="text-lg uppercase">
 						{account.name.split(" ").map((word) => word[0]) ?? account.email}
 					</AvatarFallback>

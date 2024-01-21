@@ -7,11 +7,11 @@ const Illustration = () => {
 		<div className="hidden flex-1 relative object-cover md:flex">
 			<Image
 				src={illustration}
-				alt="Girl walking between pillars"
-				objectFit="cover"
-				placeholder="blur"
-				quality={100}
-				layout="fill"
+				alt="Mountain reflecting on a lake"
+				className="object-cover"
+				aria-roledescription="illustration"
+				role="img"
+				fill
 			/>
 			<span className="absolute bottom-0 left-0 text-xs">
 				Photo by{" "}

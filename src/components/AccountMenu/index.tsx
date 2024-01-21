@@ -1,11 +1,11 @@
 import useBreakpoints from "@/hooks/useBreakpoints";
 
 import AccountDropdown from "./AccountDropdown";
-import { AccountSheet } from "./AccountSheet";
+import { AccountMobile } from "./AccountMobile";
 
 const AccountMenu = () => {
 	const isMobile = useBreakpoints({ below: "md" });
-	return isMobile ? <AccountSheet /> : <AccountDropdown />;
+	return isMobile ? <AccountMobile /> : <AccountDropdown />;
 };
 
 export default AccountMenu;

@@ -44,10 +44,10 @@ const PageAccount = () => {
 							{isLoading ? (
 								<Loader2 className="animate-spin" />
 							) : (
-								<>
-									<LogOut className="h-5 w-5 mr-1" />
+								<div className="flex flex-1 items-center justify-center gap-2">
+									<LogOut className="h-5 w-5" />
 									Log out
-								</>
+								</div>
 							)}
 						</Button>
 					</div>

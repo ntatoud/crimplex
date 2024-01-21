@@ -13,7 +13,7 @@ export const AccountMenuLoadingState = () => (
 export const AccountMenuErrorState = () => (
 	<Avatar>
 		<AvatarFallback className="uppercase">
-			<XCircle className="text-red-500 animate-spin" />
+			<XCircle className="text-red-500" />
 		</AvatarFallback>
 	</Avatar>
 );

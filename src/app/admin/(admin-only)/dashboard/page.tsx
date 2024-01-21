@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import PageAdminDashboard from '@/features/admin/dashboard/PageAdminDashboard';
+import PageAdminDashboard from "@/features/admin/dashboard/PageAdminDashboard";
 
 const Page = () => {
-  return <PageAdminDashboard />;
+	return <PageAdminDashboard />;
 };
 
 export default Page;

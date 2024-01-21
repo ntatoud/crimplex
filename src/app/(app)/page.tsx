@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import PageHome from '@/features/home/PageHome';
+import PageHome from "@/features/home/PageHome";
 
 export default function Home() {
-  return <PageHome />;
+	return <PageHome />;
 }

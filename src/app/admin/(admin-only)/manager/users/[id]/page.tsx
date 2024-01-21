@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useParams } from 'next/navigation';
+import { useParams } from "next/navigation";
 
 const Page = () => {
-  const params = useParams();
+	const params = useParams();
 
-  return <div>{String(params)}</div>;
+	return <div>{String(params)}</div>;
 };
 
 export default Page;

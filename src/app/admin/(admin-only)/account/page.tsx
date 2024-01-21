@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import PageAdminAccount from '@/features/account/PageAdminAccount';
+import PageAdminAccount from "@/features/account/PageAdminAccount";
 
 const Page = () => {
-  return <PageAdminAccount />;
+	return <PageAdminAccount />;
 };
 
 export default Page;

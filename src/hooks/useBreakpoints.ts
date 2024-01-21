@@ -1,11 +1,11 @@
-import { useWindowSize } from './useOnWIndowResize';
+import { useWindowSize } from "./useOnWIndowResize";
 
 const breakpoints = {
-  sm: 640,
-  md: 768,
-  lg: 1024,
-  xl: 1280,
-  '2xl': 1536,
+	sm: 640,
+	md: 768,
+	lg: 1024,
+	xl: 1280,
+	"2xl": 1536,
 };
 
 type Breakpoint = keyof typeof breakpoints;
@@ -15,19 +15,19 @@ type Breakpoint = keyof typeof breakpoints;
  * @returns boolean
  */
 const useBreakpoints = ({
-  below,
-  above,
+	below,
+	above,
 }:
-  | { above: Breakpoint; below?: Breakpoint }
-  | { above?: Breakpoint; below: Breakpoint }) => {
-  const { width } = useWindowSize();
-  if (above && below) {
-    return width < breakpoints[below] && breakpoints[above] < width;
-  }
+	| { above: Breakpoint; below?: Breakpoint }
+	| { above?: Breakpoint; below: Breakpoint }) => {
+	const { width } = useWindowSize();
+	if (above && below) {
+		return width < breakpoints[below] && breakpoints[above] < width;
+	}
 
-  if (!above) return breakpoints[below] > width;
+	if (!above) return breakpoints[below] > width;
 
-  return breakpoints[above] > width;
+	return breakpoints[above] > width;
 };
 
 export default useBreakpoints;

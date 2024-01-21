@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import PageAccount from '@/features/account/PageAccount';
+import PageAccount from "@/features/account/PageAccount";
 
 const Page = () => {
-  return <PageAccount />;
+	return <PageAccount />;
 };
 
 export default Page;

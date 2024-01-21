@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { redirect } from 'next/navigation';
+import { redirect } from "next/navigation";
 
 const Page = () => {
-  redirect('/admin/manager/users');
+	redirect("/admin/manager/users");
 };
 
 export default Page;

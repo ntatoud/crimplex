@@ -1,36 +1,36 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import { UserAccount } from '@/server/config/schemas/Account';
+import { UserAccount } from "@/server/config/schemas/Account";
 
-import AccountDetailsForm from './AccountDetailsForm';
-import AccountDetailsOverview from './AccountDetailsOverview';
+import AccountDetailsForm from "./AccountDetailsForm";
+import AccountDetailsOverview from "./AccountDetailsOverview";
 
 export interface AccountDetailsProps {
-  account: UserAccount;
+	account: UserAccount;
 }
 
 export interface AccountDetailsViewProps extends AccountDetailsProps {
-  changeView: () => void;
+	changeView: () => void;
 }
 const VIEWS: Record<
-  'true' | 'false',
-  (props: AccountDetailsViewProps) => JSX.Element
+	"true" | "false",
+	(props: AccountDetailsViewProps) => JSX.Element
 > = {
-  false: AccountDetailsOverview,
-  true: AccountDetailsForm,
+	false: AccountDetailsOverview,
+	true: AccountDetailsForm,
 } as const;
 
 const AccountDetails = ({ account }: AccountDetailsProps) => {
-  const [isEditMode, setIsEditMode] = useState(false);
+	const [isEditMode, setIsEditMode] = useState(false);
 
-  const AccountDetailsView = VIEWS[isEditMode ? 'true' : 'false'];
+	const AccountDetailsView = VIEWS[isEditMode ? "true" : "false"];
 
-  return (
-    <AccountDetailsView
-      account={account}
-      changeView={() => setIsEditMode((x) => !x)}
-    />
-  );
+	return (
+		<AccountDetailsView
+			account={account}
+			changeView={() => setIsEditMode((x) => !x)}
+		/>
+	);
 };
 
 export default AccountDetails;

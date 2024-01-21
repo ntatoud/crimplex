@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import PageRegisterValidate from '@/features/auth/register/PageRegisterValidate';
+import PageRegisterValidate from "@/features/auth/register/PageRegisterValidate";
 
 const Page = () => {
-  return <PageRegisterValidate />;
+	return <PageRegisterValidate />;
 };
 
 export default Page;

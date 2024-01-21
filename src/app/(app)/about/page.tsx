@@ -1,7 +1,7 @@
-import PageAbout from '@/features/about/PageAbout';
+import PageAbout from "@/features/about/PageAbout";
 
 const Page = () => {
-  return <PageAbout />;
+	return <PageAbout />;
 };
 
 export default Page;

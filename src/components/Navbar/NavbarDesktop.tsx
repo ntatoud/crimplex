@@ -36,7 +36,7 @@ const NavbarDesktop: FC<{ className?: string }> = ({ className }) => {
 						</nav>
 					</div>
 
-					<div className="flex gap-p">
+					<div className="flex gap-2">
 						<div className="hidden md:flex items-center">
 							<ColorModeToggle />
 						</div>

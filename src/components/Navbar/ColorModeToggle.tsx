@@ -23,15 +23,15 @@ const ColorModeToggle = ({
 				<Button
 					variant="outline"
 					size={showLabel ? "default" : "icon"}
-					className="flex items-center mx-2"
+					className="group"
 				>
-					<div className="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0">
-						<Sun className="h-6 w-6" />
-						{showLabel && <p className="mr-2">Light</p>}
+					<div className="flex items-center rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0">
+						<Sun className="h-6 w-6 group-hover:text-yellow-600" />
+						{showLabel && <p className="ml-2">Light</p>}
 					</div>
-					<div className="absolute œrotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100">
-						<MoonStar className="h-6 w-6" />
-						{showLabel && <p className="mr-2">Dark</p>}
+					<div className="absolute flex items-center rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100">
+						<MoonStar className="h-6 w-6 group-hover:text-sky-700" />
+						{showLabel && <p className="ml-2">Dark</p>}
 					</div>
 					<span className="sr-only">Toggle theme</span>
 				</Button>

@@ -34,25 +34,25 @@ const AccountDropdownPublic = () => {
       <DropdownMenuContent className="w-48">
         <DropdownMenuLabel>My account</DropdownMenuLabel>
         <DropdownMenuGroup className="flex flex-col gap-2 p-1">
-          <DropdownMenuItem
-            className={buttonVariants({
-              variant: 'secondary',
-              className: 'w-full hover:cursor-pointer',
-            })}
-          >
-            <Link className="w-full h-full text-center" href="/login">
+          <Link className="w-full h-full text-center" href="/login">
+            <DropdownMenuItem
+              className={buttonVariants({
+                variant: 'secondary',
+                className: 'w-full hover:cursor-pointer',
+              })}
+            >
               Connect
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            className={buttonVariants({
-              className: 'w-full hover:cursor-pointer',
-            })}
-          >
-            <Link className="w-full h-full text-center " href="/register">
+            </DropdownMenuItem>
+          </Link>
+          <Link className="w-full h-full text-center" href="/register">
+            <DropdownMenuItem
+              className={buttonVariants({
+                className: 'w-full hover:cursor-pointer',
+              })}
+            >
               Create account
-            </Link>
-          </DropdownMenuItem>
+            </DropdownMenuItem>
+          </Link>
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>

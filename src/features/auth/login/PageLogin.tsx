@@ -13,6 +13,12 @@ const PageLogin = () => {
 			<Illustration />
 			<div className="flex flex-1 items-center justify-center">
 				<div className="flex flex-grow flex-col max-w-sm gap-10">
+					<div className="flex flex-col items-start justify-center font-bold text-3xl">
+						🧗🏼 Crimplex
+						<p className="text-lg font-normal text-muted-foreground">
+							Climbing has never been so easy.
+						</p>
+					</div>
 					<div className="flex flex-col gap-5 items-center">
 						<Link
 							className={cn(

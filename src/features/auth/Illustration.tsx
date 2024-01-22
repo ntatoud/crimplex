@@ -26,7 +26,7 @@ const Illustration = () => {
 		});
 	}, [api]);
 	return (
-		<div className="flex flex-1 relative md:flex-col bg-secondary brightness-90  dark:brightness-110 md:justify-end overflow-hidden">
+		<div className="hidden flex-col flex-1 relative md:flex bg-secondary brightness-90 dark:brightness-110 md:justify-end overflow-hidden">
 			<div className="flex flex-1 items-center justify-center">
 				<Logo width="240" height="80" />
 			</div>
@@ -47,9 +47,9 @@ const Illustration = () => {
 							<CarouselItem key={String(index)}>
 								<div className="p-1">
 									<div className="flex items-center justify-center p-6 w-full">
-										<span className="flex gap-1 text-xl italic text-gray-800 font-semibold dark:text-gray-300">
-											"{carouselContent[index].description}" -
-											<p className="text-gray-600 not-italic dark:text-gray-400 font-medium">
+										<span className="flex flex-col items-end text-xl italic font-semibold text-gray-800  dark:text-gray-300">
+											"{carouselContent[index].description}"
+											<p className="text-gray-600 not-italicfont-medium dark:text-gray-400 ">
 												{carouselContent[index].author}
 											</p>
 										</span>

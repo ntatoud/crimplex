@@ -20,3 +20,42 @@ export const sendEmail = ({
 		...options,
 	});
 };
+
+export const previewEmailRoute = async (
+	req: Request,
+	{
+		params,
+	}: {
+		params: { options: [string, string?] };
+	},
+) => {
+	// Allows debug only in development
+	if (env.NODE_ENV !== "development") {
+		return new Response(undefined, {
+			status: 404,
+		});
+	}
+
+	const [template] = params.options;
+	const query = req.url.split("?")[1];
+	const searchQuery = Object.fromEntries(new URLSearchParams(query ?? ""));
+
+	let Email: () => JSX.Element;
+	try {
+		const EmailModule = await import(`@/features/emails/templates/${template}`);
+		Email = EmailModule.default;
+	} catch {
+		return new Response("Template not found", {
+			status: 404,
+		});
+	}
+
+	const html = render(<Email {...searchQuery} />);
+
+	return new Response(html, {
+		status: 200,
+		headers: {
+			"Content-Type": "text/html",
+		},
+	});
+};

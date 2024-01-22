@@ -34,7 +34,7 @@ const AccountDropdownPublic = () => {
 			<DropdownMenuContent className="w-48">
 				<DropdownMenuLabel>My account</DropdownMenuLabel>
 				<DropdownMenuGroup className="flex flex-col gap-2 p-1">
-					<Link className="w-full h-full text-center" href="/login">
+					<Link className="h-full w-full text-center" href="/login">
 						<DropdownMenuItem
 							className={buttonVariants({
 								variant: "secondary",
@@ -44,7 +44,7 @@ const AccountDropdownPublic = () => {
 							Connect
 						</DropdownMenuItem>
 					</Link>
-					<Link className="w-full h-full text-center" href="/register">
+					<Link className="h-full w-full text-center" href="/register">
 						<DropdownMenuItem
 							className={buttonVariants({
 								className: "w-full hover:cursor-pointer",
@@ -78,7 +78,7 @@ const AccountDropdownLogged = () => {
 				<Avatar
 					className={
 						pathname.startsWith("account")
-							? " outline-gray-900 dark:outline-gray-100 outline-double outline-2 outline-offset-2"
+							? "outline-double outline-2 outline-offset-2 outline-gray-900 dark:outline-gray-100"
 							: ""
 					}
 				>
@@ -111,7 +111,7 @@ const AccountDropdownLogged = () => {
 					</DropdownMenuItem>
 					<DropdownMenuItem
 						onClick={() => userLogout()}
-						className="hover:cursor-pointer text-red-600 dark:text-red-400"
+						className="text-red-600 hover:cursor-pointer dark:text-red-400"
 					>
 						<LogOut className="mr-2 h-4 w-4" />
 						<span>Log out</span>

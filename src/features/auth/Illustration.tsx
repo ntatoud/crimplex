@@ -12,6 +12,8 @@ const Illustration = () => {
 				aria-roledescription="illustration"
 				role="img"
 				priority
+				sizes="100vh 50vw"
+				fill
 			/>
 			<span className="absolute bottom-0 left-0 text-xs">
 				Photo by{" "}

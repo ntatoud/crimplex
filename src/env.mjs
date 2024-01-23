@@ -17,6 +17,7 @@ export const env = createEnv({
 	},
 	client: {
 		NEXT_PUBLIC_BASE_URL: z.string().url(),
+		NEXT_PUBLIC_MABPOX_TOKEN: z.string(),
 	},
 
 	runtimeEnv: {
@@ -27,5 +28,6 @@ export const env = createEnv({
 		AUTH_SECRET: process.env.AUTH_SECRET,
 		NODE_ENV: process.env.NODE_ENV,
 		EMAIL_SERVER: process.env.EMAIL_SERVER,
+		NEXT_PUBLIC_MABPOX_TOKEN: process.env.NEXT_PUBLIC_MABPOX_TOKEN,
 	},
 });

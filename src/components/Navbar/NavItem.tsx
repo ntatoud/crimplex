@@ -14,7 +14,8 @@ const NavItem = ({
 	icon: ReactNode;
 	href: string;
 }) => {
-	const isActive = href === usePathname();
+	const pathname = usePathname();
+	const isActive = pathname.startsWith(href);
 
 	return (
 		<Link

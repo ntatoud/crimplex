@@ -8,7 +8,12 @@
 		"lineEnding": "lf"
 	},
 	"linter": {
-		"enabled": true
+		"enabled": true,
+		"rules": {
+			"suspicious": {
+				"noShadowRestrictedNames": "off"
+			}
+		}
 	},
 	"files": {
 		"ignore": ["./.next/**"]

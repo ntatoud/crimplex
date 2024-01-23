@@ -3,10 +3,11 @@ import { useState } from "react";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 
-import { Pin } from "lucide-react";
-import ReactMapBoxGl, { Marker } from "react-map-gl";
+import ReactMapBoxGl from "react-map-gl";
+import ControlsLayer from "./ControlsLayer";
+import Markers from "./Markers";
 
-const MapBox = () => {
+const Map = () => {
 	const [viewport, setViewport] = useState({
 		latitude: 28.6448,
 		longitude: 77.216,
@@ -41,16 +42,11 @@ const MapBox = () => {
 				style={{ width: "100%", height: "100%", zIndex: 0 }}
 				dragRotate={false}
 			>
-				<Marker
-					latitude={viewport.latitude}
-					longitude={viewport.longitude}
-					onClick={() => alert("Marker")}
-				>
-					<Pin className="text-black h-10 w-100 hover:cursor-pointer" />
-				</Marker>
+				<ControlsLayer />
+				<Markers />
 			</ReactMapBoxGl>
 		</div>
 	);
 };
 
-export default MapBox;
+export default Map;

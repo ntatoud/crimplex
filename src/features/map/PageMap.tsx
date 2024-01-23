@@ -1,7 +1,7 @@
-import MapBox from "./MapBox";
+import Map from "./Map";
 
 const PageMap = () => {
-	return <MapBox />;
+	return <Map />;
 };
 
 export default PageMap;

@@ -15,8 +15,7 @@ const NavItem = ({
 	href: string;
 }) => {
 	const pathname = usePathname();
-	const isActive = pathname.startsWith(href);
-
+	const isActive = href !== "/" ? pathname.startsWith(href) : pathname === href;
 	return (
 		<Link
 			href={href}

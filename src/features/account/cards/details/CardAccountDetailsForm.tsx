@@ -9,10 +9,10 @@ import { toast } from "sonner";
 import FieldProfilePicture from "@/components/FieldProfilePicture";
 import { Button } from "@/components/ui/button";
 import { CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { trpc } from "@/lib/trpc/client";
 import { UserAccount, zUserAccount } from "@/server/config/schemas/Account";
 
+import FieldInput from "@/components/FieldInput";
 import { CardAccountProps } from "../types";
 
 type AccountUpdateField = Prettify<Pick<UserAccount, "name" | "email">>;
@@ -69,14 +69,11 @@ const CardAccountDetailsForm: FC<
 					<div className="grid gap-2">
 						<div className="flex flex-col">
 							<div className="font-semibold text-lg">
-								<Input
-									className={errors.name ? "ring-2 ring-red-500" : ""}
+								<FieldInput
 									defaultValue={account.name}
+									error={errors.name ? errors.name.message : ""}
 									{...register("name")}
 								/>
-								{errors?.name && (
-									<p className="text-sm text-red-500">{errors.name?.message}</p>
-								)}
 							</div>
 							<span className="text-sm text-muted-foreground ml-3">
 								Joined in {dayjs(account?.creationDate).format("MMMM YYYY")}
@@ -84,14 +81,11 @@ const CardAccountDetailsForm: FC<
 						</div>
 						<div className="text-md text-gray-800 dark:text-gray-200">
 							<div>
-								<Input
-									className={errors.email ? "ring-2 ring-red-500" : ""}
+								<FieldInput
 									defaultValue={account.email}
+									error={errors.email ? errors.email.message : ""}
 									{...register("email")}
 								/>
-								{errors?.email && (
-									<p className="text-sm text-red-500">{errors.email.message}</p>
-								)}
 							</div>
 						</div>
 						<Button

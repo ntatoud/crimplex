@@ -3,10 +3,9 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import PasswordInput from "@/components/PasswordInput";
+import FieldInput from "@/components/FieldInput";
+import FieldPasswordInput from "@/components/FieldPasswordInput";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { trpc } from "@/lib/trpc/client";
 import {
 	AuthCredentials,
@@ -40,47 +39,28 @@ const RegisterForm = () => {
 	};
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			<div className="grid gap-5">
-				<div className="grid gap-2">
-					<Label htmlFor="name">Name</Label>
-					<Input
-						id="name"
-						type="text"
-						disabled={isLoading}
-						className={errors?.name ? "ring-2 ring-red-500" : ""}
-						{...register("name")}
-					/>
-					{errors?.name && (
-						<p className="text-sm text-red-500">{errors.name.message}</p>
-					)}
-				</div>
-				<div className="grid gap-2">
-					<Label htmlFor="email">Email</Label>
-					<Input
-						id="email"
-						placeholder="name@example.com"
-						type="email"
-						disabled={isLoading}
-						className={errors?.email ? "ring-2 ring-red-500" : ""}
-						{...register("email")}
-					/>
-					{errors?.email && (
-						<p className="text-sm text-red-500">{errors.email.message}</p>
-					)}
-				</div>
-				<div className="grid gap-2">
-					<Label htmlFor="password">Password</Label>
-					<PasswordInput
-						id="password"
-						disabled={isLoading}
-						showStrength
-						{...register("password")}
-					/>
-					{errors?.password && (
-						<p className="text-sm text-red-500">{errors.password.message}</p>
-					)}
-				</div>
-
+			<div className="grid gap-8">
+				<FieldInput
+					label="Name"
+					type="text"
+					disabled={isLoading}
+					error={errors?.name ? errors.name.message : ""}
+					{...register("name")}
+				/>
+				<FieldInput
+					label="Email"
+					type="email"
+					disabled={isLoading}
+					error={errors?.email ? errors.email.message : ""}
+					{...register("email")}
+				/>
+				<FieldPasswordInput
+					id="password"
+					disabled={isLoading}
+					error={errors?.password ? errors.password.message : ""}
+					showStrength
+					{...register("password")}
+				/>
 				<Button
 					className="mt-2"
 					size="lg"

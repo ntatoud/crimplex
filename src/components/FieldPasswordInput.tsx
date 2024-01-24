@@ -3,6 +3,8 @@ import { KeyboardEvent, RefObject, forwardRef, useRef, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import zxcvbn, { ZXCVBNScore } from "zxcvbn";
 
+import { cn } from "@/lib/utils";
+import FloatingLabel from "./FloatingLabel";
 import { Button } from "./ui/button";
 import { Input, InputProps } from "./ui/input";
 import { Progress } from "./ui/progress";
@@ -59,11 +61,12 @@ const usePasswordStrength = (
 	};
 	return { strength, handleChange: handler };
 };
-interface PasswordInputProps extends InputProps {
+interface FieldPasswordInputProps extends InputProps {
 	showStrength?: boolean;
+	error?: string;
 }
-const PasswordInput = forwardRef<HTMLDivElement, PasswordInputProps>(
-	({ showStrength = false, ...inputProps }, ref) => {
+const FieldPasswordInput = forwardRef<HTMLDivElement, FieldPasswordInputProps>(
+	({ showStrength = false, error, ...inputProps }, ref) => {
 		const [showPassword, setShowPassword] = useState(false);
 
 		const passwordRef = useRef<HTMLInputElement>(null);
@@ -83,7 +86,27 @@ const PasswordInput = forwardRef<HTMLDivElement, PasswordInputProps>(
 		};
 		return (
 			<div className="flex flex-col gap-2" ref={ref} onKeyDown={handleKeyDown}>
-				<div className="flex px-2 gap-1 items-center h-12 w-full rounded-md border border-input bg-background text-md ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+				<div
+					className={cn(
+						"relative flex pr-2 gap-1 items-center h-12 w-full rounded-md border border-input bg-background text-md ring-offset-background disabled:cursor-not-allowed disabled:opacity-50",
+						"focus-within:outline-none focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-0 focus-visible:border-none",
+						error ? "ring-2 ring-red-500" : "",
+					)}
+				>
+					<Input
+						ref={passwordRef}
+						type={showPassword ? "text" : "password"}
+						onKeyUp={handleChange}
+						className="peer h-10 border-none focus-visible:ring-0 group"
+						placeholder=" "
+						{...inputProps}
+					/>
+					<FloatingLabel
+						htmlFor={inputProps.id}
+						className={cn("-top-0.5", error ? "text-red-500" : "")}
+					>
+						Password
+					</FloatingLabel>
 					<Button
 						variant="ghost"
 						size="icon"
@@ -101,13 +124,6 @@ const PasswordInput = forwardRef<HTMLDivElement, PasswordInputProps>(
 							<EyeOff className="w-5" />
 						)}
 					</Button>
-					<Input
-						ref={passwordRef}
-						type={showPassword ? "text" : "password"}
-						onKeyUp={handleChange}
-						className="h-10 border-none focus-visible:ring-0"
-						{...inputProps}
-					/>
 				</div>
 				{showStrength && strength !== 5 && (
 					<div className="flex flex-col">
@@ -124,10 +140,11 @@ const PasswordInput = forwardRef<HTMLDivElement, PasswordInputProps>(
 						</p>
 					</div>
 				)}
+				{error && <p className="text-sm text-red-500">{error}</p>}
 			</div>
 		);
 	},
 );
-PasswordInput.displayName = "PasswordInput";
+FieldPasswordInput.displayName = "PasswordInput";
 
-export default PasswordInput;
+export default FieldPasswordInput;

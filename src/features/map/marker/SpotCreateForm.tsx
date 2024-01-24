@@ -1,6 +1,5 @@
+import FieldInput from "@/components/FieldInput";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { trpc } from "@/lib/trpc/client";
 import { Marker, Position, zMarker } from "@/server/config/schemas/Marker";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -29,6 +28,7 @@ const SpotCreateForm = ({
 	});
 
 	const onSubmit = (values: Pick<Marker, "name">) => {
+		console.log(values);
 		markerAdd({ ...values, position });
 	};
 
@@ -38,13 +38,12 @@ const SpotCreateForm = ({
 			className="flex w-full justify-center"
 		>
 			<div className="grid max-w-sm gap-3">
-				<div className="grid gap-1">
-					<Label htmlFor="name">Name</Label>
-					<Input id="name" autoFocus {...register("name")} />
-					{errors?.name && (
-						<p className="text-red-500">{errors.name.message}</p>
-					)}
-				</div>
+				<FieldInput
+					label="Name"
+					error={errors?.name ? errors.name.message : ""}
+					autoFocus
+					{...register("name")}
+				/>
 				<Button
 					variant="secondary"
 					type="submit"

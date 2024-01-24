@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import FieldInput from "@/components/FieldInput";
+import FieldPasswordInput from "@/components/FieldPasswordInput";
 import LogoAdmin from "@/components/Icons/LogoAdmin";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
@@ -13,7 +15,6 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { trpc } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
@@ -68,31 +69,17 @@ const PageAdminLogin = () => {
 				<CardContent>
 					<form onSubmit={handleSubmit(onSubmit)}>
 						<div className="grid w-full items-center gap-4">
-							<div className="flex flex-col space-y-1.5">
-								<Input
-									id="email"
-									placeholder="Email"
-									disabled={isLoading}
-									{...register("email")}
-								/>
-								{errors?.email && (
-									<p className="text-sm text-red-500">{errors.email.message}</p>
-								)}
-							</div>
-							<div className="flex flex-col space-y-1.5">
-								<Input
-									id="password"
-									placeholder="Password"
-									type="password"
-									disabled={isLoading}
-									{...register("password")}
-								/>
-								{errors?.password && (
-									<p className="text-sm text-red-500">
-										{errors.password.message}
-									</p>
-								)}
-							</div>
+							<FieldInput
+								label="Email"
+								disabled={isLoading}
+								{...register("email")}
+								error={errors.email ? errors.email.message : ""}
+							/>
+							<FieldPasswordInput
+								disabled={isLoading}
+								{...register("password")}
+								error={errors.password ? errors.password.message : ""}
+							/>
 							<Button
 								className="w-full gap-1"
 								type="submit"

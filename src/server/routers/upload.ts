@@ -1,14 +1,41 @@
-import { authenticatedProcedure, createUTRouter } from "../config/uploadthing";
+import { db } from "../config/db";
+import {
+	authenticatedProcedure,
+	createUTRouter,
+	files,
+} from "../config/uploadthing";
 
-export const imageUploader = createUTRouter({ image: { maxFileSize: "4MB" } })
+export const imageUploader = createUTRouter({
+	image: { maxFileSize: "8MB", maxFileCount: 5 },
+})
 	// Set permissions and file types for this FileRoute
 	.middleware(authenticatedProcedure)
 	.onUploadComplete(async ({ metadata, file }) => {
-		// This code RUNS ON YOUR SERVER after upload
 		console.log("Upload complete for userId:", metadata.user.id);
+		console.log("File URL: ", file.url);
 
-		console.log("file url", file.url);
+		// Add the file to the database
+		try {
+			const dbFile = await db.file.create({
+				data: {
+					key: file.key,
+					url: file.url,
+					name: file.name,
+				},
+			});
+		} catch (e) {
+			// Delete the image if it could not be added to the database
+			files.deleteFiles(file.key);
+			console.error("THIS IS THE ERROR", e);
+			// Early return
+			return {
+				uploadedBy: metadata.user.name ?? metadata.user.email,
+				isSuccess: false,
+			};
+		}
 
-		// !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
-		return { uploadedBy: metadata.user.name ?? metadata.user.email };
+		return {
+			uploadedBy: metadata.user.name ?? metadata.user.email,
+			isSuccess: true,
+		};
 	});

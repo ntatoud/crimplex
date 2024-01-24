@@ -1,5 +1,8 @@
 import { createUploadthing } from "uploadthing/next";
+import { UTApi } from "uploadthing/server";
 import { getServerSideUser } from "./auth";
+
+export const files = new UTApi();
 
 export const createUTRouter = createUploadthing();
 

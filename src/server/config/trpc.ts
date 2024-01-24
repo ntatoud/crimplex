@@ -7,13 +7,14 @@ import { ZodError } from "zod";
 import { getServerSideUser } from "./auth";
 import { db } from "./db";
 import { UserAuthorization } from "./schemas/User";
+import { files } from "./uploadthing";
 
 /* CREATION OF THE CONTEXT */
 export const createTRPCContext = async ({
 	req,
 }: FetchCreateContextFnOptions) => {
 	const user = await getServerSideUser();
-	return { req, user, db };
+	return { req, user, db, files };
 };
 export type AppContext = inferAsyncReturnType<typeof createTRPCContext>;
 

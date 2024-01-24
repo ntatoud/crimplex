@@ -8,6 +8,7 @@ export const accountPick = {
 	id: true,
 	name: true,
 	email: true,
+	profilePictureKey: true,
 	authorizations: true,
 	creationDate: true,
 } as const;

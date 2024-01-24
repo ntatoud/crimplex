@@ -9,7 +9,7 @@ import {
 } from "../config/trpc";
 
 export const markersRouter = createTRPCRouter({
-	getAll: protectedProcedure()
+	getAll: publicProcedure()
 		.input(z.void())
 		.output(z.array(zMarker()))
 		.query(async ({ ctx }) => {

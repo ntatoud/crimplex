@@ -1,5 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -83,8 +82,8 @@ const LoginForm = () => {
 					size="lg"
 					variant="secondary"
 					disabled={isLoading}
+					isLoading={isLoading}
 				>
-					{isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
 					Sign in with email
 				</Button>
 			</div>

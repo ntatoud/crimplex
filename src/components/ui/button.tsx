@@ -4,6 +4,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { type VariantProps, cva } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
+import { Loader2 } from "lucide-react";
 
 const buttonVariants = cva(
 	"inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
@@ -36,13 +37,13 @@ const buttonVariants = cva(
 	},
 );
 
-export interface ButtonProps
+interface ShadcnButtonProps
 	extends React.ButtonHTMLAttributes<HTMLButtonElement>,
 		VariantProps<typeof buttonVariants> {
 	asChild?: boolean;
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+const ShadcnButton = React.forwardRef<HTMLButtonElement, ShadcnButtonProps>(
 	({ className, variant, size, asChild = false, ...props }, ref) => {
 		const Comp = asChild ? Slot : "button";
 		return (
@@ -54,6 +55,19 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 		);
 	},
 );
-Button.displayName = "Button";
+ShadcnButton.displayName = "Button";
+
+export interface ButtonProps extends ShadcnButtonProps {
+	isLoading?: boolean;
+}
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+	({ isLoading, children, ...props }, ref) => {
+		return (
+			<ShadcnButton ref={ref} {...props}>
+				{isLoading ? <Loader2 className="animate-spin h-6 w-6" /> : children}
+			</ShadcnButton>
+		);
+	},
+);
 
 export { Button, buttonVariants };

@@ -1,6 +1,6 @@
 "use client";
 
-import { BookMarked, Home } from "lucide-react";
+import { BookMarked, Home, Map } from "lucide-react";
 
 import NavItem from "./NavItem";
 
@@ -13,6 +13,10 @@ const NavItems = () => {
 
 			<NavItem href="/about" icon={<BookMarked />}>
 				About
+			</NavItem>
+
+			<NavItem href="/map" icon={<Map />}>
+				Map
 			</NavItem>
 		</div>
 	);

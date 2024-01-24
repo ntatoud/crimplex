@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
 import { TRPCClientErrorLike } from "@trpc/client";
-import { Info, Loader2 } from "lucide-react";
+import { Info } from "lucide-react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { parseAsInteger, useQueryState } from "nuqs";
 import { UseFormSetError, useForm } from "react-hook-form";
@@ -101,8 +101,9 @@ export const RegisterValidateForm = () => {
 						className="h-12 text-lg mt-2"
 						type="submit"
 						disabled={isLoading}
+						isLoading={isLoading}
 					>
-						{isLoading ? <Loader2 className="animate-spin" /> : "Confirm"}
+						Confirm
 					</Button>
 				</div>
 			</form>

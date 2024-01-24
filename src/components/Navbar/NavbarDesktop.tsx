@@ -23,7 +23,7 @@ const NavbarDesktop: FC<{ className?: string }> = ({ className }) => {
 				<div
 					key={pathname}
 					className={cn(
-						"relative flex w-full h-15 my-2 items-center justify-end md:content-between",
+						"relative flex w-full h-14 my-2 items-center justify-end md:content-between",
 						className,
 					)}
 				>

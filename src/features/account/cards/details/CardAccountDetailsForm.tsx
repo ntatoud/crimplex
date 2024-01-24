@@ -2,7 +2,6 @@ import { FC } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import dayjs from "dayjs";
-import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -100,12 +99,9 @@ const CardAccountDetailsForm: FC<
 							className="w-fit place-self-end"
 							variant="secondary"
 							disabled={isLoading}
+							isLoading={isLoading}
 						>
-							{isLoading ? (
-								<Loader2 className="animate-spin w-4 h-4" />
-							) : (
-								"Update"
-							)}
+							Update
 						</Button>
 					</div>
 				</div>

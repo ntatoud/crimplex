@@ -2,7 +2,7 @@
 
 import { FC } from "react";
 
-import { ExternalLink, Loader2, LogOut } from "lucide-react";
+import { ExternalLink, LogOut } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -66,8 +66,9 @@ const AdminNavbar: FC<{ className?: string }> = ({ className }) => {
 							variant="destructivePrimary"
 							size="icon"
 							onClick={() => userLogout()}
+							isLoading={isLoading}
 						>
-							{isLoading ? <Loader2 className="animate-spin" /> : <LogOut />}
+							<LogOut />
 						</Button>
 						<Link href="/admin/account">
 							<Avatar

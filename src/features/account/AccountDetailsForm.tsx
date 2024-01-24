@@ -2,7 +2,7 @@ import { KeyboardEvent } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import dayjs from "dayjs";
-import { Loader2, PenLine, User } from "lucide-react";
+import { PenLine, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -124,12 +124,9 @@ const AccountDetailsForm = ({
 						type="submit"
 						className="w-fit place-self-end"
 						disabled={isLoading}
+						isLoading={isLoading}
 					>
-						{isLoading ? (
-							<Loader2 className="animate-spin w-4 h-4" />
-						) : (
-							"Update"
-						)}
+						Update
 					</Button>
 				</div>
 			</form>

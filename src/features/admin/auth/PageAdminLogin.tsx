@@ -1,5 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -98,14 +97,9 @@ const PageAdminLogin = () => {
 								className="w-full gap-1"
 								type="submit"
 								disabled={isLoading}
+								isLoading={isLoading}
 							>
-								{!isLoading ? (
-									<>
-										Sign in as <p className="font-bold"> Admin</p>
-									</>
-								) : (
-									<Loader2 className="mr-2 h-4 w-4 animate-spin" />
-								)}
+								Sign in as <p className="font-bold"> Admin</p>
 							</Button>
 						</div>
 					</form>

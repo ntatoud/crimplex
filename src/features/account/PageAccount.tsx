@@ -1,4 +1,4 @@
-import { Loader2, LogOut } from "lucide-react";
+import { LogOut } from "lucide-react";
 
 import { LoaderFull } from "@/components/LoaderFull";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
@@ -38,17 +38,12 @@ const PageAccount = () => {
 
 						<Button
 							variant="destructiveSecondary"
-							className="place-self-end w-3/12 "
+							className="place-self-end w-3/12"
 							onClick={() => userLogout()}
+							isLoading={isLoading}
 						>
-							{isLoading ? (
-								<Loader2 className="animate-spin" />
-							) : (
-								<div className="flex flex-1 items-center justify-center gap-2">
-									<LogOut className="h-5 w-5" />
-									Log out
-								</div>
-							)}
+							<LogOut className="h-5 w-5 mr-1" />
+							Log out
 						</Button>
 					</div>
 				</div>

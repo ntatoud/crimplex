@@ -1,11 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { FilterControl } from "./controls/FilterControl";
 
+// TODO : Create controls
 const ControlsLayer = () => {
 	return (
 		<>
-			<FilterControl filters={["test"]} className="bg-red-500 p-5">
-				<Button onClick={() => alert("clicked")}>Test</Button>
+			<FilterControl filters={["test"]} className=" p-5">
+				<Button onClick={() => alert("clicked")} disabled={true}>
+					🚧 Filters
+				</Button>
 			</FilterControl>
 		</>
 	);

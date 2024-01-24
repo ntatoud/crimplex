@@ -8,7 +8,10 @@ import { Pin } from "lucide-react";
 import { Marker } from "react-map-gl";
 import SpotPopupContent from "./SpotPopupContent";
 
-const SpotMarker = ({ marker }: { marker: TMarker }) => {
+const SpotMarker = ({
+	marker,
+	onOpen,
+}: { marker: TMarker; onOpen: () => void }) => {
 	const { position } = marker;
 
 	return (
@@ -18,13 +21,14 @@ const SpotMarker = ({ marker }: { marker: TMarker }) => {
 			onClick={(event) => {
 				// event?.originalEvent.preventDefault();
 				event.originalEvent.stopPropagation();
+				onOpen();
 			}}
 		>
 			<Popover>
 				<PopoverTrigger>
 					<Pin className="h-10 w-10 hover:cursor-pointer text-green-800 " />
 				</PopoverTrigger>
-				<PopoverContent sideOffset={10} className="w-[600px]">
+				<PopoverContent sideOffset={10} className="z-0 w-[100vw] md:w-[400px]">
 					<SpotPopupContent marker={marker} />
 				</PopoverContent>
 			</Popover>

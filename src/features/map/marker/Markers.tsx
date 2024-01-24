@@ -10,17 +10,23 @@ import SpotMarker from "./SpotMarker";
 import SpotMarkerCreate from "./SpotMarkerCreate";
 
 const Markers = () => {
-	const [open, setOpen] = useState(false);
+	const [drawerOpen, setDrawerOpen] = useState(false);
+	const [popupOpen, setPopupOpen] = useState(false);
 	const [currentMarker, setCurrentMarker] = useState<Position | null>(null);
 
 	const markers = trpc.markers.getAll.useQuery();
 
 	useOnMapClick((event: mapboxgl.MapMouseEvent & mapboxgl.EventData) => {
+		if (popupOpen) {
+			setPopupOpen(false);
+			return;
+		}
+
 		setCurrentMarker({
 			latitude: event.lngLat.lat,
 			longitude: event.lngLat.lng,
 		});
-		setOpen(true);
+		setDrawerOpen(true);
 	});
 	return (
 		<div key={String(markers.data?.length)}>
@@ -38,12 +44,13 @@ const Markers = () => {
 				<SpotMarker
 					key={`${marker.position.latitude}-${marker.position.longitude}`}
 					marker={marker}
+					onOpen={() => setPopupOpen(true)}
 				/>
 			))}
 			{currentMarker && (
 				<Drawer
-					open={open}
-					onOpenChange={(open) => setOpen(open)}
+					open={drawerOpen}
+					onOpenChange={(open) => setDrawerOpen(open)}
 					onClose={() => setCurrentMarker(null)}
 				>
 					<SpotMarkerCreate

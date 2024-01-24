@@ -45,7 +45,7 @@ const SpotPopupContent = ({ marker }: { marker: TMarker }) => {
 				trpcUtils.markers.invalidate();
 			},
 			onError: () => {
-				toast.success("Could not delete the spot", {
+				toast.error("Could not delete the spot", {
 					description: "An error occured while deleting the spot",
 				});
 			},

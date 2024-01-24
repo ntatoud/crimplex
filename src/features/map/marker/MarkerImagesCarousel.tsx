@@ -17,7 +17,7 @@ interface MarkerImagesCarouselProps {
 const MarkerImagesCarousel: FC<MarkerImagesCarouselProps> = () => {
 	return (
 		<Carousel
-			className="w-[350px]"
+			className="w-[200px]"
 			opts={{
 				align: "start",
 				loop: true,

@@ -10,6 +10,9 @@ import { PlusCircle } from "lucide-react";
 import { Marker } from "react-map-gl";
 import SpotCreateForm from "./SpotCreateForm";
 
+// TODO : Prevent flow for unlogged users
+
+// TODO : Prevent apparition on click outside of popover
 const SpotMarkerCreate = ({
 	onClose,
 	...props

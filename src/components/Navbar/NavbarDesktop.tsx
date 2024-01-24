@@ -35,7 +35,7 @@ const NavbarDesktop: FC<{ className?: string }> = ({ className }) => {
 							<NavItems />
 						</nav>
 					</div>
-					<div className="absolute top-0 left-1/2 -translate-x-1/2 z-0 md:hidden">
+					<div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 z-0 md:hidden">
 						<Link href="/" className="items-end">
 							<LogoIcon />
 						</Link>

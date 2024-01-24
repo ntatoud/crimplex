@@ -4,7 +4,6 @@ import { Label } from "@/components/ui/label";
 import { trpc } from "@/lib/trpc/client";
 import { Marker, Position, zMarker } from "@/server/config/schemas/Marker";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 const SpotCreateForm = ({
@@ -14,7 +13,6 @@ const SpotCreateForm = ({
 	onClose: () => void;
 }) => {
 	const trpcUtils = trpc.useUtils();
-	const router = useRouter();
 	const {
 		register,
 		handleSubmit,
@@ -25,12 +23,8 @@ const SpotCreateForm = ({
 
 	const { mutate: markerAdd, isLoading } = trpc.markers.create.useMutation({
 		onSuccess: () => {
-			console.log("success");
 			trpcUtils.markers.invalidate();
 			onClose();
-		},
-		onError: (error) => {
-			console.log(error);
 		},
 	});
 
@@ -46,7 +40,7 @@ const SpotCreateForm = ({
 			<div className="grid max-w-sm gap-3">
 				<div className="grid gap-1">
 					<Label htmlFor="name">Name</Label>
-					<Input id="name" {...register("name")} />
+					<Input id="name" autoFocus {...register("name")} />
 					{errors?.name && (
 						<p className="text-red-500">{errors.name.message}</p>
 					)}

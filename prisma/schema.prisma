@@ -26,11 +26,12 @@ model VerificationToken {
 }
 
 model User {
-  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
   name              String
-  profilePictureKey String?
-  email             String  @unique
-  password          String
+  profilePictureKey String @default("")
+  email             String @unique
+
+  password String
 
   authorizations Authorizations[] @default([user])
   isActivated    Boolean          @default(false)
@@ -72,11 +73,4 @@ model Marker {
   createdById String @db.ObjectId
 
   likes MarkerLike[]
-}
-
-model File {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
-  url  String @unique
-  key  String
-  name String
 }

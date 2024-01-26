@@ -10,7 +10,7 @@ export const zUser = () =>
 		id: z.string(),
 		name: z.string().min(1, { message: "Name can not be empty" }),
 		email: z.string().email("Invalid email format"),
-		profilePictureKey: z.string().nullable(),
+		profilePictureKey: z.string().optional(),
 		creationDate: z.date(),
 		isActivated: z.boolean(),
 		authorizations: z.array(zUserAuthorization()).catch(["user"]),

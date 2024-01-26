@@ -8,7 +8,7 @@ import { usersRouter } from "./routers/users";
 
 // UPLOAD THING
 import { FileRouter as CoreFileRouter } from "uploadthing/next";
-import { imageUploader } from "./routers/upload";
+import { profilePicture } from "./routers/upload";
 
 export const appRouter = createTRPCRouter({
 	auth: authRouter,
@@ -20,6 +20,8 @@ export const appRouter = createTRPCRouter({
 export type AppRouter = typeof appRouter;
 
 export const uploadRouter = {
-	imageUploader,
+	profilePicture,
 } satisfies CoreFileRouter;
+
 export type UploadRouter = typeof uploadRouter;
+export type UploadEndpoint = keyof typeof uploadRouter;

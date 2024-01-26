@@ -27,6 +27,7 @@ const createUsers = async () => {
 			data: {
 				name: "user",
 				email: "user@user.com",
+				isActivated: true,
 				password: await hash("user", 12),
 			},
 		});

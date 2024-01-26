@@ -15,6 +15,7 @@ import {
 import useOnLogout from "@/features/auth/logout/useOnLogout";
 import { trpc } from "@/lib/trpc/client";
 
+import { getFileUrl } from "@/lib/uploadthing/client";
 import {
 	AccountMenuErrorState,
 	AccountMenuLoadingState,
@@ -82,7 +83,7 @@ const AccountDropdownLogged = () => {
 							: ""
 					}
 				>
-					<AvatarImage src="" alt="PP" />
+					<AvatarImage src={getFileUrl(account?.profilePictureKey)} alt="PP" />
 					<AvatarFallback className="uppercase">
 						{account?.name[0] ?? account?.email[0] ?? <User2 />}
 					</AvatarFallback>
@@ -101,7 +102,6 @@ const AccountDropdownLogged = () => {
 						<DropdownMenuSeparator />
 					</>
 				)}
-
 				<DropdownMenuGroup>
 					<DropdownMenuItem>
 						<Link href="/account" className="flex flex-1 items-center">

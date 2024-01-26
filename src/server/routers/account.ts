@@ -23,9 +23,8 @@ export const accountRouter = createTRPCRouter({
 
 			return user;
 		}),
-
 	update: protectedProcedure()
-		.input(zUserAccount().required().pick({ email: true, name: true }))
+		.input(zUserAccount().pick({ email: true, name: true }).required())
 		.output(zUserAccount())
 		.mutation(async ({ ctx, input }) => {
 			try {
@@ -38,5 +37,42 @@ export const accountRouter = createTRPCRouter({
 					cause: e,
 				});
 			}
+		}),
+	updatePictureByKey: protectedProcedure()
+		.input(z.object({ key: z.string() }))
+		.output(z.object({ key: z.string() }))
+		.mutation(async ({ ctx, input }) => {
+			// Get the key of the old profile picture
+			const result = await ctx.db.user.findFirst({
+				where: {
+					id: ctx.user.id,
+				},
+				select: {
+					profilePictureKey: true,
+				},
+			});
+
+			// If an existing picture was found
+			if (result?.profilePictureKey) {
+				// Delete it (and if it fails throw an error)
+				if (!(await ctx.files.deleteFiles(result.profilePictureKey))) {
+					throw new TRPCError({
+						code: "INTERNAL_SERVER_ERROR",
+						message: "Could not update the profile picture",
+					});
+				}
+			}
+
+			// Update the user with the new key
+			await ctx.db.user.update({
+				where: {
+					id: ctx.user.id,
+				},
+				data: {
+					profilePictureKey: input.key,
+				},
+			});
+
+			return { key: input.key };
 		}),
 });

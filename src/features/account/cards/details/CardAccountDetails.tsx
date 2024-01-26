@@ -1,9 +1,10 @@
 import { FC, useState } from "react";
 
-import { Pencil, Undo } from "lucide-react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Toggle } from "@/components/ui/toggle";
+import { Pencil, Undo } from "lucide-react";
 
 import { CardAccountProps } from "../types";
 import CardAccountDetailsForm from "./CardAccountDetailsForm";
@@ -19,6 +20,7 @@ const VIEWS: Record<
 } as const;
 const CardAccountDetails: FC<CardAccountProps> = ({ account }) => {
 	const [isEditMode, setIsEditMode] = useState(false);
+	const [animationParent] = useAutoAnimate();
 
 	const changeView = () => setIsEditMode((x) => !x);
 	const CardContentView = VIEWS[isEditMode ? "true" : "false"];
@@ -40,7 +42,7 @@ const CardAccountDetails: FC<CardAccountProps> = ({ account }) => {
 				</div>
 			</CardHeader>
 			<CardContent>
-				<div className="flex items-start gap-4">
+				<div className="flex items-start gap-4" ref={animationParent}>
 					<ProfilePictureDialog
 						account={account}
 						fallback={

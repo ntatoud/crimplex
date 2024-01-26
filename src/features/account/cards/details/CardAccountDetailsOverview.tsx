@@ -9,7 +9,7 @@ const CardAccountDetailsOverview: FC<CardAccountProps> = ({ account }) => {
 		<div className="grid gap-2">
 			<div className="flex flex-col">
 				<div className="font-semibold text-lg">{account.name}</div>
-				<span className="text-sm text-muted-foreground">
+				<span className="text-sm w-40 text-muted-foreground">
 					Joined in {dayjs(account?.creationDate).format("MMMM YYYY")}
 				</span>
 			</div>

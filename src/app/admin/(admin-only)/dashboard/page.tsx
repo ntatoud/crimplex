@@ -1,5 +1,3 @@
-"use client";
-
 import PageAdminDashboard from "@/features/admin/dashboard/PageAdminDashboard";
 
 const Page = () => {

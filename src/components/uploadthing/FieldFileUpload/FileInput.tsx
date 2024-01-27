@@ -32,7 +32,7 @@ export const FileInput = ({
 	fileConfig,
 	error,
 }: FileInputProps) => {
-	if (files.length && mode === "single") return null;
+	if (!!files.length && mode === "single") return null;
 
 	const [isError, setIsError] = useState(false);
 

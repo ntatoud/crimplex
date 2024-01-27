@@ -29,7 +29,6 @@ const FieldFileUpload: FC<FieldFileUploadProps> = ({
 	onUpload,
 }) => {
 	const [files, setFiles] = useState<File[]>([]);
-	const isEmpty = !files.length;
 	const { startUpload, isUploading, permittedFileInfo } = useUploadThing(
 		endpoint,
 		{
@@ -53,19 +52,16 @@ const FieldFileUpload: FC<FieldFileUploadProps> = ({
 
 	return (
 		<div className="flex flex-col w-full items-center">
-			{((isEmpty && mode === "single") || mode === "multiple") && (
-				<FileInput
-					mode={mode}
-					files={files}
-					setFiles={setFiles}
-					fileConfig={{
-						fileTypes: fileTypes,
-						maxFileSize: permittedFileInfo?.config.image?.maxFileSize,
-					}}
-					error={error}
-				/>
-			)}
-
+			<FileInput
+				mode={mode}
+				files={files}
+				setFiles={setFiles}
+				fileConfig={{
+					fileTypes: fileTypes,
+					maxFileSize: permittedFileInfo?.config.image?.maxFileSize,
+				}}
+				error={error}
+			/>
 			<div className="flex justify-center gap-1">
 				{files.map((file, index) => (
 					<FilePreview
@@ -78,21 +74,34 @@ const FieldFileUpload: FC<FieldFileUploadProps> = ({
 					/>
 				))}
 			</div>
-			{!isEmpty && (
-				<Button
-					className="w-full"
-					data-ul-element="button"
-					onClick={(event) => {
-						event.preventDefault();
-						startUpload(files);
-					}}
-					isLoading={isUploading}
-				>
-					<Upload className="mr-1" /> Upload
-				</Button>
-			)}
+			<UploadButton
+				isEmpty={!files.length}
+				onUpload={() => startUpload(files)}
+				isLoading={isUploading}
+			/>
 		</div>
 	);
 };
 
+const UploadButton = ({
+	isLoading,
+	isEmpty,
+	onUpload,
+}: { isEmpty: boolean; onUpload: () => void; isLoading: boolean }) => {
+	if (isEmpty) return;
+
+	return (
+		<Button
+			className="w-full"
+			data-ul-element="button"
+			onClick={(event) => {
+				event.preventDefault();
+				onUpload();
+			}}
+			isLoading={isLoading}
+		>
+			<Upload className="mr-1" /> Upload
+		</Button>
+	);
+};
 export default FieldFileUpload;

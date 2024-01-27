@@ -42,7 +42,11 @@ const AccountMobileLogged = () => {
 						: ""
 				}
 			>
-				<AvatarImage src={getFileUrl(account?.profilePictureKey)} alt="PP" />
+				<AvatarImage
+					src={getFileUrl(account?.profilePictureKey)}
+					alt="PP"
+					className="object-cover"
+				/>
 				<AvatarFallback className="uppercase">
 					{account?.name[0] ?? account?.email[0] ?? <User2 />}
 				</AvatarFallback>

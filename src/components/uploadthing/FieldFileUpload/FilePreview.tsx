@@ -47,7 +47,7 @@ export const FilePreview = ({
 			<Image
 				src={URL.createObjectURL(file)}
 				alt="New profile preview"
-				className="group-hover:opacity-80 group-hover:brightness-50 transition-all duration-300"
+				className="object-cover group-hover:opacity-80 group-hover:brightness-50 transition-all duration-300 "
 				fill
 			/>
 

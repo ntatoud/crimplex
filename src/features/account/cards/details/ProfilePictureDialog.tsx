@@ -34,7 +34,6 @@ const ProfilePictureDialog: FC<FieldProfilePictureProps> = ({
 					<AvatarImage
 						alt="User Avatar"
 						src={getFileUrl(account?.profilePictureKey)}
-						className="object-cover"
 					/>
 					<AvatarFallback className="text-lg uppercase">
 						<Fallback />
@@ -54,7 +53,6 @@ const ProfilePictureDialog: FC<FieldProfilePictureProps> = ({
 						<AvatarImage
 							alt="User Avatar"
 							src={getFileUrl(account?.profilePictureKey)}
-							className="object-cover"
 						/>
 						<AvatarFallback className="relative text-lg uppercase">
 							<Fallback />

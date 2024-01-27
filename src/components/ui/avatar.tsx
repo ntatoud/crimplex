@@ -27,7 +27,7 @@ const AvatarImage = React.forwardRef<
 >(({ className, ...props }, ref) => (
 	<AvatarPrimitive.Image
 		ref={ref}
-		className={cn("aspect-square h-full w-full", className)}
+		className={cn("aspect-square object-cover h-full w-full", className)}
 		{...props}
 	/>
 ));
@@ -48,4 +48,4 @@ const AvatarFallback = React.forwardRef<
 ));
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
 
-export { Avatar, AvatarImage, AvatarFallback };
+export { Avatar, AvatarFallback, AvatarImage };

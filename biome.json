@@ -12,6 +12,9 @@
 		"rules": {
 			"suspicious": {
 				"noShadowRestrictedNames": "off"
+			},
+			"a11y": {
+				"useKeyWithMouseEvents": "off"
 			}
 		}
 	},

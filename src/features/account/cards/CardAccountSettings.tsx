@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 
+import WorkInProgressWrapper from "@/components/utils/WorkInProgress";
 import { CardAccountProps } from "./types";
 
 const CardAccountSettings: FC<CardAccountProps> = () => {
@@ -24,19 +25,21 @@ const CardAccountSettings: FC<CardAccountProps> = () => {
 					{/* TODO : Language input when language is implemented */}
 					<div className="flex flex-col items-start">
 						Language
-						<Select>
-							<SelectTrigger className="w-[180px]">
-								<SelectValue placeholder="English" />
-							</SelectTrigger>
-							<SelectContent>
-								<SelectItem value="fr" defaultChecked>
-									Français
-								</SelectItem>
-								<SelectItem value="en" defaultChecked>
-									English
-								</SelectItem>
-							</SelectContent>
-						</Select>
+						<WorkInProgressWrapper>
+							<Select>
+								<SelectTrigger className="w-[180px]">
+									<SelectValue placeholder="English" />
+								</SelectTrigger>
+								<SelectContent>
+									<SelectItem value="fr" defaultChecked>
+										Français
+									</SelectItem>
+									<SelectItem value="en" defaultChecked>
+										English
+									</SelectItem>
+								</SelectContent>
+							</Select>
+						</WorkInProgressWrapper>
 					</div>
 					<Separator />
 					<div className="flex flex-col items-start">

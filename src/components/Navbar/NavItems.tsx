@@ -2,6 +2,7 @@
 
 import { BookMarked, Home, Map } from "lucide-react";
 
+import WorkInProgressWrapper from "../utils/WorkInProgress";
 import NavItem from "./NavItem";
 
 const NavItems = () => {
@@ -11,9 +12,11 @@ const NavItems = () => {
 				Home
 			</NavItem>
 
-			<NavItem href="/about" icon={<BookMarked />}>
-				About
-			</NavItem>
+			<WorkInProgressWrapper>
+				<NavItem href="/about" icon={<BookMarked />}>
+					About
+				</NavItem>
+			</WorkInProgressWrapper>
 
 			<NavItem href="/map" icon={<Map />}>
 				Map

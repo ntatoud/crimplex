@@ -6,9 +6,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import FieldProfilePicture from "@/components/FieldProfilePicture";
 import { Button } from "@/components/ui/button";
-import { CardContent } from "@/components/ui/card";
 import { trpc } from "@/lib/trpc/client";
 import { UserAccount, zUserAccount } from "@/server/config/schemas/Account";
 
@@ -55,52 +53,40 @@ const CardAccountDetailsForm: FC<
 	});
 
 	return (
-		<CardContent>
-			<form onSubmit={handleSubmit(onSubmit)}>
-				<div className="flex items-start gap-4">
-					<FieldProfilePicture
-						fallback={
-							account.name
-								.split(" ")
-								.map((word) => word[0])
-								.join("") ?? account.email
-						}
-					/>
-					<div className="grid gap-2">
-						<div className="flex flex-col">
-							<div className="font-semibold text-lg">
-								<FieldInput
-									defaultValue={account.name}
-									error={errors.name ? errors.name.message : ""}
-									{...register("name")}
-								/>
-							</div>
-							<span className="text-sm text-muted-foreground ml-3">
-								Joined in {dayjs(account?.creationDate).format("MMMM YYYY")}
-							</span>
-						</div>
-						<div className="text-md text-gray-800 dark:text-gray-200">
-							<div>
-								<FieldInput
-									defaultValue={account.email}
-									error={errors.email ? errors.email.message : ""}
-									{...register("email")}
-								/>
-							</div>
-						</div>
-						<Button
-							type="submit"
-							className="w-fit place-self-end"
-							variant="secondary"
-							disabled={isLoading}
-							isLoading={isLoading}
-						>
-							Update
-						</Button>
+		<form onSubmit={handleSubmit(onSubmit)}>
+			<div className="grid gap-2">
+				<div className="flex flex-col">
+					<div className="font-semibold text-lg">
+						<FieldInput
+							defaultValue={account.name}
+							error={errors.name ? errors.name.message : ""}
+							{...register("name")}
+						/>
+					</div>
+					<span className="text-sm text-muted-foreground ml-3">
+						Joined in {dayjs(account?.creationDate).format("MMMM YYYY")}
+					</span>
+				</div>
+				<div className="text-md text-gray-800 dark:text-gray-200">
+					<div>
+						<FieldInput
+							defaultValue={account.email}
+							error={errors.email ? errors.email.message : ""}
+							{...register("email")}
+						/>
 					</div>
 				</div>
-			</form>
-		</CardContent>
+				<Button
+					type="submit"
+					className="w-fit place-self-end"
+					variant="secondary"
+					disabled={isLoading}
+					isLoading={isLoading}
+				>
+					Update
+				</Button>
+			</div>
+		</form>
 	);
 };
 

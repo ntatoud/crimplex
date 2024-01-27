@@ -1,9 +1,9 @@
 import { User2 } from "lucide-react";
 import Link from "next/link";
 
-import useOnLogout from "@/features/auth/logout/useOnLogout";
 import { trpc } from "@/lib/trpc/client";
 
+import { getFileUrl } from "@/lib/uploadthing/client";
 import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
@@ -28,7 +28,6 @@ const AccountMobileLogged = () => {
 		isLoading: isAccountLoading,
 		isSuccess: isAccountSuccess,
 	} = trpc.account.get.useQuery();
-	const { mutate: userLogout } = useOnLogout({});
 
 	if (isAccountLoading) return <AccountMenuLoadingState />;
 
@@ -43,7 +42,7 @@ const AccountMobileLogged = () => {
 						: ""
 				}
 			>
-				<AvatarImage src="" alt="PP" />
+				<AvatarImage src={getFileUrl(account?.profilePictureKey)} alt="PP" />
 				<AvatarFallback className="uppercase">
 					{account?.name[0] ?? account?.email[0] ?? <User2 />}
 				</AvatarFallback>

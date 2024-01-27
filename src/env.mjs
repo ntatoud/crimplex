@@ -13,6 +13,7 @@ export const env = createEnv({
 		AUTH_SECRET: z.string(),
 		NODE_ENV: zNodeEnv,
 
+		UPLOADTHING_SECRET: z.string(),
 		EMAIL_SERVER: z.string().url(),
 	},
 	client: {
@@ -21,13 +22,17 @@ export const env = createEnv({
 	},
 
 	runtimeEnv: {
+		// SERVER ENV VAR
+		DATABASE_URL: process.env.DATABASE_URL,
+		NODE_ENV: process.env.NODE_ENV,
+		AUTH_SECRET: process.env.AUTH_SECRET,
+		EMAIL_SERVER: process.env.EMAIL_SERVER,
+		UPLOADTHING_SECRET: process.env.UPLOADTHING_SECRET,
+
+		// CLIENT ENV VAR
 		NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_VERCEL_URL
 			? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
 			: process.env.NEXT_PUBLIC_BASE_URL,
-		DATABASE_URL: process.env.DATABASE_URL,
-		AUTH_SECRET: process.env.AUTH_SECRET,
-		NODE_ENV: process.env.NODE_ENV,
-		EMAIL_SERVER: process.env.EMAIL_SERVER,
 		NEXT_PUBLIC_MABPOX_TOKEN: process.env.NEXT_PUBLIC_MABPOX_TOKEN,
 	},
 });

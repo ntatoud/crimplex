@@ -1,13 +1,15 @@
 import { FC, useState } from "react";
 
-import { Pencil, Undo } from "lucide-react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Toggle } from "@/components/ui/toggle";
+import { Pencil, Undo } from "lucide-react";
 
 import { CardAccountProps } from "../types";
 import CardAccountDetailsForm from "./CardAccountDetailsForm";
 import CardAccountDetailsOverview from "./CardAccountDetailsOverview";
+import ProfilePictureDialog from "./ProfilePictureDialog";
 
 const VIEWS: Record<
 	"true" | "false",
@@ -18,6 +20,7 @@ const VIEWS: Record<
 } as const;
 const CardAccountDetails: FC<CardAccountProps> = ({ account }) => {
 	const [isEditMode, setIsEditMode] = useState(false);
+	const [animationParent] = useAutoAnimate();
 
 	const changeView = () => setIsEditMode((x) => !x);
 	const CardContentView = VIEWS[isEditMode ? "true" : "false"];
@@ -38,7 +41,21 @@ const CardAccountDetails: FC<CardAccountProps> = ({ account }) => {
 					</Toggle>
 				</div>
 			</CardHeader>
-			<CardContentView account={account} changeView={changeView} />
+			<CardContent>
+				<div className="flex items-start gap-4" ref={animationParent}>
+					<ProfilePictureDialog
+						account={account}
+						fallback={
+							account.name
+								.split(" ")
+								.map((word) => word[0])
+								.join("") ?? account.email
+						}
+						imageSrc={`https://utfs.io/f/${account.profilePictureKey}`}
+					/>
+					<CardContentView account={account} changeView={changeView} />
+				</div>
+			</CardContent>
 		</Card>
 	);
 };

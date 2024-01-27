@@ -26,17 +26,18 @@ model VerificationToken {
 }
 
 model User {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  name     String
-  email    String @unique
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  profilePictureKey String @default("")
+  email             String @unique
+
   password String
 
   authorizations Authorizations[] @default([user])
   isActivated    Boolean          @default(false)
   creationDate   DateTime         @default(now())
 
-  markers Marker[] @relation(name: "author")
-
+  markers      Marker[]     @relation(name: "author")
   likedMarkers MarkerLike[]
 }
 

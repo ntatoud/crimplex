@@ -38,7 +38,7 @@ const PageAccount = () => {
 
 						<Button
 							variant="destructiveSecondary"
-							className="place-self-end w-3/12"
+							className="place-self-end md:w-1/4"
 							onClick={() => userLogout()}
 							isLoading={isLoading}
 						>

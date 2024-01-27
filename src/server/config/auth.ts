@@ -1,8 +1,7 @@
 import { randomInt } from "crypto";
 import { VerificationToken } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
-import { compare } from "bcrypt";
-import bcrypt from "bcrypt";
+import bcrypt, { compare } from "bcrypt";
 import dayjs from "dayjs";
 import jwt from "jsonwebtoken";
 import { cookies, headers } from "next/headers";

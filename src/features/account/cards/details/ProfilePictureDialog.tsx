@@ -47,8 +47,8 @@ const ProfilePictureDialog: FC<FieldProfilePictureProps> = ({
 					</div>
 				</Avatar>
 			</DialogTrigger>
-			<DialogContent>
-				<DialogHeader>
+			<DialogContent className="flex flex-col items-center max-w-sm md:max-w-md rounded-lg">
+				<DialogHeader className="flex w-full">
 					<DialogTitle>Profile picture</DialogTitle>
 					<Avatar className="group border border-input h-40 w-40 place-self-center">
 						<AvatarImage

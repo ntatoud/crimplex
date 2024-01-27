@@ -55,7 +55,7 @@ export const FileInput = ({
 	return (
 		<div
 			className={cn(
-				"group relative flex flex-col gap-5 p-10 items-center justify-center w-full rounded-lg border-dashed border-2 border-input cursor-pointer ",
+				"group relative flex flex-col gap-5 p-5 md:p-10 items-center justify-center w-full rounded-lg border-dashed border-2 border-input cursor-pointer",
 				"hover:bg-foreground/5",
 			)}
 			{...getRootProps()}

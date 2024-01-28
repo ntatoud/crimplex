@@ -36,7 +36,7 @@ const PageAccount = () => {
 									href="/admin/dashboard"
 								>
 									Go to dashboard
-									<ArrowRight className="invisible group-hover:visible transition-all w-5 h-5 ml-1 group-hover:animate-in group-hover:zoom-in-0 group-hover:slide-in-from-left-5" />
+									<ArrowRight className="visible md:invisible group-hover:visible transition-all w-5 h-5 ml-1 group-hover:animate-in group-hover:zoom-in-0 group-hover:slide-in-from-left-5" />
 								</Link>
 							</AlertDescription>
 						</Alert>

@@ -14,7 +14,8 @@
 				"noShadowRestrictedNames": "off"
 			},
 			"a11y": {
-				"useKeyWithMouseEvents": "off"
+				"useKeyWithMouseEvents": "off",
+				"useKeyWithClickEvents": "off"
 			}
 		}
 	},

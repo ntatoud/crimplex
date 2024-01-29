@@ -22,7 +22,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
 				enableSystem
 				disableTransitionOnChange
 			>
-				<TooltipProvider>{children}</TooltipProvider>
+				<TooltipProvider delayDuration={200}>{children}</TooltipProvider>
 			</ThemeProvider>
 		</TRPCProvider>
 	);

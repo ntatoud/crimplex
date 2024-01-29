@@ -1,18 +1,29 @@
 import LikeButton from "@/components/LikeButton";
-import { Button } from "@/components/ui/button";
 
+import AvatarGroup from "@/components/AvatarGroup";
+import { Badge } from "@/components/ui/badge";
 import { trpc } from "@/lib/trpc/client";
 import { Marker as TMarker } from "@/server/config/schemas/Marker";
-import { Trash } from "lucide-react";
-import { toast } from "sonner";
 import MarkerImagesCarousel from "./MarkerImagesCarousel";
+import SpotActions from "./SpotActions";
+import SpotDetails from "./SpotDetails";
 
 const SpotPopupContent = ({ marker }: { marker: TMarker }) => {
 	const { position } = marker;
 	const trpcUtils = trpc.useUtils();
 
+	const account = trpc.account.get.useQuery();
 	const isLiked = trpc.markers.isLiked.useQuery({
 		position,
+	});
+	isLiked.isSuccess;
+
+	const author = trpc.users.getById.useQuery({
+		id: marker.createdById,
+	});
+
+	const likesUsers = trpc.markers.getLikesUsers.useQuery({
+		id: marker.id,
 	});
 
 	const { mutate: markerLike } = trpc.markers.like.useMutation({
@@ -26,6 +37,9 @@ const SpotPopupContent = ({ marker }: { marker: TMarker }) => {
 
 			return { prevLikeState };
 		},
+		onSuccess: () => {
+			likesUsers.refetch();
+		},
 		onError: (_, variables, context) => {
 			// Rollback to the previous state in case of error
 			trpcUtils.markers.isLiked.setData(
@@ -36,47 +50,38 @@ const SpotPopupContent = ({ marker }: { marker: TMarker }) => {
 		},
 	});
 
-	const { mutate: markerDelete, isLoading: isDeleteLoading } =
-		trpc.markers.deleteByPos.useMutation({
-			onSuccess: (data) => {
-				toast.success("Spot Deleted", {
-					description: `Spot ${data.name} deleted successfully`,
-				});
-				trpcUtils.markers.invalidate();
-			},
-			onError: () => {
-				toast.error("Could not delete the spot", {
-					description: "An error occured while deleting the spot",
-				});
-			},
-		});
 	return (
-		<div className="flex flex-col gap-2 bg-background border rounded-lg border-muted">
+		<div className="flex flex-col gap-2 bg-background border rounded-lg border-muted p-3">
 			<div className="flex flex-1 items-center justify-between">
-				{marker.name}
-				<Button
-					variant="link"
-					className="text-red-500 hover:text-red-700"
-					size="sm"
-					onClick={() =>
-						markerDelete({
-							position,
-						})
-					}
-					isLoading={isDeleteLoading}
-				>
-					<Trash />
-				</Button>
+				<div className="flex items-center">
+					<h3 className="text-lg font-bold">{marker.name}</h3>
+					<Badge variant="outline" className="text-xs">
+						{author.data?.id === account.data?.id ? "You" : author.data?.name}
+					</Badge>
+				</div>
+				<SpotActions marker={marker} author={author.data} />
 			</div>
-			<div className="flex w-full justify-center">
+			<div className="relative flex w-full justify-center">
 				<MarkerImagesCarousel imagesSrc={[]} />
 			</div>
-			{trpcUtils.auth.isAuth.getData()?.status && (
-				<LikeButton
-					isLiked={isLiked?.data}
-					onLike={() => markerLike({ position })}
+			<div className="flex items-center w-full gap-4">
+				{trpcUtils.auth.isAuth.getData()?.status && (
+					<LikeButton
+						isLiked={isLiked?.data}
+						onLike={() => {
+							markerLike({ position });
+						}}
+					/>
+				)}
+				<AvatarGroup
+					key={`${likesUsers.isStale}`}
+					users={likesUsers?.data}
+					size="sm"
+					preText="Liked by"
 				/>
-			)}
+			</div>
+
+			<SpotDetails marker={marker} />
 		</div>
 	);
 };

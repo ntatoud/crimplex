@@ -3,6 +3,7 @@ import { Drawer } from "@/components/ui/drawer";
 import { trpc } from "@/lib/trpc/client";
 import { Position } from "@/server/config/schemas/Marker";
 import { Loader2 } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { FilterControl } from "../controls/FilterControl";
 import useOnMapClick from "../hooks/useOnMapClick";
@@ -16,6 +17,7 @@ const Markers = () => {
 
 	const markers = trpc.markers.getAll.useQuery();
 
+	const searchParams = useSearchParams();
 	useOnMapClick((event: mapboxgl.MapMouseEvent & mapboxgl.EventData) => {
 		if (popupOpen) {
 			setPopupOpen(false);

@@ -29,10 +29,15 @@ const buttonVariants = cva(
 				lg: "h-14 text-xl rounded-md px-8",
 				icon: "h-10 w-10",
 			},
+			isLoading: {
+				true: true,
+				false: false,
+			},
 		},
 		defaultVariants: {
 			variant: "default",
 			size: "default",
+			isLoading: false,
 		},
 	},
 );

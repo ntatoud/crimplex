@@ -15,6 +15,13 @@ interface AvatarGroupProps extends React.HTMLAttributes<HTMLDivElement> {
 	preText?: string;
 	postText?: string;
 }
+
+const avatarGroupStyle = {
+	sm: { size: 8, ml: "-ml-5", containerMl: "ml-3", loaderW: 40, loaderH: 3 },
+	md: { size: 11, ml: "-ml-7", containerMl: "ml-5", loaderW: 48, loaderH: 4 },
+	lg: { size: 14, ml: "-ml-9", containerMl: "ml-7", loaderW: 60, loaderH: 5 },
+} as const;
+
 const AvatarGroup: FC<AvatarGroupProps> = ({
 	size = "md",
 	users,
@@ -37,7 +44,11 @@ const AvatarGroup: FC<AvatarGroupProps> = ({
 
 	return (
 		<div
-			className={cn("flex w-full items-center gap-[1rem]", className)}
+			className={cn(
+				"flex w-full items-center gap-[0.75rem]",
+				avatarGroupStyle[size].containerMl,
+				className,
+			)}
 			{...props}
 		>
 			<Avatars users={users} displayCount={avatarDisplayCount} size={size} />
@@ -52,11 +63,6 @@ const AvatarGroup: FC<AvatarGroupProps> = ({
 	);
 };
 
-const avatarProps = {
-	sm: { size: 8, ml: "-ml-5", loaderW: 40, loaderH: 3 },
-	md: { size: 11, ml: "-ml-7", loaderW: 48, loaderH: 4 },
-	lg: { size: 14, ml: "-ml-9", loaderW: 60, loaderH: 5 },
-} as const;
 export interface AvatarsProps {
 	users: UserAccount[];
 	displayCount: number;
@@ -74,16 +80,16 @@ export const Avatars = ({
 	const avatars = users
 		.slice(0, displayCount)
 		.reverse()
-		.map((user, index) => (
+		.map((user) => (
 			<div
 				key={`${user.name}-${user.profilePictureKey}`}
 				className={cn(
-					"relative flex rounded-full p-0.5 bg-background ",
-					index !== displayCount - 1 && avatarProps[size].ml,
+					"relative flex rounded-full p-0.5 bg-background",
+					avatarGroupStyle[size].ml,
 				)}
 			>
 				<Avatar
-					className={`h-${avatarProps[size].size} w-${avatarProps[size].size}`}
+					className={`h-${avatarGroupStyle[size].size} w-${avatarGroupStyle[size].size}`}
 				>
 					<AvatarImage src={getFileUrl(user.profilePictureKey)} alt="PP" />
 					<AvatarFallback className={`uppercase text-${size}`}>
@@ -119,7 +125,7 @@ const UsernamesText = ({
 	const otherNamesCount = users.length - displayCount;
 
 	const usernames = users.slice(0, displayCount).map((user, index) => {
-		if (index === displayCount - 1)
+		if (index === Math.min(users.length, displayCount) - 1)
 			return <p key={`${user.name}-${user.email}`}>{user.name}</p>;
 
 		return <p key={`${user.name}-${user.email}`}>{user.name},</p>;
@@ -149,11 +155,11 @@ export const AvatarGroupLoadingState = ({
 			key={`avatar-skeleton-${index}`}
 			className={cn(
 				"relative flex rounded-full p-0.5 bg-background ",
-				index !== length - 1 && avatarProps[size].ml,
+				avatarGroupStyle[size].ml,
 			)}
 		>
 			<Skeleton
-				className={`rounded-full h-${avatarProps[size].size} w-${avatarProps[size].size}`}
+				className={`rounded-full h-${avatarGroupStyle[size].size} w-${avatarGroupStyle[size].size}`}
 			/>
 		</div>
 	));
@@ -165,7 +171,7 @@ export const AvatarGroupLoadingState = ({
 		>
 			<div className="flex flex-row-reverse">{avatarsLoading}</div>
 			<Skeleton
-				className={`w-${avatarProps[size].loaderW} h-${avatarProps[size].loaderH}`}
+				className={`w-${avatarGroupStyle[size].loaderW} h-${avatarGroupStyle[size].loaderH}`}
 			/>
 		</div>
 	);

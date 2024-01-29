@@ -37,7 +37,7 @@ model User {
   isActivated    Boolean          @default(false)
   creationDate   DateTime         @default(now())
 
-  markers      Marker[]     @relation(name: "author")
+  marker       Marker[]     @relation(name: "author")
   likedMarkers MarkerLike[]
 }
 

@@ -2,7 +2,11 @@ import { env } from "@/env.mjs";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 
+import { LoaderFull } from "@/components/LoaderFull";
+import { trpc } from "@/lib/trpc/client";
+import { useSearchParams } from "next/navigation";
 import ReactMapBoxGl from "react-map-gl";
+import { toast } from "sonner";
 import ControlsLayer from "./ControlsLayer";
 import { DEFAULT_VIEW_STATE } from "./constants";
 import useOnContextMenu from "./hooks/useOnContextMenu";
@@ -19,7 +23,34 @@ const ContextMenuLayer = () => (
 );
 
 const Map = () => {
-	const initialViewState = DEFAULT_VIEW_STATE;
+	const markerId = useSearchParams().get("marker");
+
+	let initialViewState = DEFAULT_VIEW_STATE;
+
+	if (markerId) {
+		const {
+			data: marker,
+			isLoading,
+			isError,
+		} = trpc.markers.getById.useQuery(
+			{
+				id: markerId,
+			},
+			{},
+		);
+
+		if (isLoading) return <LoaderFull />;
+		if (isError) {
+			toast.error("Error", {
+				description: "Could not find the requested spot",
+				id: "marker-error",
+			});
+		}
+		if (marker) {
+			initialViewState = { zoom: 5, ...marker.position };
+		}
+	}
+
 	return (
 		<div className="relative flex flex-1" onMouseDown={useOnContextMenu()}>
 			<ContextMenuLayer />

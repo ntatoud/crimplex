@@ -2,6 +2,7 @@ import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { zMarkerLike } from "../config/schemas/Like";
 import { markerCreatePick, zMarker } from "../config/schemas/Marker";
+import { zUser } from "../config/schemas/User";
 import {
 	createTRPCRouter,
 	protectedProcedure,
@@ -15,7 +16,25 @@ export const markersRouter = createTRPCRouter({
 		.query(async ({ ctx }) => {
 			return await ctx.db.marker.findMany();
 		}),
+	getById: publicProcedure()
+		.input(z.object({ id: z.string() }))
+		.output(zMarker())
+		.query(async ({ ctx, input }) => {
+			const marker = await ctx.db.marker.findFirst({
+				where: {
+					id: input.id,
+				},
+			});
 
+			if (!marker) {
+				throw new TRPCError({
+					code: "NOT_FOUND",
+					message: "Could not find marker with given id",
+				});
+			}
+
+			return marker;
+		}),
 	isLiked: publicProcedure()
 		.input(
 			zMarker()
@@ -33,6 +52,7 @@ export const markersRouter = createTRPCRouter({
 					marker: {
 						position: input.position,
 					},
+					userId: ctx.user.id,
 				},
 			}));
 		}),
@@ -101,6 +121,7 @@ export const markersRouter = createTRPCRouter({
 					marker: {
 						position: input.position,
 					},
+					userId: ctx.user.id,
 				},
 			});
 
@@ -108,6 +129,7 @@ export const markersRouter = createTRPCRouter({
 				return await ctx.db.markerLike.delete({
 					where: {
 						id: like.id,
+						userId: ctx.user.id,
 					},
 				});
 			}
@@ -141,6 +163,29 @@ export const markersRouter = createTRPCRouter({
 			return await ctx.db.marker.delete({
 				where: {
 					id: marker.id,
+				},
+			});
+		}),
+
+	getLikesUsers: publicProcedure()
+		.input(zMarkerLike().pick({ id: true }))
+		.output(z.array(zUser()))
+		.query(async ({ ctx, input }) => {
+			const likesUserIds = (
+				await ctx.db.markerLike.findMany({
+					where: {
+						markerId: input.id,
+					},
+					select: {
+						userId: true,
+					},
+				})
+			).map((like) => like.userId);
+			return await ctx.db.user.findMany({
+				where: {
+					id: {
+						in: likesUserIds,
+					},
 				},
 			});
 		}),

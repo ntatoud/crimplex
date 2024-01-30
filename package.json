@@ -17,6 +17,7 @@
 		"*.{ts,tsx,js,jsx,json}": "biome check --files-ignore-unknown=true"
 	},
 	"dependencies": {
+		"@babel/core": "^7.23.9",
 		"@chakra-ui/pin-input": "2.1.0",
 		"@faker-js/faker": "8.3.1",
 		"@formkit/auto-animate": "0.8.1",
@@ -41,6 +42,9 @@
 		"@radix-ui/react-tooltip": "1.0.7",
 		"@react-email/components": "0.0.12",
 		"@react-email/render": "0.0.10",
+		"@react-types/button": "^3.9.1",
+		"@stoplight/elements": "7.15.3",
+		"@stoplight/mosaic": "1.50.1",
 		"@t3-oss/env-nextjs": "0.7.1",
 		"@tanstack/react-query": "4.36.1",
 		"@tanstack/react-table": "8.11.6",
@@ -75,6 +79,7 @@
 		"superjson": "2.2.1",
 		"tailwind-merge": "2.2.0",
 		"tailwindcss-animate": "1.0.7",
+		"trpc-openapi": "^1.2.0",
 		"uploadthing": "6.3.0",
 		"vaul": "0.8.7",
 		"zod": "3.22.4",

@@ -4,6 +4,7 @@ import { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
+import { OpenApiMeta } from "trpc-openapi";
 import { getServerSideUser } from "./auth";
 import { db } from "./db";
 import { UserAuthorization } from "./schemas/User";
@@ -20,23 +21,26 @@ export type AppContext = inferAsyncReturnType<typeof createTRPCContext>;
 
 /* CREATION OF THE ROUTER */
 
-const t = initTRPC.context<typeof createTRPCContext>().create({
-	transformer: superjson,
-	errorFormatter({ shape, error }) {
-		return {
-			...shape,
-			data: {
-				...shape.data,
-				zodError:
-					error.cause instanceof ZodError ? error.cause.flatten() : null,
-				prismaError:
-					error.cause instanceof Prisma.PrismaClientKnownRequestError
-						? error.cause.meta
-						: null,
-			},
-		};
-	},
-});
+const t = initTRPC
+	.meta<OpenApiMeta>()
+	.context<typeof createTRPCContext>()
+	.create({
+		transformer: superjson,
+		errorFormatter({ shape, error }) {
+			return {
+				...shape,
+				data: {
+					...shape.data,
+					zodError:
+						error.cause instanceof ZodError ? error.cause.flatten() : null,
+					prismaError:
+						error.cause instanceof Prisma.PrismaClientKnownRequestError
+							? error.cause.meta
+							: null,
+				},
+			};
+		},
+	});
 
 export const createTRPCRouter = t.router;
 

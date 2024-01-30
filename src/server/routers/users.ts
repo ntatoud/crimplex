@@ -10,6 +10,13 @@ import {
 
 export const usersRouter = createTRPCRouter({
 	getAll: protectedProcedure({ authorizations: ["admin"] })
+		.meta({
+			openapi: {
+				method: "GET",
+				path: "/users/getAll",
+				tags: ["users"],
+			},
+		})
 		.input(z.void())
 		.output(z.array(zUser()))
 		.query(async ({ ctx }) => {

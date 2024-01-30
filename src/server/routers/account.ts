@@ -7,6 +7,14 @@ import { createTRPCRouter, protectedProcedure } from "../config/trpc";
 
 export const accountRouter = createTRPCRouter({
 	get: protectedProcedure()
+		.meta({
+			openapi: {
+				method: "GET",
+				path: "/accounts/me",
+				protect: true,
+				tags: ["accounts"],
+			},
+		})
 		.input(z.void())
 		.output(zUserAccount())
 		.query(async ({ ctx }) => {
@@ -24,6 +32,14 @@ export const accountRouter = createTRPCRouter({
 			return user;
 		}),
 	update: protectedProcedure()
+		.meta({
+			openapi: {
+				method: "PUT",
+				path: "/accounts/me",
+				protect: true,
+				tags: ["accounts"],
+			},
+		})
 		.input(zUserAccount().pick({ email: true, name: true }).required())
 		.output(zUserAccount())
 		.mutation(async ({ ctx, input }) => {
@@ -39,6 +55,14 @@ export const accountRouter = createTRPCRouter({
 			}
 		}),
 	updatePictureByKey: protectedProcedure()
+		.meta({
+			openapi: {
+				method: "PUT",
+				path: "/accounts/me/{key}",
+				protect: true,
+				tags: ["accounts"],
+			},
+		})
 		.input(z.object({ key: z.string() }))
 		.output(z.object({ key: z.string() }))
 		.mutation(async ({ ctx, input }) => {

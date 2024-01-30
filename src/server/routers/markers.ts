@@ -11,12 +11,26 @@ import {
 
 export const markersRouter = createTRPCRouter({
 	getAll: publicProcedure()
+		.meta({
+			openapi: {
+				method: "GET",
+				path: "/map/markers",
+				tags: ["markers"],
+			},
+		})
 		.input(z.void())
 		.output(z.array(zMarker()))
 		.query(async ({ ctx }) => {
 			return await ctx.db.marker.findMany();
 		}),
 	getById: publicProcedure()
+		.meta({
+			openapi: {
+				method: "GET",
+				path: "/map/markers/{id}",
+				tags: ["markers"],
+			},
+		})
 		.input(z.object({ id: z.string() }))
 		.output(zMarker())
 		.query(async ({ ctx, input }) => {
@@ -36,11 +50,14 @@ export const markersRouter = createTRPCRouter({
 			return marker;
 		}),
 	isLiked: publicProcedure()
-		.input(
-			zMarker()
-				.pick({ position: true } as const)
-				.required(),
-		)
+		.meta({
+			openapi: {
+				method: "GET",
+				path: "/map/markers/like/{id}",
+				tags: ["markers"],
+			},
+		})
+		.input(z.object({ id: z.string() }))
 		.output(z.boolean())
 		.query(async ({ ctx, input }) => {
 			if (!ctx.user) {
@@ -50,13 +67,21 @@ export const markersRouter = createTRPCRouter({
 			return !!(await ctx.db.markerLike.findFirst({
 				where: {
 					marker: {
-						position: input.position,
+						id: input.id,
 					},
 					userId: ctx.user.id,
 				},
 			}));
 		}),
 	create: protectedProcedure()
+		.meta({
+			openapi: {
+				method: "POST",
+				path: "/map/markers/create",
+				protect: true,
+				tags: ["markers"],
+			},
+		})
 		.input(zMarker().pick(markerCreatePick).required())
 		.output(zMarker())
 		.mutation(async ({ ctx, input }) => {
@@ -91,11 +116,14 @@ export const markersRouter = createTRPCRouter({
 			return zMarker().parse(marker);
 		}),
 	like: protectedProcedure()
-		.input(
-			zMarker()
-				.pick({ position: true } as const)
-				.required(),
-		)
+		.meta({
+			openapi: {
+				method: "GET",
+				path: "/map/markers/like",
+				tags: ["markers"],
+			},
+		})
+		.input(z.object({ id: z.string() }))
 		.output(zMarkerLike())
 		.mutation(async ({ ctx, input }) => {
 			// Get the marker to like
@@ -104,7 +132,7 @@ export const markersRouter = createTRPCRouter({
 					id: true,
 				},
 				where: {
-					position: input.position,
+					id: input.id,
 				},
 			});
 
@@ -119,7 +147,7 @@ export const markersRouter = createTRPCRouter({
 			const like = await ctx.db.markerLike.findFirst({
 				where: {
 					marker: {
-						position: input.position,
+						id: input.id,
 					},
 					userId: ctx.user.id,
 				},
@@ -142,17 +170,20 @@ export const markersRouter = createTRPCRouter({
 			});
 		}),
 
-	deleteByPos: protectedProcedure()
-		.input(
-			zMarker()
-				.pick({ position: true } as const)
-				.required(),
-		)
+	deleteById: protectedProcedure()
+		.meta({
+			openapi: {
+				method: "DELETE",
+				path: "/map/markers",
+				tags: ["markers"],
+			},
+		})
+		.input(z.object({ id: z.string() }))
 		.output(zMarker())
 		.mutation(async ({ ctx, input }) => {
 			const marker = await ctx.db.marker.findFirst({
 				where: {
-					position: input.position,
+					id: input.id,
 				},
 			});
 
@@ -168,6 +199,13 @@ export const markersRouter = createTRPCRouter({
 		}),
 
 	getLikesUsers: publicProcedure()
+		.meta({
+			openapi: {
+				method: "GET",
+				path: "/map/markers/likes-users",
+				tags: ["markers"],
+			},
+		})
 		.input(zMarkerLike().pick({ id: true }))
 		.output(z.array(zUser()))
 		.query(async ({ ctx, input }) => {

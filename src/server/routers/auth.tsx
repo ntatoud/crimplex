@@ -1,5 +1,7 @@
 import { randomUUID } from "crypto";
+
 import { TRPCError } from "@trpc/server";
+
 import { hash } from "bcrypt";
 import dayjs from "dayjs";
 import jwt from "jsonwebtoken";
@@ -7,7 +9,10 @@ import { cookies } from "next/headers";
 import { z } from "zod";
 
 import { env } from "@/env.mjs";
-import { VALIDATION_TOKEN_EXPIRATION_IN_MINUTES } from "@/features/auth/utils";
+import {
+	VALIDATION_RETRY_DELAY_IN_SECONDS,
+	VALIDATION_TOKEN_EXPIRATION_IN_MINUTES,
+} from "@/features/auth/utils";
 import EmailVerifyAccount from "@/features/emails/templates/verify-account";
 
 import {
@@ -25,6 +30,13 @@ import { createTRPCRouter, publicProcedure } from "../config/trpc";
 
 export const authRouter = createTRPCRouter({
 	isAuth: publicProcedure()
+		.meta({
+			openapi: {
+				method: "GET",
+				path: "/auth/is-auth",
+				tags: ["auth"],
+			},
+		})
 		.input(z.void())
 		.output(
 			z.object({
@@ -39,6 +51,13 @@ export const authRouter = createTRPCRouter({
 			};
 		}),
 	register: publicProcedure()
+		.meta({
+			openapi: {
+				method: "POST",
+				path: "/auth/register",
+				tags: ["auth"],
+			},
+		})
 		.input(zAuthCredentials())
 		.output(z.object({ token: z.string() }))
 		.mutation(async ({ ctx, input }) => {
@@ -109,6 +128,14 @@ export const authRouter = createTRPCRouter({
 			};
 		}),
 	registerValidate: publicProcedure()
+		.meta({
+			openapi: {
+				method: "POST",
+				path: "/auth/register/{token}",
+				tags: ["auth"],
+				description: `Failed requests will increment retry delay timeout based on the number of attempts multiplied by ${VALIDATION_RETRY_DELAY_IN_SECONDS} seconds. The number of attempts will not be returned in the response for security purposes. You will have to save the number of attemps in the client.`,
+			},
+		})
 		.input(z.object({ code: z.string().length(6), token: z.string().uuid() }))
 		.output(z.object({ token: z.string() }))
 		.mutation(async ({ ctx, input }) => {
@@ -141,6 +168,13 @@ export const authRouter = createTRPCRouter({
 			return { token: userJwt };
 		}),
 	login: publicProcedure()
+		.meta({
+			openapi: {
+				method: "POST",
+				path: "/auth/login",
+				tags: ["auth"],
+			},
+		})
 		.input(zAuthCredentials().pick({ email: true, password: true }))
 		.output(z.object({ authToken: z.string() }))
 		.mutation(async ({ ctx, input }) => {
@@ -166,6 +200,13 @@ export const authRouter = createTRPCRouter({
 			return { authToken };
 		}),
 	logout: publicProcedure()
+		.meta({
+			openapi: {
+				method: "POST",
+				path: "/auth/logout",
+				tags: ["auth"],
+			},
+		})
 		.input(z.void())
 		.output(z.void())
 		.mutation(async ({ ctx }) => {

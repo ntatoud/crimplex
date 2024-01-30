@@ -1,7 +1,14 @@
 "use client";
 
-import PageAdminAPI from "@/features/admin/api/PageAdminAPI";
+import { LoaderFull } from "@/components/LoaderFull";
+import dynamic from "next/dynamic";
 
+const PageAdminAPI = dynamic(
+	() => import("@/features/admin/api/PageAdminAPI"),
+	{
+		loading: () => <LoaderFull />,
+	},
+);
 const Page = () => {
 	return <PageAdminAPI />;
 };

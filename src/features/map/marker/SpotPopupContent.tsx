@@ -9,13 +9,11 @@ import SpotActions from "./SpotActions";
 import SpotDetails from "./SpotDetails";
 
 const SpotPopupContent = ({ marker }: { marker: TMarker }) => {
-	const { position } = marker;
+	const { id } = marker;
 	const trpcUtils = trpc.useUtils();
 
 	const account = trpc.account.get.useQuery();
-	const isLiked = trpc.markers.isLiked.useQuery({
-		position,
-	});
+	const isLiked = trpc.markers.isLiked.useQuery({ id });
 	isLiked.isSuccess;
 
 	const author = trpc.users.getById.useQuery({
@@ -29,11 +27,11 @@ const SpotPopupContent = ({ marker }: { marker: TMarker }) => {
 	const { mutate: markerLike } = trpc.markers.like.useMutation({
 		onMutate: async (variables) => {
 			// Snapshot of the previous state
-			const prevLikeState = trpcUtils.markers.isLiked.getData(variables);
+			const prevLikeState = trpcUtils.markers.isLiked.getData({ id });
 			// Optimistic update
 			await trpcUtils.markers.isLiked.cancel();
 
-			trpcUtils.markers.isLiked.setData(variables, !prevLikeState, undefined);
+			trpcUtils.markers.isLiked.setData({ id }, !prevLikeState, undefined);
 
 			return { prevLikeState };
 		},
@@ -43,7 +41,7 @@ const SpotPopupContent = ({ marker }: { marker: TMarker }) => {
 		onError: (_, variables, context) => {
 			// Rollback to the previous state in case of error
 			trpcUtils.markers.isLiked.setData(
-				variables,
+				{ id },
 				context?.prevLikeState,
 				undefined,
 			);
@@ -69,7 +67,7 @@ const SpotPopupContent = ({ marker }: { marker: TMarker }) => {
 					<LikeButton
 						isLiked={isLiked?.data}
 						onLike={() => {
-							markerLike({ position });
+							markerLike({ id });
 						}}
 					/>
 				)}

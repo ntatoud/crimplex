@@ -10,6 +10,14 @@ import {
 
 export const usersRouter = createTRPCRouter({
 	getAll: protectedProcedure({ authorizations: ["admin"] })
+		.meta({
+			openapi: {
+				method: "GET",
+				path: "/users",
+				protect: true,
+				tags: ["users"],
+			},
+		})
 		.input(z.void())
 		.output(z.array(zUser()))
 		.query(async ({ ctx }) => {
@@ -20,6 +28,14 @@ export const usersRouter = createTRPCRouter({
 			});
 		}),
 	deactivate: protectedProcedure({ authorizations: ["admin"] })
+		.meta({
+			openapi: {
+				method: "POST",
+				path: "/users/{id}/deactivate",
+				protect: true,
+				tags: ["users"],
+			},
+		})
 		.input(
 			zUser().required().pick({
 				id: true,
@@ -42,6 +58,14 @@ export const usersRouter = createTRPCRouter({
 			});
 		}),
 	activate: protectedProcedure({ authorizations: ["admin"] })
+		.meta({
+			openapi: {
+				method: "POST",
+				path: "/users/{id}/activate",
+				protect: true,
+				tags: ["users"],
+			},
+		})
 		.input(
 			zUser().required().pick({
 				id: true,
@@ -64,6 +88,14 @@ export const usersRouter = createTRPCRouter({
 			});
 		}),
 	deleteById: protectedProcedure({ authorizations: ["admin"] })
+		.meta({
+			openapi: {
+				method: "DELETE",
+				path: "/users/{id}",
+				protect: true,
+				tags: ["users"],
+			},
+		})
 		.input(
 			zUser().required().pick({
 				id: true,
@@ -83,6 +115,13 @@ export const usersRouter = createTRPCRouter({
 			});
 		}),
 	getById: publicProcedure()
+		.meta({
+			openapi: {
+				method: "GET",
+				path: "/users/{id}",
+				tags: ["users"],
+			},
+		})
 		.input(z.object({ id: z.string() }))
 		.output(zUser())
 		.query(async ({ ctx, input }) => {

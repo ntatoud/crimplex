@@ -20,7 +20,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 const SpotActions = ({ marker, author }: { marker: Marker; author?: User }) => {
-	const { position } = marker;
+	const { id } = marker;
 	const spotLink = `${env.NEXT_PUBLIC_BASE_URL}/map?marker=${marker.id}`;
 
 	const [isJustCopied, setIsJustCopied] = useState(false);
@@ -29,7 +29,7 @@ const SpotActions = ({ marker, author }: { marker: Marker; author?: User }) => {
 	const account = trpc.account.get.useQuery();
 
 	const { mutate: markerDelete, isLoading: isDeleteLoading } =
-		trpc.markers.deleteByPos.useMutation({
+		trpc.markers.deleteById.useMutation({
 			onSuccess: (data) => {
 				toast.success("Spot Deleted", {
 					description: `Spot ${data.name} deleted successfully`,
@@ -85,7 +85,7 @@ const SpotActions = ({ marker, author }: { marker: Marker; author?: User }) => {
 							className="text-red-500 hover:text-red-700 cursor-pointer"
 							onClick={() =>
 								markerDelete({
-									position,
+									id,
 								})
 							}
 						>

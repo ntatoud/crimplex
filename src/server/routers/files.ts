@@ -4,6 +4,14 @@ import { createTRPCRouter, protectedProcedure } from "../config/trpc";
 
 export const filesRouter = createTRPCRouter({
 	deleteByKey: protectedProcedure()
+		.meta({
+			openapi: {
+				method: "DELETE",
+				path: "/files",
+				protect: true,
+				tags: ["files"],
+			},
+		})
 		.input(z.object({ key: z.string() }))
 		.output(z.object({ key: z.string() }))
 		.mutation(async ({ ctx, input }) => {

@@ -15,7 +15,14 @@ export const createTRPCContext = async ({
 	req,
 }: FetchCreateContextFnOptions) => {
 	const user = await getServerSideUser();
-	return { req, user, db, files };
+
+	const apiType: "REST" | "TRPC" = new URL(req.url).pathname.startsWith(
+		"/api/rest",
+	)
+		? "REST"
+		: "TRPC";
+
+	return { req, user, db, files, apiType };
 };
 export type AppContext = inferAsyncReturnType<typeof createTRPCContext>;
 

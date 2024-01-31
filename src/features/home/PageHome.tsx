@@ -18,6 +18,7 @@ const PageHome = () => {
 		target: containerRef,
 		offset: ["start start", "end end"],
 	});
+	const isSmall = useBreakpoints({ below: "xl" });
 	const isMobile = useBreakpoints({ below: "md" });
 	const md = useTransform(scrollYProgress, [0, 1], ["-10rem", "0rem"]);
 
@@ -25,6 +26,7 @@ const PageHome = () => {
 	const lgX = useTransform(scrollYProgress, [0, 1], [0, -200]);
 	const smX = useTransform(scrollYProgress, [0, 1], ["50vw", "52vw"]);
 	const scale = useTransform(scrollYProgress, [0, 1], [1.3, 1]);
+	const title = useTransform(scrollYProgress, [0, 1], ["23rem", "27rem"]);
 	const blur = useTransform(
 		scrollYProgress,
 		[0, 1],
@@ -34,10 +36,16 @@ const PageHome = () => {
 	const reverseOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
 	return (
 		<div
-			className="relative flex flex-1 w-screen aspect-video object-cover overflow-hidden"
+			className="relative flex flex-1 w-screen xl:h-[130vh] overflow-hidden"
 			ref={containerRef}
 		>
-			<div className="absolute w-screen aspect-[3/2] top-0">
+			<div
+				className={
+					isSmall
+						? "absolute w-[300vw] aspect-[3/2]"
+						: "absolute xl:w-screen xl:aspect-[3/2] top-0"
+				}
+			>
 				<Image src="/background/Background.svg" alt="background image" fill />
 			</div>
 			<motion.div
@@ -46,7 +54,7 @@ const PageHome = () => {
 					top: 0,
 					transitionBehavior: "allow-discrete",
 				}}
-				className="absolute w-screen aspect-[3/2]"
+				className="absolute aspect-[3/2]"
 			>
 				<Image src="/background/Layer4.svg" alt="background image" fill />
 			</motion.div>
@@ -55,7 +63,7 @@ const PageHome = () => {
 					filter: blur,
 					backdropFilter: blur,
 				}}
-				className="absolute top-0 right-0 w-screen aspect-[3/2]"
+				className="absolute bottom-0 right-0 w-screen aspect-[3/2]"
 			>
 				<Image src="/background/Layer3.svg" alt="background image" fill />
 			</motion.div>
@@ -67,21 +75,21 @@ const PageHome = () => {
 			</motion.div>
 
 			<motion.div
-				style={{ bottom: lg }}
+				style={{
+					bottom: isMobile ? "-20rem" : lg,
+					left: isMobile ? "-30rem" : 0,
+				}}
 				className="fixed h-screen md:h-fit md:w-screen aspect-[3/2]"
 			>
-				<Image
-					src="/background/Layer1.svg"
-					alt="background image"
-					height={1080}
-					width={1920}
-				/>
+				<Image src="/background/Layer1.svg" alt="background image" fill />
 			</motion.div>
 			<motion.div
-				className={cn("text-7xl font-bold absolute")}
+				className={cn(
+					"flex flex-1 flex-col items-center justify-center z-50 text-7xl font-bold md:ml-96 xl:ml-0 xl:block xl:absolute",
+				)}
 				style={{
-					top: "20rem",
-					left: isMobile ? 0 : smX,
+					top: isSmall ? "20rem" : title,
+					left: isSmall ? 0 : smX,
 					scale: scale,
 				}}
 			>
@@ -94,7 +102,7 @@ const PageHome = () => {
 				>
 					Climbing has never been so easy.
 				</div>
-				{!isMobile && (
+				{!isSmall && (
 					<motion.div
 						style={{ opacity: reverseOpacity }}
 						className="flex w-full justify-center my-5 cursor-pointer hover:drop-shadow-sm"
@@ -106,8 +114,8 @@ const PageHome = () => {
 					</motion.div>
 				)}
 				<motion.div
-					style={{ opacity: scrollYProgress }}
-					className="flex flex-col gap-2 my-5"
+					style={{ opacity: isMobile ? 1 : scrollYProgress }}
+					className="flex flex-col w-[80vw] sm:w-[50%] md:w-[80%] md:max-w-[40vw] lg:max-w-[35vw] gap-2 my-5"
 				>
 					<Button size="lg">Open the map</Button>
 					<Button size="lg">Plan a trip</Button>

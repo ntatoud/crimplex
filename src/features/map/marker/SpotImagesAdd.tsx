@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
 	Dialog,
 	DialogContent,
@@ -8,17 +9,18 @@ import {
 import FieldFileUpload from "@/components/uploadthing/FieldFileUpload";
 import { trpc } from "@/lib/trpc/client";
 import { MAX_SPOT_IMAGES } from "@/lib/uploadthing/constants";
-import { cn } from "@/lib/utils";
 import { Marker } from "@/server/config/schemas/Marker";
 import { ImagePlus } from "lucide-react";
 import { useState } from "react";
 
-export const SpotImagesAdd = ({
-	size,
-	marker,
-}: { size: "small" | "large"; marker: Marker }) => {
+export const SpotImagesAdd = ({ marker }: { marker: Marker }) => {
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 	const trpcUtils = trpc.useUtils();
+	const account = trpc.account.get.useQuery();
+	const canAddImages =
+		account.data?.id === marker.createdById &&
+		marker.picturesKeys.length < MAX_SPOT_IMAGES;
+
 	const { mutate: addPictures } = trpc.markers.addPicturesKeys.useMutation({
 		onSuccess: () => {
 			trpcUtils.markers.invalidate();
@@ -26,21 +28,15 @@ export const SpotImagesAdd = ({
 		},
 	});
 
+	if (!canAddImages) return;
+
 	return (
 		<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
 			<DialogTrigger asChild>
-				<span
-					tabIndex={0}
-					className={cn(
-						"relative group flex flex-col gap-1 items-center justify-center aspect-square rounded-lg cursor-pointer",
-						"focus-visible:ring focus-visible:ring-ring focus-visible:outline-none",
-						"hover:bg-muted-foreground/5",
-						size === "small" ? "w-40" : "w-60",
-					)}
-				>
-					<ImagePlus className="text-muted-foreground group-hover:scale-125 transition-all" />
+				<Button size="sm" variant="outline">
+					<ImagePlus className="text-muted-foreground text-lg h-5 w-5 mr-1" />
 					Add more
-				</span>
+				</Button>
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>

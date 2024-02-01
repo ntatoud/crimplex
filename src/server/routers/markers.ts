@@ -240,13 +240,13 @@ export const markersRouter = createTRPCRouter({
 			});
 		}),
 	addPicturesKeys: protectedProcedure()
-		.meta({
-			openapi: {
-				method: "PUT",
-				path: "/map/markers/{id}",
-				tags: ["markers"],
-			},
-		})
+		// .meta({
+		// 	openapi: {
+		// 		method: "PUT",
+		// 		path: "/map/markers/{id}",
+		// 		tags: ["markers"],
+		// 	},
+		// })
 		.input(z.object({ id: z.string(), keys: z.array(z.string()) }))
 		.output(z.object({ keys: z.array(z.string()) }))
 		.mutation(async ({ ctx, input }) => {
@@ -289,13 +289,13 @@ export const markersRouter = createTRPCRouter({
 			return { keys: picturesKeys };
 		}),
 	deletePictures: protectedProcedure()
-		.meta({
-			openapi: {
-				method: "DELETE",
-				path: "/map/markers/{id}",
-				tags: ["markers"],
-			},
-		})
+		// .meta({
+		// 	openapi: {
+		// 		method: "DELETE",
+		// 		path: "/map/markers/{id}",
+		// 		tags: ["markers"],
+		// 	},
+		// })
 		.input(z.object({ id: z.string(), keys: z.array(z.string()) }))
 		.output(z.object({ keys: z.array(z.string()) }))
 		.mutation(async ({ ctx, input }) => {

@@ -60,7 +60,7 @@ const SpotPopupContent = ({ marker }: { marker: TMarker }) => {
 				<SpotActions marker={marker} author={author.data} />
 			</div>
 			<div className="relative flex w-full justify-center">
-				<MarkerImagesCarousel imagesSrc={[]} />
+				<MarkerImagesCarousel marker={marker} />
 			</div>
 			<div className="flex items-center w-full gap-4">
 				{trpcUtils.auth.isAuth.getData()?.status && (

@@ -16,6 +16,7 @@ export const zMarker = () =>
 		createdById: z.string(),
 		creationDate: z.date(),
 		lastUpdate: z.date(),
+		picturesKeys: z.array(z.string()).default([]),
 	});
 
 export const markerCreatePick = {

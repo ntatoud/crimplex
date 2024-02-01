@@ -34,16 +34,16 @@ const SpotDetails = ({ marker }: { marker: Marker }) => {
 				<SheetHeader>
 					<SheetTitle className="flex items-end gap-4 mb-3">
 						<h2 className="text-3xl">{marker.name}</h2>
-						<p className="flex items-center font-semibold text-muted-foreground gap-0.5">
+						<span className="flex items-center font-semibold text-muted-foreground gap-0.5">
 							Created by
 							<Badge variant="outline" className="px-1.5 text-md">
 								{authorName}
 							</Badge>
-						</p>
+						</span>
 					</SheetTitle>
 				</SheetHeader>
 				<div className="mx-10">
-					<MarkerImagesCarousel size="large" imagesSrc={[]} />
+					<MarkerImagesCarousel size="large" marker={marker} />
 				</div>
 				{author.data?.name}
 				{dayjs(marker.creationDate).format("DD MMMM YYYY")}

@@ -72,5 +72,6 @@ model Marker {
   createdBy   User?  @relation(name: "author", fields: [createdById], references: [id])
   createdById String @db.ObjectId
 
-  likes MarkerLike[]
+  likes        MarkerLike[]
+  picturesKeys String[]     @default([])
 }

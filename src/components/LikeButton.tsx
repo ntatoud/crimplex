@@ -1,7 +1,7 @@
 import { motion, useAnimate } from "framer-motion";
 import { Heart } from "lucide-react";
 import { FC } from "react";
-import { Button, ButtonProps } from "./ui/button";
+import { ButtonProps, buttonVariants } from "./ui/button";
 
 interface LikeButtonProps extends ButtonProps {
 	isLiked?: boolean;
@@ -29,22 +29,21 @@ const LikeButton: FC<LikeButtonProps> = ({
 	const [scope, animate] = useAnimate();
 
 	return (
-		<Button
-			className={`${color} hover:scale-110 transition-all`}
-			variant="link"
-			size="icon"
+		<motion.button
+			className={buttonVariants({
+				variant: "link",
+				className: `${color} hover:scale-110 transition-all`,
+				size: "icon",
+			})}
 			onClick={() => onLike()}
 			key={String()}
+			ref={scope}
+			whileTap={whileTapAnimation}
+			onTap={() => animate(scope.current, onTapAnimation)}
+			transition={{ duration: TRANSITIONS_DURATION }}
 		>
-			<motion.span
-				ref={scope}
-				whileTap={whileTapAnimation}
-				onTap={() => animate(scope.current, onTapAnimation)}
-				transition={{ duration: TRANSITIONS_DURATION }}
-			>
-				{isLiked ? <Heart fill="currentColor" /> : <Heart />}
-			</motion.span>
-		</Button>
+			{isLiked ? <Heart fill="currentColor" /> : <Heart />}
+		</motion.button>
 	);
 };
 

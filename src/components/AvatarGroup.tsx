@@ -124,12 +124,15 @@ const UsernamesText = ({
 
 	const otherNamesCount = users.length - displayCount;
 
-	const usernames = users.slice(0, displayCount).map((user, index) => {
-		if (index === Math.min(users.length, displayCount) - 1)
-			return <p key={`${user.name}-${user.email}`}>{user.name}</p>;
+	const usernames = users
+		.slice(0, displayCount)
+		.map((user, index) => {
+			if (index === Math.min(users.length, displayCount) - 1)
+				return ` ${user.name}`;
 
-		return <p key={`${user.name}-${user.email}`}>{user.name},</p>;
-	});
+			return ` ${user.name},`;
+		})
+		.join("");
 
 	return (
 		<span className={cn(`flex gap-1 text-${size} font-semibold`, className)}>

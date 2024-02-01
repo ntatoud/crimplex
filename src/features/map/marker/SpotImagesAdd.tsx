@@ -38,7 +38,7 @@ export const SpotImagesAdd = ({ marker }: { marker: Marker }) => {
 					Add more
 				</Button>
 			</DialogTrigger>
-			<DialogContent>
+			<DialogContent className="sm:min-w-fit">
 				<DialogHeader>
 					<DialogTitle>Awesome! More images for your spot! </DialogTitle>
 				</DialogHeader>

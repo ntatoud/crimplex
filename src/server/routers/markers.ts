@@ -1,5 +1,6 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import { ExtendedTRPCError } from "../config/errors";
 import { zMarkerLike } from "../config/schemas/Like";
 import { markerCreatePick, zMarker } from "../config/schemas/Marker";
 import { zUser } from "../config/schemas/User";
@@ -191,6 +192,17 @@ export const markersRouter = createTRPCRouter({
 				throw new TRPCError({ code: "NOT_FOUND", message: "Marker not found" });
 			}
 
+			if (
+				!ctx.user.authorizations.includes("admin") &&
+				ctx.user.id !== marker.createdById
+			) {
+				throw new TRPCError({
+					code: "FORBIDDEN",
+					message: "You are not allowed to delete this spot.",
+				});
+			}
+
+			ctx.files.deleteFiles(marker.picturesKeys);
 			return await ctx.db.marker.delete({
 				where: {
 					id: marker.id,
@@ -226,5 +238,113 @@ export const markersRouter = createTRPCRouter({
 					},
 				},
 			});
+		}),
+	addPicturesKeys: protectedProcedure()
+		// .meta({
+		// 	openapi: {
+		// 		method: "PUT",
+		// 		path: "/map/markers/{id}",
+		// 		tags: ["markers"],
+		// 	},
+		// })
+		.input(z.object({ id: z.string(), keys: z.array(z.string()) }))
+		.output(z.object({ keys: z.array(z.string()) }))
+		.mutation(async ({ ctx, input }) => {
+			const marker = await ctx.db.marker.findFirst({
+				where: {
+					id: input.id,
+				},
+			});
+
+			if (!marker) {
+				throw new TRPCError({
+					code: "NOT_FOUND",
+					message: "Could not find the spot with given id",
+				});
+			}
+
+			if (ctx.user.id !== marker.createdById) {
+				throw new TRPCError({
+					code: "FORBIDDEN",
+					message: "You are not allowed to add images for this spot.",
+				});
+			}
+
+			const picturesKeys = [...marker.picturesKeys, ...input.keys];
+
+			try {
+				await ctx.db.marker.update({
+					where: {
+						id: input.id,
+					},
+					data: {
+						picturesKeys,
+					},
+				});
+			} catch (e) {
+				throw new ExtendedTRPCError({
+					cause: e,
+				});
+			}
+			return { keys: picturesKeys };
+		}),
+	deletePictures: protectedProcedure()
+		// .meta({
+		// 	openapi: {
+		// 		method: "DELETE",
+		// 		path: "/map/markers/{id}",
+		// 		tags: ["markers"],
+		// 	},
+		// })
+		.input(z.object({ id: z.string(), keys: z.array(z.string()) }))
+		.output(z.object({ keys: z.array(z.string()) }))
+		.mutation(async ({ ctx, input }) => {
+			const marker = await ctx.db.marker.findFirst({
+				where: {
+					id: input.id,
+				},
+			});
+
+			if (!marker) {
+				throw new TRPCError({
+					code: "NOT_FOUND",
+					message: "Could not find the spot with given id",
+				});
+			}
+
+			if (
+				!ctx.user.authorizations.includes("admin") &&
+				ctx.user.id !== marker.createdById
+			) {
+				throw new TRPCError({
+					code: "FORBIDDEN",
+					message: "You are not allowed to delete these images.",
+				});
+			}
+
+			// Filter the keys in the keys to delete
+			const picturesKeys = marker.picturesKeys.filter(
+				(key) => !input.keys.includes(key),
+			);
+
+			try {
+				// Update images in the db
+				await ctx.db.marker.update({
+					where: {
+						id: input.id,
+					},
+					data: {
+						picturesKeys,
+					},
+				});
+
+				// Remove images on uploadthing
+				ctx.files.deleteFiles(input.keys);
+			} catch (e) {
+				throw new ExtendedTRPCError({
+					cause: e,
+				});
+			}
+			return { keys: picturesKeys };
 		}),
 });

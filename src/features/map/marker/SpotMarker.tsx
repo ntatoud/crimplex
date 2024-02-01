@@ -23,7 +23,6 @@ const SpotMarker = ({
 			latitude={position.latitude}
 			longitude={position.longitude}
 			onClick={(event) => {
-				// event?.originalEvent.preventDefault();
 				event.originalEvent.stopPropagation();
 				onOpen();
 			}}

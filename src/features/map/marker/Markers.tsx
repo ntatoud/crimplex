@@ -1,9 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { Drawer } from "@/components/ui/drawer";
+import { Dialog } from "@/components/ui/dialog";
 import { trpc } from "@/lib/trpc/client";
 import { Position } from "@/server/config/schemas/Marker";
 import { Loader2 } from "lucide-react";
-import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { FilterControl } from "../controls/FilterControl";
 import useOnMapClick from "../hooks/useOnMapClick";
@@ -14,10 +13,9 @@ const Markers = () => {
 	const [drawerOpen, setDrawerOpen] = useState(false);
 	const [popupOpen, setPopupOpen] = useState(false);
 	const [currentMarker, setCurrentMarker] = useState<Position | null>(null);
-
+	console.log(drawerOpen);
 	const markers = trpc.markers.getAll.useQuery();
 
-	const searchParams = useSearchParams();
 	useOnMapClick((event: mapboxgl.MapMouseEvent & mapboxgl.EventData) => {
 		if (popupOpen) {
 			setPopupOpen(false);
@@ -31,7 +29,7 @@ const Markers = () => {
 		setDrawerOpen(true);
 	});
 	return (
-		<div key={String(markers.data?.length)}>
+		<div>
 			{markers.isError && (
 				<FilterControl position="top-left">
 					<Button onClick={() => markers.refetch()}>Try again</Button>
@@ -50,16 +48,18 @@ const Markers = () => {
 				/>
 			))}
 			{currentMarker && (
-				<Drawer
+				<Dialog
 					open={drawerOpen}
-					onOpenChange={(open) => setDrawerOpen(open)}
-					onClose={() => setCurrentMarker(null)}
+					onOpenChange={(open) => {
+						if (!open) setCurrentMarker(null);
+						setDrawerOpen(open);
+					}}
 				>
 					<SpotMarkerCreate
 						onClose={() => setCurrentMarker(null)}
 						{...currentMarker}
 					/>
-				</Drawer>
+				</Dialog>
 			)}
 		</div>
 	);

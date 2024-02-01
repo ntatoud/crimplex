@@ -1,18 +1,15 @@
 import {
-	DrawerContent,
-	DrawerHeader,
-	DrawerPortal,
-	DrawerTitle,
-	DrawerTrigger,
-} from "@/components/ui/drawer";
+	DialogContent,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from "@/components/ui/dialog";
 import { Position } from "@/server/config/schemas/Marker";
 import { PlusCircle } from "lucide-react";
 import { Marker } from "react-map-gl";
 import SpotCreateForm from "./SpotCreateForm";
 
 // TODO : Prevent flow for unlogged users
-
-// TODO : Prevent apparition on click outside of popover
 const SpotMarkerCreate = ({
 	onClose,
 	...props
@@ -21,22 +18,19 @@ const SpotMarkerCreate = ({
 }) => {
 	return (
 		<>
-			<DrawerTrigger>
+			<DialogTrigger>
 				<Marker {...props}>
 					<PlusCircle className="h-10 w-10 transition-all text-black" />
 				</Marker>
-			</DrawerTrigger>
-			<DrawerPortal>
-				<DrawerContent>
-					<DrawerHeader>
-						<DrawerTitle>Add a new spot</DrawerTitle>
-					</DrawerHeader>
-
-					<div className="h-60">
-						<SpotCreateForm {...props} onClose={onClose} />
-					</div>
-				</DrawerContent>
-			</DrawerPortal>
+			</DialogTrigger>
+			<DialogContent>
+				<DialogHeader>
+					<DialogTitle className="text-2xl">Create a new spot</DialogTitle>
+				</DialogHeader>
+				<div className="min-h-[20vh] my-5">
+					<SpotCreateForm {...props} onClose={onClose} />
+				</div>
+			</DialogContent>
 		</>
 	);
 };

@@ -62,7 +62,7 @@ const FieldFileUpload: FC<FieldFileUploadProps> = ({
 				}}
 				error={error}
 			/>
-			<div className="flex justify-center gap-1">
+			<div className="flex flex-wrap justify-center gap-1">
 				{files.map((file, index) => (
 					<FilePreview
 						key={file.name + index}

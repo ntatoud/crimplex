@@ -43,6 +43,9 @@ const SpotActions = ({ marker, author }: { marker: Marker; author?: User }) => {
 			},
 		});
 
+	const canDelete =
+		author?.id === account.data?.id ||
+		account.data?.authorizations.includes("admin");
 	return (
 		<DropdownMenu>
 			<Tooltip open={isJustCopied} onOpenChange={setIsJustCopied}>
@@ -50,8 +53,8 @@ const SpotActions = ({ marker, author }: { marker: Marker; author?: User }) => {
 					className={buttonVariants({
 						variant: "ghost",
 						size: "icon",
+						className: "h-7 w-7",
 					})}
-					asChild
 				>
 					{isJustCopied ? (
 						<TooltipTrigger asChild>
@@ -80,7 +83,7 @@ const SpotActions = ({ marker, author }: { marker: Marker; author?: User }) => {
 						<Copy className="h-4 w-4 mr-1" /> Copy link
 					</DropdownMenuItem>
 
-					{author?.id === account.data?.id && (
+					{canDelete && (
 						<DropdownMenuItem
 							className="text-red-500 hover:text-red-700 cursor-pointer"
 							onClick={() =>

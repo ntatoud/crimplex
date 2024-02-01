@@ -48,7 +48,12 @@ const SpotImagesCarousel: FC<SpotImagesCarouselProps> = ({
 							style[size].item,
 						)}
 					>
-						<Image src={imageSrc} alt={"Some picture of the spot"} fill />
+						<Image
+							src={imageSrc}
+							className="object-cover"
+							alt={"Some picture of the spot"}
+							fill
+						/>
 					</CarouselItem>
 				))}
 			</CarouselContent>

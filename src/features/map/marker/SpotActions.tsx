@@ -53,8 +53,8 @@ const SpotActions = ({ marker, author }: { marker: Marker; author?: User }) => {
 					className={buttonVariants({
 						variant: "ghost",
 						size: "icon",
+						className: "h-7 w-7",
 					})}
-					asChild
 				>
 					{isJustCopied ? (
 						<TooltipTrigger asChild>

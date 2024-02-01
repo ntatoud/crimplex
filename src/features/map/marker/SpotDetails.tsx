@@ -12,7 +12,7 @@ import { trpc } from "@/lib/trpc/client";
 import { Marker } from "@/server/config/schemas/Marker";
 import dayjs from "dayjs";
 import { ArrowRight } from "lucide-react";
-import MarkerImagesCarousel from "./MarkerImagesCarousel";
+import SpotImagesCarousel from "./SpotImagesCarousel";
 
 const SpotDetails = ({ marker }: { marker: Marker }) => {
 	const author = trpc.users.getById.useQuery({
@@ -43,7 +43,7 @@ const SpotDetails = ({ marker }: { marker: Marker }) => {
 					</SheetTitle>
 				</SheetHeader>
 				<div className="mx-10">
-					<MarkerImagesCarousel size="large" marker={marker} />
+					<SpotImagesCarousel size="large" marker={marker} />
 				</div>
 				{author.data?.name}
 				{dayjs(marker.creationDate).format("DD MMMM YYYY")}

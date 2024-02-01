@@ -239,8 +239,7 @@ export const markersRouter = createTRPCRouter({
 				},
 			});
 		}),
-
-	addPicturesKeysById: protectedProcedure()
+	addPicturesKeys: protectedProcedure()
 		.meta({
 			openapi: {
 				method: "POST",
@@ -251,13 +250,28 @@ export const markersRouter = createTRPCRouter({
 		.input(z.object({ id: z.string(), keys: z.array(z.string()) }))
 		.output(z.object({ keys: z.array(z.string()) }))
 		.mutation(async ({ ctx, input }) => {
+			const marker = await ctx.db.marker.findFirst({
+				where: {
+					id: input.id,
+				},
+			});
+
+			if (!marker) {
+				throw new TRPCError({
+					code: "NOT_FOUND",
+					message: "Could not find the spot with given id",
+				});
+			}
+
+			const picturesKeys = [...marker.picturesKeys, ...input.keys];
+
 			try {
 				await ctx.db.marker.update({
 					where: {
 						id: input.id,
 					},
 					data: {
-						picturesKeys: input.keys,
+						picturesKeys,
 					},
 				});
 			} catch (e) {

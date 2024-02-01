@@ -4,9 +4,9 @@ import AvatarGroup from "@/components/AvatarGroup";
 import { Badge } from "@/components/ui/badge";
 import { trpc } from "@/lib/trpc/client";
 import { Marker as TMarker } from "@/server/config/schemas/Marker";
-import MarkerImagesCarousel from "./MarkerImagesCarousel";
 import SpotActions from "./SpotActions";
 import SpotDetails from "./SpotDetails";
+import SpotImagesCarousel from "./SpotImagesCarousel";
 
 const SpotPopupContent = ({ marker }: { marker: TMarker }) => {
 	const { id } = marker;
@@ -60,7 +60,7 @@ const SpotPopupContent = ({ marker }: { marker: TMarker }) => {
 				<SpotActions marker={marker} author={author.data} />
 			</div>
 			<div className="relative flex w-full justify-center">
-				<MarkerImagesCarousel marker={marker} />
+				<SpotImagesCarousel marker={marker} />
 			</div>
 			<div className="flex items-center w-full gap-4">
 				{trpcUtils.auth.isAuth.getData()?.status && (

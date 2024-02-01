@@ -40,10 +40,9 @@ const SpotCreateForm = ({
 		resolver: zodResolver(zMarker().pick({ name: true }).required()),
 	});
 
-	const { mutate: markerAddPictures } =
-		trpc.markers.addPicturesKeysById.useMutation({
-			onSuccess: finishSpotCreation,
-		});
+	const { mutate: addPictures } = trpc.markers.addPicturesKeys.useMutation({
+		onSuccess: finishSpotCreation,
+	});
 	const { mutate: markerAdd, isLoading } = trpc.markers.create.useMutation({
 		onSuccess: (data) => {
 			setMarker(data);
@@ -103,7 +102,7 @@ const SpotCreateForm = ({
 						onUpload={(keys: string[]) => {
 							console.log("add marker pictures");
 							if (marker)
-								markerAddPictures({
+								addPictures({
 									id: marker.id,
 									keys,
 								});

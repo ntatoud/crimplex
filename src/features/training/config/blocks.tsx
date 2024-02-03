@@ -1,0 +1,32 @@
+export default {
+	week: [
+		{ x: "Mon", blocks: 5, routes: 0 },
+		{ x: "Tue", blocks: 2, routes: 0 },
+		{ x: "Wed", blocks: 10, routes: 0 },
+		{ x: "Thu", blocks: 8, routes: 0 },
+		{ x: "Fri", blocks: 0, routes: 0 },
+		{ x: "Sat", blocks: 5, routes: 0 },
+		{ x: "Sun", blocks: 12, routes: 0 },
+	],
+	month: [
+		{ x: "Week 1", blocks: 30, routes: 0 },
+		{ x: "Week 2", blocks: 15, routes: 0 },
+		{ x: "Week 3", blocks: 23, routes: 0 },
+		{ x: "Week 4", blocks: 41, routes: 3 },
+		{ x: "Week 5", blocks: 17, routes: 1 },
+	],
+	year: [
+		{ x: "Jan", blocks: 90, routes: 5 },
+		{ x: "Feb", blocks: 121, routes: 0 },
+		{ x: "Mar", blocks: 79, routes: 2 },
+		{ x: "Apr", blocks: 134, routes: 1 },
+		{ x: "May", blocks: 81, routes: 3 },
+		{ x: "Jun", blocks: 92, routes: 0 },
+		{ x: "Jul", blocks: 113, routes: 0 },
+		{ x: "Aug", blocks: 110, routes: 0 },
+		{ x: "Sep", blocks: 102, routes: 0 },
+		{ x: "Oct", blocks: 127, routes: 1 },
+		{ x: "Nov", blocks: 87, routes: 4 },
+		{ x: "Dec", blocks: 117, routes: 0 },
+	],
+};

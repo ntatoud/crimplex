@@ -1,0 +1,32 @@
+export default {
+	week: [
+		{ x: "Mon", y: 0 },
+		{ x: "Tue", y: 2 },
+		{ x: "Wed", y: 1 },
+		{ x: "Thu", y: 3.5 },
+		{ x: "Fri", y: 0 },
+		{ x: "Sat", y: 0 },
+		{ x: "Sun", y: 4 },
+	],
+	month: [
+		{ x: "Week 1", y: 20 },
+		{ x: "Week 2", y: 12 },
+		{ x: "Week 3", y: 14 },
+		{ x: "Week 4", y: 13 },
+		{ x: "Week 5", y: 35 },
+	],
+	year: [
+		{ x: "Jan", y: 82 },
+		{ x: "Feb", y: 112 },
+		{ x: "Mar", y: 79 },
+		{ x: "Apr", y: 117 },
+		{ x: "May", y: 25 },
+		{ x: "Jun", y: 89 },
+		{ x: "Jul", y: 91 },
+		{ x: "Aug", y: 75 },
+		{ x: "Sep", y: 102 },
+		{ x: "Oct", y: 105 },
+		{ x: "Nov", y: 87 },
+		{ x: "Dec", y: 93 },
+	],
+};

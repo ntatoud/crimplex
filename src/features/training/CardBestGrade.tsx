@@ -4,9 +4,9 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { TimeRange } from "./PageTraining";
+import { TimeUnit } from "@/lib/dayjs/utils";
 
-const CardBestGrade = ({ range }: { range: TimeRange }) => {
+const CardBestGrade = ({ range }: { range: TimeUnit }) => {
 	return (
 		<Card className="flex flex-col h-fit">
 			<CardHeader>

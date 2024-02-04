@@ -8,6 +8,7 @@ import { usersRouter } from "./routers/users";
 
 // UPLOAD THING
 import { FileRouter as CoreFileRouter } from "uploadthing/next";
+import { trainingRouter } from "./routers/training";
 import { profilePicture, spotPictures } from "./routers/upload";
 
 export const appRouter = createTRPCRouter({
@@ -16,6 +17,7 @@ export const appRouter = createTRPCRouter({
 	account: accountRouter,
 	markers: markersRouter,
 	files: filesRouter,
+	training: trainingRouter,
 });
 export type AppRouter = typeof appRouter;
 

@@ -1,3 +1,4 @@
+import { useDatePickerContext } from "@/components/DatePicker";
 import {
 	Card,
 	CardContent,
@@ -5,20 +6,31 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { BarChart, BarData } from "../charts/BarChart";
-import { ChartData } from "../charts/schema";
-import { cumSum } from "../charts/utils";
-import { TimeRange } from "./PageTraining";
-import blocksData from "./config/blocks";
+import { trpc } from "@/lib/trpc/client";
+import { BarChart } from "../charts/BarChart";
+import { formatNumberData } from "./utils";
 
-const CardBlocksClimbed = ({ range }: { range: TimeRange }) => {
-	const data = blocksData[range] as ChartData<BarData>;
+const CardBlocksClimbed = () => {
+	const { date } = useDatePickerContext();
+	const { data: sessions } = trpc.training.getAllForUser.useQuery({
+		nameFilter: {
+			name: "",
+		},
+		dateFilter: {
+			from: date?.from,
+			to: date?.to,
+		},
+	});
+
+	if (!sessions) return;
+
+	const data = formatNumberData(sessions, date?.from, date?.to);
 	return (
 		<Card className="flex flex-col">
 			<CardHeader>
 				<CardDescription>Blocks Climbed</CardDescription>
 				<CardTitle>
-					{cumSum(data, "blocks")} blocks & {cumSum(data, "routes")} routes
+					{data.reduce((acc, val) => acc + val.blocks, 0)} Blocks{" "}
 				</CardTitle>
 				<CardDescription className="text-green-600">+12.9%</CardDescription>
 			</CardHeader>

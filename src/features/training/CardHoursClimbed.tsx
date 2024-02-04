@@ -49,11 +49,7 @@ const CardHoursClimbed = () => {
 		<Card className="flex flex-col">
 			<CardHeader>
 				<CardDescription>Total Climbing Time</CardDescription>
-				<CardTitle>
-					{data.reduce((acc, val) => acc + val.y, 0)} Hours
-					<span className="text-sm text-muted-foreground ml-1">(+12)</span>
-				</CardTitle>
-				<CardDescription className="text-green-600">+20.3%</CardDescription>
+				<CardTitle>{data.reduce((acc, val) => acc + val.y, 0)} Hours</CardTitle>
 			</CardHeader>
 			<CardContent>
 				<LineChart

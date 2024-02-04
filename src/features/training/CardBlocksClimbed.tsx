@@ -30,9 +30,8 @@ const CardBlocksClimbed = () => {
 			<CardHeader>
 				<CardDescription>Blocks Climbed</CardDescription>
 				<CardTitle>
-					{data.reduce((acc, val) => acc + val.blocks, 0)} Blocks{" "}
+					{data.reduce((acc, val) => acc + val.blocks, 0)} Blocks
 				</CardTitle>
-				<CardDescription className="text-green-600">+12.9%</CardDescription>
 			</CardHeader>
 			<CardContent>
 				<BarChart className="aspect-[4/3]" chartData={data} />

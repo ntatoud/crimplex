@@ -7,8 +7,6 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { trpc } from "@/lib/trpc/client";
-import { PointMouseHandler } from "@nivo/line";
-import dayjs from "dayjs";
 import { LineChart } from "../charts/LineChart";
 import { formatHoursData } from "./utils";
 
@@ -34,17 +32,6 @@ const CardHoursClimbed = () => {
 		data,
 	};
 
-	const onClick: PointMouseHandler = (event) => {
-		// TODO : Generalize for all date formats
-		const clickedDate = dayjs(`2024-${event.data.x}`);
-
-		const toDate = clickedDate.add(2, "days").toDate();
-		const fromDate = clickedDate.subtract(1, "days").toDate();
-		setDate({
-			from: fromDate,
-			to: toDate,
-		});
-	};
 	return (
 		<Card className="flex flex-col">
 			<CardHeader>
@@ -52,11 +39,7 @@ const CardHoursClimbed = () => {
 				<CardTitle>{data.reduce((acc, val) => acc + val.y, 0)} Hours</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<LineChart
-					className="aspect-[4/3]"
-					chartData={climbingHours}
-					onClick={onClick}
-				/>
+				<LineChart className="aspect-[4/3]" chartData={climbingHours} />
 			</CardContent>
 		</Card>
 	);

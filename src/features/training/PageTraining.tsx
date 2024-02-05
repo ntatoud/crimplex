@@ -1,9 +1,11 @@
 import { DatePicker, DatePickerContext } from "@/components/DatePicker";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { currentDate, dateInPast } from "@/lib/dayjs/utils";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, Plus } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import { DateRange } from "react-day-picker";
 import CardBlocksClimbed from "./CardBlocksClimbed";
@@ -21,7 +23,13 @@ const PageTraining = () => {
 		<MaxWidthWrapper>
 			<DatePickerContext.Provider value={{ date, setDate, error, setError }}>
 				<div className="flex flex-1 flex-col my-5">
-					<h2 className="text-3xl font-bold mb-3">Progress</h2>
+					<div className="flex flex-1 justify-between items-center mb-3">
+						<h2 className="text-3xl font-bold mb-3">Progress</h2>
+						<Link className={buttonVariants()} href="/training/create">
+							<Plus className="w-4 h-4 mr-1" />
+							New session{" "}
+						</Link>
+					</div>
 					<Tabs defaultValue="overview" className="w-full">
 						<TabsList className="grid w-full grid-cols-3">
 							<TabsTrigger value="overview">Overview</TabsTrigger>
@@ -30,6 +38,7 @@ const PageTraining = () => {
 						</TabsList>
 						<TabsContent value="overview" className="flex flex-col gap-2">
 							<DatePicker />
+							{/* TODO : NAME FILTER */}
 							<RangePresets />
 							<Separator />
 							{!error ? (

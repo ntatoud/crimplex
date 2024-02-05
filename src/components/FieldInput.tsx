@@ -26,8 +26,15 @@ const FieldInput = forwardRef<HTMLDivElement, FieldInputProps>(
 					/>
 
 					{label && (
-						<FloatingLabel htmlFor={id} className={error ? "text-red-500" : ""}>
+						<FloatingLabel
+							htmlFor={id}
+							className={cn(
+								"flex gap-1 ùitems-center",
+								error ? "text-red-500" : "",
+							)}
+						>
 							{label}
+							{props.required && <p className="text-xs text-red-500">*</p>}
 						</FloatingLabel>
 					)}
 				</div>

@@ -26,5 +26,20 @@ export const zClimbingSession = () =>
 		numClimbs: z.number(),
 		duration: z.number(),
 		userId: z.string(),
-		spotId: z.string(),
+		spotId: z.string().nullable(),
+	});
+
+export const climbingSessionCreatePick = {
+	date: true,
+	duration: true,
+	name: true,
+	numClimbs: true,
+} as const;
+
+export type ClimbingSessionCreate = z.infer<
+	ReturnType<typeof zClimbingSessionCreate>
+>;
+export const zClimbingSessionCreate = () =>
+	zClimbingSession().pick(climbingSessionCreatePick).extend({
+		spotName: z.string(),
 	});

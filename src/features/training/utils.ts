@@ -5,7 +5,7 @@ import {
 	YEARLY_DATE_FORMAT,
 } from "@/lib/dayjs/constants";
 import { TimeUnit, getDuration } from "@/lib/dayjs/utils";
-import { ClimbingSession } from "@prisma/client";
+import { ClimbingSession } from "@/server/config/schemas/ClimbingSession";
 import dayjs from "dayjs";
 
 const GROUPING_FORMAT = {

@@ -1,3 +1,4 @@
+import { FieldDatePicker } from "@/components/FieldDatePicker";
 import FieldInput from "@/components/FieldInput";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc/client";
@@ -19,6 +20,7 @@ const ClimbingSessionCreateForm = () => {
 	);
 
 	const {
+		control,
 		handleSubmit,
 		register,
 		formState: { errors },
@@ -56,11 +58,13 @@ const ClimbingSessionCreateForm = () => {
 					required
 					{...register("numClimbs", { valueAsNumber: true })}
 				/>
-				<FieldInput
-					type="date"
-					required
+				<FieldDatePicker
+					control={control}
+					label="Date"
 					error={errors.date?.message}
-					{...register("date", { valueAsDate: true })}
+					maxDate={new Date()}
+					{...register("date")}
+					required
 				/>
 				<FieldInput
 					label="Spot"

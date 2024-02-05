@@ -1,4 +1,4 @@
-import { useDatePickerContext } from "@/components/DatePicker";
+import { useDateRangePickerContext } from "@/components/DateRangePicker";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { DEFAULT_DATE_FORMAT } from "@/lib/dayjs/constants";
@@ -80,7 +80,7 @@ const RangePresetsItem = ({
 	range,
 	children,
 }: { range: DateRange; children: ReactNode }) => {
-	const { date, setDate } = useDatePickerContext();
+	const { date, setDate } = useDateRangePickerContext();
 
 	const isActive =
 		dayjs(date?.from).format(DEFAULT_DATE_FORMAT) ===

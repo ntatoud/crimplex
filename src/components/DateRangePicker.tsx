@@ -16,28 +16,28 @@ import { currentDate } from "@/lib/dayjs/utils";
 import { cn } from "@/lib/utils";
 import dayjs from "dayjs";
 
-type DatePickerContextProps = {
+type DateRangePickerContextProps = {
 	date?: DateRange;
 	setDate: React.Dispatch<React.SetStateAction<DateRange | undefined>>;
 	error: string;
 	setError: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export const DatePickerContext =
-	React.createContext<DatePickerContextProps | null>(null);
+export const DateRangePickerContext =
+	React.createContext<DateRangePickerContextProps | null>(null);
 
-export const useDatePickerContext = () => {
-	const ctx = React.useContext(DatePickerContext);
+export const useDateRangePickerContext = () => {
+	const ctx = React.useContext(DateRangePickerContext);
 	if (ctx === null) {
-		throw new Error("Missing parent <DatePicker.Provider> component");
+		throw new Error("Missing parent <DateRangePicker.Provider> component");
 	}
 	return ctx;
 };
 
-export function DatePicker({
+export function DateRangePicker({
 	className,
 }: React.HTMLAttributes<HTMLDivElement>) {
-	const { date, setDate, setError } = useDatePickerContext();
+	const { date, setDate, setError } = useDateRangePickerContext();
 
 	if ((date?.from && !date?.to) || (date?.to && !date.from))
 		setError("Please select a valid date range");

@@ -1,4 +1,7 @@
-import { DatePicker, DatePickerContext } from "@/components/DatePicker";
+import {
+	DateRangePicker,
+	DateRangePickerContext,
+} from "@/components/DateRangePicker";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -21,7 +24,9 @@ const PageTraining = () => {
 	const [error, setError] = useState("");
 	return (
 		<MaxWidthWrapper>
-			<DatePickerContext.Provider value={{ date, setDate, error, setError }}>
+			<DateRangePickerContext.Provider
+				value={{ date, setDate, error, setError }}
+			>
 				<div className="flex flex-1 flex-col my-5">
 					<div className="flex flex-1 justify-between items-center mb-3">
 						<h2 className="text-3xl font-bold mb-3">Progress</h2>
@@ -37,7 +42,7 @@ const PageTraining = () => {
 							<TabsTrigger value="Achievments">Achievments</TabsTrigger>
 						</TabsList>
 						<TabsContent value="overview" className="flex flex-col gap-2">
-							<DatePicker />
+							<DateRangePicker />
 							{/* TODO : NAME FILTER */}
 							<RangePresets />
 							<Separator />
@@ -58,7 +63,7 @@ const PageTraining = () => {
 						<TabsContent value="Achievments">Achievments</TabsContent>
 					</Tabs>
 				</div>
-			</DatePickerContext.Provider>
+			</DateRangePickerContext.Provider>
 		</MaxWidthWrapper>
 	);
 };

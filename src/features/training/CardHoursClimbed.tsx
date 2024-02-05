@@ -1,4 +1,4 @@
-import { useDatePickerContext } from "@/components/DatePicker";
+import { useDateRangePickerContext } from "@/components/DateRangePicker";
 import {
 	Card,
 	CardContent,
@@ -11,7 +11,7 @@ import { LineChart } from "../charts/LineChart";
 import { formatHoursData } from "./utils";
 
 const CardHoursClimbed = () => {
-	const { date, setDate } = useDatePickerContext();
+	const { date } = useDateRangePickerContext();
 
 	const { data: sessions } = trpc.training.getAllForUser.useQuery({
 		nameFilter: {

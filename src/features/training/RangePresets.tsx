@@ -1,6 +1,5 @@
 import { useDateRangePickerContext } from "@/components/DateRangePicker";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { DEFAULT_DATE_FORMAT } from "@/lib/dayjs/constants";
 import { currentDate, dateInPast } from "@/lib/dayjs/utils";
 import dayjs from "dayjs";
@@ -9,7 +8,7 @@ import { DateRange } from "react-day-picker";
 
 export const RangePresets = () => {
 	return (
-		<div className="flex flex-1 gap-1 w-full">
+		<div className="flex flex-wrap md:flex-row flex-1 gap-1 w-full">
 			<RangePresetsItem
 				range={{
 					from: new Date(dateInPast(7, "days")),
@@ -42,7 +41,6 @@ export const RangePresets = () => {
 			>
 				Last year
 			</RangePresetsItem>
-			<Separator orientation="vertical" />
 			<RangePresetsItem
 				range={{
 					from: new Date(

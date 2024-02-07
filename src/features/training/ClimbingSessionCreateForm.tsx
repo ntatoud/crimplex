@@ -7,14 +7,17 @@ import {
 	zClimbingSessionCreate,
 } from "@/server/config/schemas/ClimbingSession";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 const ClimbingSessionCreateForm = () => {
+	const router = useRouter();
 	const createClimbingSession = trpc.training.createClimbingSession.useMutation(
 		{
 			onSuccess: () => {
 				toast.success("Climbing session created with success.");
+				router.push("/training");
 			},
 		},
 	);

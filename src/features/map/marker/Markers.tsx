@@ -13,7 +13,6 @@ const Markers = () => {
 	const [drawerOpen, setDrawerOpen] = useState(false);
 	const [popupOpen, setPopupOpen] = useState(false);
 	const [currentMarker, setCurrentMarker] = useState<Position | null>(null);
-	console.log(drawerOpen);
 	const markers = trpc.markers.getAll.useQuery();
 
 	useOnMapClick((event: mapboxgl.MapMouseEvent & mapboxgl.EventData) => {

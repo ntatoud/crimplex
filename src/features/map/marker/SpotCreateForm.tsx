@@ -100,7 +100,6 @@ const SpotCreateForm = ({
 						mode="multiple"
 						endpoint="spotPictures"
 						onUpload={(keys: string[]) => {
-							console.log("add marker pictures");
 							if (marker)
 								addPictures({
 									id: marker.id,

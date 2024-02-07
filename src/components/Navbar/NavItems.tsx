@@ -1,6 +1,6 @@
 "use client";
 
-import { BookMarked, Home, Map } from "lucide-react";
+import { BookMarked, Dumbbell, Home, Map } from "lucide-react";
 
 import WorkInProgressWrapper from "../utils/WorkInProgress";
 import NavItem from "./NavItem";
@@ -20,6 +20,10 @@ const NavItems = () => {
 
 			<NavItem href="/map" icon={<Map />}>
 				Map
+			</NavItem>
+
+			<NavItem href="/training" icon={<Dumbbell />}>
+				Training
 			</NavItem>
 		</div>
 	);
